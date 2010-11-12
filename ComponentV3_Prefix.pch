@@ -1,0 +1,11 @@
+//
+// Prefix header for all source files of the 'SpaceHike' target in the 'SpaceHike' project
+//
+#define __RUNTIME_INFORMATION__
+#define MANAGERCLASS FastEntityManager
+#include "globals.h"
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#endif
+
