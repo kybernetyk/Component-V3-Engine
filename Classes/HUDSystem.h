@@ -16,15 +16,23 @@ class HUDSystem
 public:
 	HUDSystem (MANAGERCLASS *entityManager);
 	void update (float delta);
+	void refreshCaches ();
 	
 protected:
 	MANAGERCLASS *_entityManager;
+	Entity *hud_img;
+	Entity *xp_bar;
 	Entity *score_ui;
+	Entity *xp_ui;
+	Entity *level_ui;
+	
 	bool kawaii_showing;
 	float kawaii_countdown;
 	
 	Entity *kawaii_or_fail;
 	Entity *next_wave_label;
 	
+
+
 };
 

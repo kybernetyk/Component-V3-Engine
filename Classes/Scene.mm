@@ -21,6 +21,30 @@
 
 void Scene::spawnEnemies ()
 {
+
+	MoveToAction *mt = new MoveToAction();
+	mt->x = -40.0;
+	mt->y = 0.0;
+	mt->duration = 0.5;
+	_entityManager->addComponent(player, mt);
+	
+	Action *idle = new Action();
+	idle->duration = 2.0;
+	mt->next_action = idle;
+	
+	MoveToAction *mt2 = new MoveToAction();
+	mt2->x = 0.0;
+	mt2->y = 40.0;
+	mt2->duration = 0.5;
+	idle->next_action = mt2;
+	
+	AddComponentAction *aca = new AddComponentAction();
+	aca->component_to_add = new PlayerController();
+	mt2->next_action = aca;
+	
+	
+	_entityManager->removeComponent(player, PlayerController::COMPONENT_ID);
+	
 	for (int j = 1; j < 4; j++)
 	{
 		Entity *mob = red_blob;
@@ -45,7 +69,8 @@ void Scene::spawnEnemies ()
 		{
 			Entity *blob = SimpleMobFactory::createNewSimpleMob(_entityManager, pos->x, pos->y);
 			
-			blob->get<Position>()->scale = 1.0;
+			blob->get<Position>()->scale_x = 1.0;
+			blob->get<Position>()->scale_y = 1.0;
 			
 			//Renderable *r = mob->getComponent<Renderable>();
 			//	_entityManager->getComponent <Sprite> (blob)->sprite->atlas_frame_index_x = atlas_x;
@@ -64,7 +89,7 @@ void Scene::spawnEnemies ()
 			MoveToAction *actn = _entityManager->addComponent <MoveToAction> (blob);
 			
 			actn->x = (rand()%(480-32))+16;
-			actn->y = (rand()%(320-32))+16;
+			actn->y = (rand()%(320-32-40))+16+40;
 			
 			
 			actn->duration = 2.5;
@@ -94,7 +119,9 @@ void Scene::init ()
 	_gameLogicSystem = new GameLogicSystem (_entityManager);
 	_corpseRetrievalSystem = new CorpseRetrievalSystem (_entityManager);
 	_hudSystem = new HUDSystem (_entityManager);
+	_soundSystem = new SoundSystem (_entityManager);
 	
+	_soundSystem->playMusic(MUSIC_GAME);
 
 	/* create background */	
 	Entity *bg = _entityManager->createNewEntity();
@@ -111,24 +138,30 @@ void Scene::init ()
 
 	// 3 blobs
 	rect src = {2 * 32.0, 0 * 32.0, 32.0,32.0};
-	green_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240,160);
+	green_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240,160+20);
 	_entityManager->getComponent <Sprite> (green_blob)->sprite->src = src;
 	rect src2 = {2 * 32.0, 2 * 32.0, 32.0,32.0};	
-	red_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240-128,160);
+	red_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240-128,160+20);
 	_entityManager->getComponent <Sprite> (red_blob)->sprite->src = src2;
 	rect src3 = {0 * 32.0, 1 * 32.0, 32.0,32.0};		
-	blue_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240+128,160);
+	blue_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240+128,160+20);
 	_entityManager->getComponent <Sprite> (blue_blob)->sprite->src = src3;
 
 	
-		
+	_entityManager->addComponent<Name>(green_blob)->name = "green_blob";
+	_entityManager->addComponent<Name>(red_blob)->name = "red_blob";
+	_entityManager->addComponent<Name>(blue_blob)->name = "blue_blob";
+
+	
 	//PLAYER ENTITY
-	Entity *player = _entityManager->createNewEntity();
+	player = _entityManager->createNewEntity();
 	_entityManager->addComponent <PlayerController> (player);
 	pos = _entityManager->addComponent <Position> (player);
 	pos->x = 0;
-	pos->y = 0;
-	pos->scale = 0.5;
+	pos->y = 60;
+	pos->scale_x = 0.5;
+	pos->scale_y = 0.5;
+
 	sprite = _entityManager->addComponent <Sprite> (player);	
 	sprite->sprite = new TexturedQuad("das_minyx.png");
 	sprite->z = 3.0;
@@ -137,8 +170,6 @@ void Scene::init ()
 	
 	name = _entityManager->addComponent <Name> (player);
 	name->name = "Player Figure";
-	
-	g_GameState.score = 0;
 	
 	
 	
@@ -156,6 +187,37 @@ void Scene::update (float delta)
 {
 	InputDevice::sharedInstance()->update();
 
+	//we must collect the corpses from the last frame
+	//as the entity-manager's isDirty property is reset each frame
+	//so if we did corpse collection at the end of update
+	//the systems wouldn't know that the manager is dirty 
+	//and a shitstorm of dangling references would rain down on them
+	
+	
+	
+	//refresh caches if needed
+/*	if (_entityManager->isDirty())
+	{
+		_playerControlledSystem->refreshCaches();
+		_actionSystem->refreshCaches();
+		_movementSystem->refreshCaches();
+		_attachmentSystem->refreshCaches();
+		_gameLogicSystem->refreshCaches();
+		_hudSystem->refreshCaches();
+		_soundSystem->refreshCaches();
+	}*/
+	
+	_playerControlledSystem->update(delta);
+	_actionSystem->update(delta);
+	_movementSystem->update(delta);
+	_attachmentSystem->update(delta);
+	_gameLogicSystem->update(delta);
+	_hudSystem->update(delta);
+	_soundSystem->update(delta);
+	
+	//_entityManager->dumpEntityCount();
+	_corpseRetrievalSystem->collectCorpses();
+
 	if (g_GameState.game_state != g_GameState.next_state)
 	{
 		g_GameState.game_state = g_GameState.next_state;
@@ -167,14 +229,20 @@ void Scene::update (float delta)
 		
 	}
 	
+	//refresh caches if needed
+	if (_entityManager->isDirty())
+	{
+		_playerControlledSystem->refreshCaches();
+		_actionSystem->refreshCaches();
+		_movementSystem->refreshCaches();
+		_attachmentSystem->refreshCaches();
+		_gameLogicSystem->refreshCaches();
+		_hudSystem->refreshCaches();
+		_soundSystem->refreshCaches();
+	}
 	
-	_playerControlledSystem->update(delta);
-	_actionSystem->update(delta);
-	_movementSystem->update(delta);
-	_attachmentSystem->update(delta);
-	_gameLogicSystem->update(delta);
-	_hudSystem->update(delta);
-	_corpseRetrievalSystem->collectCorpses();
+	
+	
 }
 
 void Scene::render (float interpolation)

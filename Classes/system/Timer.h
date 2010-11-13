@@ -45,10 +45,10 @@ public:
 		frames ++;
 		temp += m_ulDelta;
 		//printf ("%f\n",temp);
-		if (temp >= 5.0f)
+		if (temp >= 0.5f)
 		{
 			printf ("fps: %f\n", frames / temp);
-			//printf ("fps: %s\n", stringWithFPS().c_str());
+			
 			temp = 0.0;
 			frames = 0.0;
 		}

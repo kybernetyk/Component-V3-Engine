@@ -16,6 +16,11 @@ PlayerControlledSystem::PlayerControlledSystem (MANAGERCLASS *entityManager)
 	_entityManager = entityManager;
 }
 
+void PlayerControlledSystem::refreshCaches ()
+{
+	
+}
+
 void PlayerControlledSystem::update (float delta)
 {
 	vector2D v;
@@ -25,6 +30,8 @@ void PlayerControlledSystem::update (float delta)
 	 else
 		return;
 	
+	if (v.y <= 40)
+		return;
 	
 	std::vector<Entity*> entities;
 	
@@ -55,13 +62,13 @@ void PlayerControlledSystem::update (float delta)
 		MoveToAction *actn = _entityManager->addComponent <MoveToAction> (current_entity);
 		actn->x = v.x-105;
 		actn->y = v.y-95;
-		actn->duration = 0.5;
+		actn->duration = 0.4;
 		actn->may_be_aborted = false;
 
 		MoveToAction *actn3 = new MoveToAction();
 		actn3->x = 0;
-		actn3->y = 0;
-		actn3->duration = 0.5;
+		actn3->y = 60;
+		actn3->duration = 0.4;
 		actn3->may_be_aborted = false;
 		
 		actn->next_action = actn3;

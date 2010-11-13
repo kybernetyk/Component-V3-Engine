@@ -34,7 +34,8 @@ Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, 
 	Position *pos = system->addComponent <Position> (e);
 	pos->x = pos_x;
 	pos->y = pos_y;
-	pos->scale = 4.0;
+	pos->scale_x = 4.0;
+	pos->scale_y = 4.0;
 	
 	Sprite *sprite = system->addComponent <Sprite> (e);
 	//sprite->sprite = [[CCSprite spriteWithFile: @"Icon.png"] retain];

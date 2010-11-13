@@ -215,7 +215,7 @@ FastEntityManager::FastEntityManager ()
 	printf("\t[!] no checks/asserts will be made for this! you will crash and burn!\n}\n");
 	
 	Entity::entityManager = this;
-	is_dirty = false;
+	is_dirty = true;
 	for (int i = 0; i < MAX_ENTITIES; i++)
 	{
 		_entities[i] = NULL;

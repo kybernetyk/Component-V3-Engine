@@ -144,7 +144,7 @@ void StashGame();
 	NSTimer*				mTimer;   // Rendering Timer
 	CADisplayLink *displayLink;
 	
-	Timer *timer;
+	Timer timer;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

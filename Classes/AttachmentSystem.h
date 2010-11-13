@@ -16,6 +16,8 @@ class AttachmentSystem
 public:
 	AttachmentSystem (MANAGERCLASS *entityManager);
 	void update (float delta);	
+	void refreshCaches ();
+
 protected:
 	MANAGERCLASS *_entityManager;
 };

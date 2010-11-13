@@ -18,6 +18,7 @@
 #include "GameLogicSystem.h"
 #include "CorpseRetrievalSystem.h"
 #include "HUDSystem.h"
+#include "SoundSystem.h"
 
 class Scene
 {
@@ -44,10 +45,13 @@ protected:
 	GameLogicSystem *_gameLogicSystem;
 	CorpseRetrievalSystem *_corpseRetrievalSystem;	
 	HUDSystem *_hudSystem;
+	SoundSystem *_soundSystem;
 	
 	Entity *red_blob;
 	Entity *green_blob;
 	Entity *blue_blob;
+	
+	Entity *player;
 
 };
 

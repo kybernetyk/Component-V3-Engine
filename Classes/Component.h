@@ -13,7 +13,7 @@
 #import "types.h"
 #include <string>
 #include "TexturedQuad.h"
-
+#include <vector>
 
 #ifdef __RUNTIME_INFORMATION__
 	#define DEBUGINFO(format,...) virtual std::string toString () \
@@ -60,16 +60,17 @@ struct Position : public Component
 	static ComponentID COMPONENT_ID;
 	float x,y;
 	float rot;
-	float scale;
+	float scale_x;
+	float scale_y;
 	Position()
 	{
 		x = y = 0.0;
 		rot = 0.0;
-		scale = 1.0;
+		scale_x = scale_y = 1.0;
 		_id = COMPONENT_ID;
 	}
 	
-	DEBUGINFO ("Position: x=%f, y=%f, rot=%f, scale=%f",x,y,rot,scale)
+	DEBUGINFO ("Position: x=%f, y=%f, rot=%f, scale_x=%f, scale_y=%f",x,y,rot,scale_x,scale_y)
 };
 
 
@@ -230,6 +231,7 @@ struct Attachment : public Component
 #define ACTIONTYPE_MOVE_TO 1
 #define ACTIONTYPE_MOVE_BY 2
 #define ACTIONTYPE_ADD_COMPONENT 3
+#define ACTIONTYPE_CREATE_ENTITY 4
 
 struct Action : public Component
 {
@@ -315,6 +317,40 @@ struct AddComponentAction : public Action
 	}
 	
 	DEBUGINFO ("AddComponentAction: %p duration: %f timestamp: %f",component_to_add,duration,_timestamp)
+};
+
+struct CreateEntityAction : public Action
+{
+	static ComponentID COMPONENT_ID;
+
+	std::vector <Component *> components_to_add;
+		
+	CreateEntityAction()
+	{
+		Action::Action();
+		_id = COMPONENT_ID;
+		
+		action_type = ACTIONTYPE_CREATE_ENTITY;
+	}
+	
+	DEBUGINFO ("CreateEntityAction. duration: %f timestamp: %f",duration,_timestamp)
+};
+
+
+struct SoundEffect : public Component
+{
+	static ComponentID COMPONENT_ID;
+
+	
+	int sfx_id;
+	
+	SoundEffect ()
+	{
+		_id = COMPONENT_ID;
+		sfx_id = 0;
+	}
+	
+	DEBUGINFO ("Sound effect id: %i", sfx_id)
 	
 };
 

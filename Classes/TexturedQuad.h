@@ -30,7 +30,7 @@ public:
 		anchorPoint.x = 0.5;
 		anchorPoint.y = 0.5;
 		x = y = z = 0.0;
-		scale = 1.0;
+		scale_x = scale_y = 1.0;
 		rotation = 0.0;
 		alpha = 1.0;
 		w = h = 0;
@@ -48,7 +48,8 @@ public:
 	float w;
 	float h;
 	float alpha;
-	float scale;
+	float scale_x;
+	float scale_y;
 	float rotation;
 	vector2D anchorPoint;
 

@@ -40,6 +40,11 @@ bool blah3 (IRenderable *q1, IRenderable *q2)
 	
 }
 
+void RenderSystem::refreshCaches ()
+{
+	//special implementation	
+}
+
 void RenderSystem::render (void)
 {
 	bool isdirty = _entityManager->isDirty();
@@ -82,7 +87,8 @@ void RenderSystem::render (void)
 			textured_quad->x = pos->x;
 			textured_quad->y = pos->y;
 			textured_quad->z = ren->z;
-			textured_quad->scale = pos->scale;
+			textured_quad->scale_x = pos->scale_x;
+			textured_quad->scale_y = pos->scale_y;
 			textured_quad->rotation = pos->rot;
 			
 			if (isdirty)
@@ -100,8 +106,8 @@ void RenderSystem::render (void)
 			font->y = pos->y;
 			font->z = ren->z;
 			font->rotation = pos->rot;
-			font->scale = pos->scale;
-			
+			font->scale_x = pos->scale_x;
+			font->scale_y = pos->scale_y;			
 			font->text = (char*)label->text.c_str();
 			
 			if (isdirty)

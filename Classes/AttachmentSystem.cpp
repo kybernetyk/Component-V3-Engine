@@ -15,6 +15,11 @@ AttachmentSystem::AttachmentSystem (MANAGERCLASS *entityManager)
 	_entityManager = entityManager;
 }
 
+void AttachmentSystem::refreshCaches ()
+{
+	
+}
+
 void AttachmentSystem::update (float delta)
 {
 	std::vector<Entity*> entities;

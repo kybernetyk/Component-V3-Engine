@@ -155,6 +155,8 @@ public:
 
 	template<typename T> T *addComponent(Entity *e)
 	{
+		is_dirty = true;
+		
 		if (T::COMPONENT_ID >= MAX_COMPONENTS_PER_ENTITY)
 		{
 			printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,T::COMPONENT_ID);
@@ -183,7 +185,7 @@ public:
 			removeComponent <T> (e);
 			
 		}
-		is_dirty = true;
+
 		
 		_components[e->_guid][T::COMPONENT_ID] = comp;
 		return comp;
@@ -191,6 +193,8 @@ public:
 
 	Component *addComponent(Entity *e, Component *comp)
 	{
+		is_dirty = true;
+		
 		if (comp->_id >= MAX_COMPONENTS_PER_ENTITY)
 		{
 			printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,comp->_id);
@@ -221,7 +225,7 @@ public:
 			removeComponent(e, _components[e->_guid][comp->_id]);
 			
 		}
-		is_dirty = true;
+
 		
 		_components[e->_guid][comp->_id] = comp;
 		return comp;

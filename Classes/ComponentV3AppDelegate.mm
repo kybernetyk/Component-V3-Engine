@@ -22,12 +22,13 @@
 Scene::Scene *scene;
 
 
-const int TICKS_PER_SECOND = 30;
+const int TICKS_PER_SECOND = 60;
 const int SKIP_TICKS = 1000 / TICKS_PER_SECOND;
 const int MAX_FRAMESKIP = 5;
 unsigned int next_game_tick = 1;//SDL_GetTicks();
 int loops;
 float interpolation;
+bool paused = false;
 
 /* returns the system time in milliseconds */
 unsigned int My_SDL_GetTicks()
@@ -63,16 +64,17 @@ unsigned int My_SDL_GetTicks()
 	next_game_tick = My_SDL_GetTicks();
 	
 	displayLink = [CADisplayLink displayLinkWithTarget: self selector:@selector(renderScene)];
-	[displayLink setFrameInterval: 2];
+	[displayLink setFrameInterval: 1];
 	[displayLink addToRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
-	
-	timer = new Timer();
-	timer->update();
+	paused = false;
+	//timer = new Timer();
+	//timer->update();
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application 
 {
+	[self saveGameState];
 }
 
 - (void)dealloc 
@@ -85,15 +87,17 @@ unsigned int My_SDL_GetTicks()
 
 - (void)renderScene
 {
-
-	timer->update();
+	if (paused)
+		return;
+	
+	timer.update();
 	
 //	loops = 0;
 
 	//interpolation klappt nur, wenn SDL_GetTicks() geportet wurde >.<
 #define ADVANCED_LOOP
 	//interpoliert
-	timer->printFPS();
+	timer.printFPS();
 #ifdef ADVANCED_LOOP
 	loops = 0;
 	while( My_SDL_GetTicks() > next_game_tick && loops < MAX_FRAMESKIP) 
@@ -106,7 +110,7 @@ unsigned int My_SDL_GetTicks()
 	//printf("\n");
 	
 #else
-	scene->update(timer->fdelta());
+	scene->update(timer.fdelta());
 #endif
 	
 	//printf("delta: %f\n", timer->fdelta());
@@ -140,5 +144,83 @@ unsigned int My_SDL_GetTicks()
 {
 }
 
+#pragma mark -
+#pragma mark delegate
+- (void)applicationWillResignActive:(UIApplication *)application 
+{
+	[self saveGameState];
+	paused = true;
+	//	[[CCDirector sharedDirector] pause];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application 
+{
+//	[[CCDirector sharedDirector] resume];
+		paused = false;
+	next_game_tick = My_SDL_GetTicks();
+	timer.update();
+}
+
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application 
+{
+//	[[CCDirector sharedDirector] purgeCachedData];
+}
+
+-(void) applicationDidEnterBackground:(UIApplication*)application 
+{
+//	[[CCDirector sharedDirector] stopAnimation];
+	paused = true;
+}
+
+-(void) applicationWillEnterForeground:(UIApplication*)application 
+{
+//	[[CCDirector sharedDirector] startAnimation];
+	paused = false;
+	next_game_tick = My_SDL_GetTicks();
+	timer.update();
+}
+
+
+- (void)applicationSignificantTimeChange:(UIApplication *)application 
+{
+	//[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
+	next_game_tick = My_SDL_GetTicks();
+	timer.update();
+}
+
+#pragma mark -
+#pragma mark restoresave
+- (void) saveGameState
+{
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	
+	if (g_GameState.level <= 0)
+	{
+		g_GameState.level = 1;
+		g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+280;
+	}
+	
+	[defs setInteger: g_GameState.experience forKey: @"gs_experience"];
+	[defs setInteger: g_GameState.level forKey: @"gs_level"];
+	[defs setInteger: g_GameState.score forKey: @"gs_score"];
+	[defs synchronize];	
+}
+
+- (void) loadGameState
+{
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	
+	NSInteger xp = [defs integerForKey: @"gs_experience"];
+	NSInteger level = [defs integerForKey: @"gs_level"];
+	NSInteger score = [defs integerForKey: @"gs_score"];
+	if (level <= 0)
+		level = 1;
+	
+	g_GameState.experience = xp;
+	g_GameState.level = level;
+	g_GameState.score = score;
+	g_GameState.experience_needed_to_levelup =g_GameState.level*g_GameState.level*g_GameState.level+280;
+	
+}
 
 @end

@@ -28,7 +28,10 @@ ComponentID Action::COMPONENT_ID = 7;
 ComponentID MoveToAction::COMPONENT_ID = 7;
 ComponentID MoveByAction::COMPONENT_ID = 7;
 ComponentID AddComponentAction::COMPONENT_ID = 7;
+ComponentID CreateEntityAction::COMPONENT_ID = 7;
 
+
+ComponentID SoundEffect::COMPONENT_ID = 8;
 
 //user
 ComponentID PlayerController::COMPONENT_ID = 16;

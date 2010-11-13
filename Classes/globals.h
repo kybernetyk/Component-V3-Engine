@@ -8,7 +8,6 @@
  */
 #pragma once
 
-
 typedef struct GameState
 {
 	int score;
@@ -18,6 +17,11 @@ typedef struct GameState
 	
 	int game_state;
 	int next_state;
+	
+	int level;
+	
+	int experience;
+	int experience_needed_to_levelup;
 	
 } GameState;
 

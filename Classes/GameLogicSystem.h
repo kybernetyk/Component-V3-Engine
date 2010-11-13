@@ -16,9 +16,14 @@ class GameLogicSystem
 public:
 	GameLogicSystem (MANAGERCLASS *entityManager);
 	void update (float delta);
+	void refreshCaches ();
 	
 protected:
 	void handle_player_enemy_collision ();
+	void check_player_for_levelup ();
+	
+	void restoreGameStateFromFile();
+	void saveGameStateToFile();
 	
 	std::vector<Entity*> _enemies;
 	std::vector<Entity*> _players;

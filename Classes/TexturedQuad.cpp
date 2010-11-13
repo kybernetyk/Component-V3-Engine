@@ -107,18 +107,29 @@ bool TexturedQuad::loadFromFile (std::string filename)
 	return true;
 }
 
-#define USE_GL_SCALE 1
 
 void TexturedQuad::transform ()
 {
-	glTranslatef( (w/2.0) - (anchorPoint.x*w) + x , (h/2.0) - (anchorPoint.y*h) + y, 0.0);
+#ifdef BIERFICK
+	glTranslatef( (w/2.0*scale_x) - (anchorPoint.x*w*scale_x) + x , (h/2.0*scale_y) - (anchorPoint.y*h*scale_y) + y, 0.0);
+//	glTranslatef( (w/2.0) - (anchorPoint.x*w) + x , (h/2.0) - (anchorPoint.y*h) + y, 0.0); - original ohne scale
 
 	if (rotation != 0.0f )
 		glRotatef( -rotation, 0.0f, 0.0f, 1.0f );
 
-#ifdef USE_GL_SCALE	
-	if (scale != 1.0)
-		glScalef( scale, scale, 1.0f );
+
+	if (scale_x != 1.0 || scale_y != 1.0)
+		glScalef( scale_x, scale_y, 1.0f );
+#else
+	glTranslatef(x, y, z);
+	
+	if (rotation != 0.0f )
+		glRotatef( -rotation, 0.0f, 0.0f, 1.0f );
+	
+	if (scale_x != 1.0 || scale_y != 1.0)
+		glScalef( scale_x, scale_y, 1.0f );
+	
+	glTranslatef(- (anchorPoint.x * w), - (anchorPoint.y * h), 0);
 #endif
 }
 
@@ -163,7 +174,7 @@ void TexturedQuad::renderFromAtlas ()
 		 0.5f,	0.0f,
 		 1.0,	0.0f };*/
 		
-#ifdef USE_GL_SCALE		
+#ifdef BIERFICK
 		GLfloat		vertices[] = 
 		{	
 			-w/2,-h/2,z,
@@ -174,11 +185,12 @@ void TexturedQuad::renderFromAtlas ()
 #else
 		GLfloat		vertices[] = 
 		{	
-			-w*scale/2,-h*scale/2,z,
-			w*scale/2,-h*scale/2,z,
-			-w*scale/2,h*scale/2,z,
-			w*scale/2,h*scale/2,z
+			0,			0,			0,
+			w,	0,			0,
+			0,			h,	0,
+			w,			h,	0
 		};
+		
 #endif
 		
 		glEnableClientState( GL_VERTEX_ARRAY);
@@ -222,8 +234,7 @@ void TexturedQuad::renderContent ()
 			1.0,	1.0,
 			0.0f,	0.0f,
 			1.0,	0.0f };
-		
-#ifdef USE_GL_SCALE		
+#ifdef BIERFICK
 		GLfloat		vertices[] = 
 		{	
 			-w/2,-h/2,z,
@@ -234,13 +245,12 @@ void TexturedQuad::renderContent ()
 #else
 		GLfloat		vertices[] = 
 		{	
-			-w*scale/2,-h*scale/2,z,
-			w*scale/2,-h*scale/2,z,
-			-w*scale/2,h*scale/2,z,
-			w*scale/2,h*scale/2,z
+			0,			0,			0,
+			w,	0,			0,
+			0,			h,	0,
+			w,			h,	0
 		};
-#endif
-		
+#endif		
 		
 		glEnableClientState( GL_VERTEX_ARRAY);
 		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
@@ -432,8 +442,8 @@ void OGLFont::transform ()
 	if (rotation != 0.0f )
 		glRotatef( -rotation, 0.0f, 0.0f, 1.0f );
 
-	if (scale != 1.0)
-		glScalef( scale, scale, 1.0f );
+	if (scale_x != 1.0 || scale_y != 1.0)
+		glScalef( scale_x, scale_y, 1.0f );
 	
 	glTranslatef(- (anchorPoint.x * w),h - (anchorPoint.y * h), 0);
 }

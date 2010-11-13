@@ -15,10 +15,11 @@ ActionSystem::ActionSystem (MANAGERCLASS *entityManager)
 	_entityManager = entityManager;
 }
 
-void ActionSystem::setupNextActionOrStop (Entity *e)
+void ActionSystem::setupNextActionOrStop (Entity *e, Action *current_action)
 {
 	Entity *current_entity = e;
-	Action *current_action = _entityManager->getComponent<Action>(current_entity);
+//	Action *current_action = _entityManager->getComponent<Action>(current_entity);
+	
 	Action *next_action = current_action->next_action;
 	
 	if (next_action)
@@ -38,25 +39,35 @@ void ActionSystem::setupNextActionOrStop (Entity *e)
 	
 }
 
+void ActionSystem::refreshCaches ()
+{
+	_entities.clear();
+	_entityManager->getEntitiesPossessingComponents(_entities,  Action::COMPONENT_ID,Position::COMPONENT_ID, ARGLIST_END );
+}
+
 void ActionSystem::update (float delta)
 {
-	std::vector<Entity*> entities;
-	
-	_entityManager->getEntitiesPossessingComponents(entities,  Action::COMPONENT_ID,Position::COMPONENT_ID, ARGLIST_END );
-	std::vector<Entity*>::const_iterator it = entities.begin();
+	std::vector<Entity*>::const_iterator it = _entities.begin();
 	
 	Entity *current_entity = NULL;
 	Position *current_pos = NULL;
 	Action *current_action = NULL;
 	bool action_handled = false;
 	
-	while (it != entities.end())
+	while (it != _entities.end())
 	{ 
 		current_entity = *it;
 		current_action = _entityManager->getComponent<Action>(current_entity);
 		current_pos = _entityManager->getComponent<Position>(current_entity);
 		action_handled = false;
 		
+		if (!current_action)
+		{
+			_entityManager->dumpEntity(current_entity);
+			abort();
+//			++it;
+//			continue;
+		}
 
 		//MOVE TO handler
 		if (current_action->action_type == ACTIONTYPE_MOVE_TO)
@@ -85,7 +96,7 @@ void ActionSystem::update (float delta)
 			{
 				current_pos->x = mt->x;
 				current_pos->y = mt->y;
-				setupNextActionOrStop (current_entity);
+				setupNextActionOrStop (current_entity,current_action );
 				++it;
 				continue;
 			}
@@ -138,7 +149,7 @@ void ActionSystem::update (float delta)
 				current_pos->x = mb->_dx;
 				current_pos->y = mb->_dy;
 				
-				setupNextActionOrStop(current_entity);
+				setupNextActionOrStop(current_entity,current_action);
 				++it;
 				continue;
 			}
@@ -173,21 +184,52 @@ void ActionSystem::update (float delta)
 			if ( (current_action->duration - current_action->_timestamp) <= 0.0)
 			{
 				_entityManager->addComponent(current_entity, aca->component_to_add);
-				setupNextActionOrStop(current_entity);	
+				setupNextActionOrStop(current_entity,current_action);	
 			}
 			++it;			
+			continue;
+		}
+		
+		
+		//ACTIONTYPE_CREATE_ENTITY handler
+		if (current_action->action_type == ACTIONTYPE_CREATE_ENTITY)
+		{
+			action_handled = true;
+			
+			current_action->_timestamp += delta;			
+			if ( (current_action->duration - current_action->_timestamp) <= 0.0)
+			{
+				CreateEntityAction *cea = (CreateEntityAction*)current_action;
+				std::vector<Component*>::const_iterator cit = cea->components_to_add.begin();
+				
+				Entity *newEntity = _entityManager->createNewEntity();
+				
+				Component *c = NULL;
+				while (cit != cea->components_to_add.end())
+				{
+					c = *cit;
+					_entityManager->addComponent(newEntity, c);
+					
+					++cit;
+				}
+				setupNextActionOrStop(current_entity,current_action);
+			}
+
+			
+			
+			++it;
 			continue;
 		}
 		
 		//default handler
 //		if (!action_handled)
 		{
-			printf("action unhandled:");
-			_entityManager->dumpComponent(current_entity, current_action);
+		//	printf("action unhandled:");
+		//	_entityManager->dumpComponent(current_entity, current_action);
 			
 			if ( (current_action->duration - current_action->_timestamp) <= 0.0)
 			{
-				setupNextActionOrStop(current_entity);
+				setupNextActionOrStop(current_entity,current_action);
 			}
 			current_action->_timestamp += delta;
 		}

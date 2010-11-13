@@ -4,6 +4,7 @@
 #define __RUNTIME_INFORMATION__
 #define MANAGERCLASS FastEntityManager
 #include "globals.h"
+#include <stdint.h>
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>

@@ -16,6 +16,8 @@ class MovementSystem
 public:
 	MovementSystem (MANAGERCLASS *entityManager);
 	void update (float delta);	
+	void refreshCaches ();
+
 protected:
 	MANAGERCLASS *_entityManager;
 	std::vector<Entity*> moveableList;
