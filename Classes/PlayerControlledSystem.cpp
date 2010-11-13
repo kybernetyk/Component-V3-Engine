@@ -16,10 +16,6 @@ PlayerControlledSystem::PlayerControlledSystem (MANAGERCLASS *entityManager)
 	_entityManager = entityManager;
 }
 
-void PlayerControlledSystem::refreshCaches ()
-{
-	
-}
 
 void PlayerControlledSystem::update (float delta)
 {

@@ -17,14 +17,12 @@ MovementSystem::MovementSystem (MANAGERCLASS *entityManager)
 	_entityManager = entityManager;
 }
 
-void MovementSystem::refreshCaches ()
-{
-	moveableList.clear();
-	_entityManager->getEntitiesPossessingComponents (moveableList, Position::COMPONENT_ID, Movement::COMPONENT_ID, ARGLIST_END);
-}
 
 void MovementSystem::update (float delta)
 {
+	moveableList.clear();
+	_entityManager->getEntitiesPossessingComponents (moveableList, Position::COMPONENT_ID, Movement::COMPONENT_ID, ARGLIST_END);
+
 	std::vector<Entity*>::const_iterator it = moveableList.begin();
 
 	//printf("movement system updating with delta %f on %i entities ...\n",delta,moveableList.size());

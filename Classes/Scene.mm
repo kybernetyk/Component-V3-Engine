@@ -192,20 +192,10 @@ void Scene::update (float delta)
 	//so if we did corpse collection at the end of update
 	//the systems wouldn't know that the manager is dirty 
 	//and a shitstorm of dangling references would rain down on them
+	_corpseRetrievalSystem->collectCorpses();
 	
 	
 	
-	//refresh caches if needed
-/*	if (_entityManager->isDirty())
-	{
-		_playerControlledSystem->refreshCaches();
-		_actionSystem->refreshCaches();
-		_movementSystem->refreshCaches();
-		_attachmentSystem->refreshCaches();
-		_gameLogicSystem->refreshCaches();
-		_hudSystem->refreshCaches();
-		_soundSystem->refreshCaches();
-	}*/
 	
 	_playerControlledSystem->update(delta);
 	_actionSystem->update(delta);
@@ -215,8 +205,6 @@ void Scene::update (float delta)
 	_hudSystem->update(delta);
 	_soundSystem->update(delta);
 	
-	//_entityManager->dumpEntityCount();
-	_corpseRetrievalSystem->collectCorpses();
 
 	if (g_GameState.game_state != g_GameState.next_state)
 	{
@@ -229,17 +217,6 @@ void Scene::update (float delta)
 		
 	}
 	
-	//refresh caches if needed
-	if (_entityManager->isDirty())
-	{
-		_playerControlledSystem->refreshCaches();
-		_actionSystem->refreshCaches();
-		_movementSystem->refreshCaches();
-		_attachmentSystem->refreshCaches();
-		_gameLogicSystem->refreshCaches();
-		_hudSystem->refreshCaches();
-		_soundSystem->refreshCaches();
-	}
 	
 	
 	

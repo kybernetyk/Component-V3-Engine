@@ -17,7 +17,6 @@ public:
 	ActionSystem (MANAGERCLASS *entityManager);
 	void update (float delta);	
 	
-	void refreshCaches ();
 	
 protected:
 

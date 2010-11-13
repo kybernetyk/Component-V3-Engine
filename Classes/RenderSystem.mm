@@ -40,10 +40,6 @@ bool blah3 (IRenderable *q1, IRenderable *q2)
 	
 }
 
-void RenderSystem::refreshCaches ()
-{
-	//special implementation	
-}
 
 void RenderSystem::render (void)
 {

@@ -15,7 +15,6 @@ class PlayerControlledSystem
 public:
 	PlayerControlledSystem (MANAGERCLASS *entityManager);
 	void update (float delta);	
-	void refreshCaches ();
 protected:
 	MANAGERCLASS *_entityManager;
 };

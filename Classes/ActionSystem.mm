@@ -39,14 +39,12 @@ void ActionSystem::setupNextActionOrStop (Entity *e, Action *current_action)
 	
 }
 
-void ActionSystem::refreshCaches ()
-{
-	_entities.clear();
-	_entityManager->getEntitiesPossessingComponents(_entities,  Action::COMPONENT_ID,Position::COMPONENT_ID, ARGLIST_END );
-}
 
 void ActionSystem::update (float delta)
 {
+	_entities.clear();
+	_entityManager->getEntitiesPossessingComponents(_entities,  Action::COMPONENT_ID,Position::COMPONENT_ID, ARGLIST_END );
+
 	std::vector<Entity*>::const_iterator it = _entities.begin();
 	
 	Entity *current_entity = NULL;

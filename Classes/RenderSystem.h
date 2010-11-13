@@ -21,7 +21,6 @@ class RenderSystem
 public:
 	RenderSystem (MANAGERCLASS *entityManager);
 	void render (void);	
-	void refreshCaches ();
 
 protected:
 	MANAGERCLASS *_entityManager;

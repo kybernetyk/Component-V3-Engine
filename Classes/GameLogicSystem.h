@@ -16,7 +16,6 @@ class GameLogicSystem
 public:
 	GameLogicSystem (MANAGERCLASS *entityManager);
 	void update (float delta);
-	void refreshCaches ();
 	
 protected:
 	void handle_player_enemy_collision ();

@@ -63,6 +63,9 @@ void GameLogicSystem::check_player_for_levelup ()
 		g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+280;
 		
 		saveGameStateToFile();
+		
+		Entity *lvlup_sound = _entityManager->createNewEntity();
+		_entityManager->addComponent<SoundEffect>(lvlup_sound)->sfx_id = SFX_LEVELUP;
 	}
 }
 
@@ -129,19 +132,14 @@ void GameLogicSystem::handle_player_enemy_collision ()
 	}
 }
 
-void GameLogicSystem::refreshCaches ()
+
+void GameLogicSystem::update (float delta)
 {
 	_enemies.clear();
 	_players.clear();
 	
 	_entityManager->getEntitiesPossessingComponents(_players,  PlayerController::COMPONENT_ID,Position::COMPONENT_ID, ARGLIST_END );
 	_entityManager->getEntitiesPossessingComponents(_enemies,  Enemy::COMPONENT_ID,Position::COMPONENT_ID, ARGLIST_END );
-	
-}
-
-void GameLogicSystem::update (float delta)
-{
-//	refreshCaches();
 	_delta = delta;
 	
 	

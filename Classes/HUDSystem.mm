@@ -172,10 +172,6 @@ Action *flyout_and_reset_action ()
 	return actn;
 }
 
-void HUDSystem::refreshCaches ()
-{
-	
-}
 
 void HUDSystem::update (float delta)
 {

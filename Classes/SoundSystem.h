@@ -19,6 +19,7 @@
 #define SFX_BLAM 2
 #define SFX_KAWAII 3
 #define SFX_KAWAII2 4
+#define SFX_LEVELUP 5
 
 #define MUSIC_GAME 1
 
@@ -29,7 +30,6 @@ public:
 	void update (float delta);	
 	
 	void playMusic (int music_id);
-	void refreshCaches ();
 	
 protected:
 	MANAGERCLASS *_entityManager;

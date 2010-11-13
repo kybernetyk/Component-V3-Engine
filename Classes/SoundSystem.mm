@@ -62,7 +62,10 @@ SoundSystem::SoundSystem (MANAGERCLASS *entityManager)
 	sounds[SFX_TICK] = loadSound("tick.wav");
 	sounds[SFX_BLAM] = loadSound("bam1.wav");
 	sounds[SFX_KAWAII] = loadSound("kawaii2.wav");
-	sounds[SFX_KAWAII2] = loadSound("kawaii.wav");	
+	sounds[SFX_KAWAII2] = loadSound("kawaii.wav");
+	sounds[SFX_LEVELUP] = loadSound("levelup.wav");	
+	
+	
 }
 
 void SoundSystem::playMusic (int music_id)
@@ -96,16 +99,12 @@ void SoundSystem::playMusic (int music_id)
 
 }
 
-void SoundSystem::refreshCaches ()
-{
-	_entities.clear();
-	_entityManager->getEntitiesPossessingComponent (_entities,SoundEffect::COMPONENT_ID);
-	
-}
 
 void SoundSystem::update (float delta)
 {
 
+	_entities.clear();
+	_entityManager->getEntitiesPossessingComponent (_entities,SoundEffect::COMPONENT_ID);
 	
 	std::vector<Entity*>::const_iterator it = _entities.begin();
 	Entity *current_entity = NULL;
