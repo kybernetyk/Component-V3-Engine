@@ -109,12 +109,14 @@ struct Movement : public Component
 
 #define RENDERABLETYPE_BASE 0
 #define RENDERABLETYPE_SPRITE 1
-#define RENDERABLETYPE_TEXT 2
+#define RENDERABLETYPE_ATLASSPRITE 2
+#define RENDERABLETYPE_TEXT 3
+
 struct Renderable : public Component
 {
 	static ComponentID COMPONENT_ID;
 	unsigned int _renderable_type;
-	
+	float alpha;
 	float z;
 	Renderable()
 	{
@@ -122,10 +124,11 @@ struct Renderable : public Component
 		_renderable_type = RENDERABLETYPE_BASE;
 		
 		z = 0.0;
+		alpha = 1.0;
 	}
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 
-	DEBUGINFO ("Renderable Base: z=%f", z)
+	DEBUGINFO ("Renderable Base: z=%f alpha: a=%f", z,alpha)
 };
 
 struct Sprite : public Renderable
@@ -133,7 +136,7 @@ struct Sprite : public Renderable
 	static ComponentID COMPONENT_ID;
 	
 	TexturedQuad *sprite;
-
+	
 	Sprite()
 	{
 		Renderable::Renderable();
@@ -146,6 +149,29 @@ struct Sprite : public Renderable
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 	
 	DEBUGINFO ("Renderable: sprite=%p, z=%f", sprite,z)
+};
+
+struct AtlasSprite : public Renderable
+{
+	static ComponentID COMPONENT_ID;
+	
+	TexturedAtlasQuad *sprite;
+	
+	rect src; 
+	
+	AtlasSprite()
+	{
+		Renderable::Renderable();
+		
+		_id = COMPONENT_ID;
+		_renderable_type = RENDERABLETYPE_ATLASSPRITE;
+		src.x = src.y = src.w = src.h = 0;
+		
+		sprite = NULL;
+	}
+	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
+	
+	DEBUGINFO ("Atlas Sprite: sprite=%p, z=%f", sprite,z)
 };
 
 

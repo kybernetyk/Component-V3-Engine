@@ -58,15 +58,15 @@ void ActionSystem::update (float delta)
 		current_action = _entityManager->getComponent<Action>(current_entity);
 		current_pos = _entityManager->getComponent<Position>(current_entity);
 		action_handled = false;
-		
+
+#ifdef ABORT_GUARDS				
 		if (!current_action)
 		{
 			_entityManager->dumpEntity(current_entity);
 			abort();
-//			++it;
-//			continue;
 		}
-
+#endif
+		
 		//MOVE TO handler
 		if (current_action->action_type == ACTIONTYPE_MOVE_TO)
 		{
@@ -162,7 +162,8 @@ void ActionSystem::update (float delta)
 		{
 			action_handled = true;
 			AddComponentAction *aca = (AddComponentAction*)current_action;
-			
+
+#ifdef ABORT_GUARDS						
 			if (!aca->component_to_add)
 			{
 				printf("no component pointer set!\n");
@@ -177,6 +178,7 @@ void ActionSystem::update (float delta)
 				_entityManager->dumpComponent(current_entity,aca);
 				abort();
 			}
+#endif
 			
 			current_action->_timestamp += delta;
 			if ( (current_action->duration - current_action->_timestamp) <= 0.0)

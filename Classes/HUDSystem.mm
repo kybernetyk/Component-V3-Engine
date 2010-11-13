@@ -43,14 +43,16 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	score_ui = _entityManager->createNewEntity();
 	_entityManager->addComponent<Name>(score_ui)->name = "score_ui";
 
+	
+	//score
 	_entityManager->addComponent <Position> (score_ui);
 	TextLabel *label = _entityManager->addComponent <TextLabel> (score_ui);
 	label->ogl_font = new OGLFont("zomg.fnt");
 	label->ogl_font->anchorPoint.x = 0.0;
 	label->ogl_font->anchorPoint.y = 0.0;
-	label->text = "Score: 0";
-	score_ui->get<Position>()->x = 0.0;
-	score_ui->get<Position>()->y = 2;
+	label->text = "0";
+	score_ui->get<Position>()->x = 32.0;
+	score_ui->get<Position>()->y = 4;
 	label->z = 6.0;
 	score_ui->get<Position>()->scale_x = 0.4;	
 	score_ui->get<Position>()->scale_y = 0.4;
@@ -65,7 +67,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->ogl_font->anchorPoint.y = 0.0;
 	label->text = "Xp: 0/0";
 	xp_ui->get<Position>()->x = 480;
-	xp_ui->get<Position>()->y = 2;
+	xp_ui->get<Position>()->y = 4;
 	label->z = 6.0;
 	xp_ui->get<Position>()->scale_x = 0.4;
 	xp_ui->get<Position>()->scale_y = 0.4;
@@ -80,7 +82,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->ogl_font->anchorPoint.y = 0.0;
 	label->text = "Level: 0";
 	level_ui->get<Position>()->x = 480/2;
-	level_ui->get<Position>()->y = 2;
+	level_ui->get<Position>()->y = 4;
 	label->z = 6.0;
 	level_ui->get<Position>()->scale_x = 0.4;
 	level_ui->get<Position>()->scale_y = 0.4;
@@ -95,9 +97,13 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	kawaii_or_fail->get<Position>()->x = 480+200;
 	kawaii_or_fail->get<Position>()->y = 320/2+20;
 	
-	_entityManager->addComponent <Sprite> (kawaii_or_fail);
-	kawaii_or_fail->get<Sprite>()->sprite = new TexturedQuad(loltex,0,0,296,64);
-	kawaii_or_fail->get<Sprite>()->z = 9.0;
+	_entityManager->addComponent <AtlasSprite> (kawaii_or_fail);
+	kawaii_or_fail->get<AtlasSprite>()->sprite = new TexturedAtlasQuad(loltex);
+	rect src = {
+		0.0,0.0,296.0,64.0
+	};
+	kawaii_or_fail->get<AtlasSprite>()->src = src;
+	kawaii_or_fail->get<AtlasSprite>()->z = 9.0;
 	
 	
 	//next wave
@@ -114,6 +120,27 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->ogl_font = new OGLFont("zomg.fnt");
 	label->z = 9.0;
 	label->text = "Next wave in 5 ...";
+	
+	//lvlup
+	lvlup_graphic = _entityManager->createNewEntity();
+	_entityManager->addComponent<Name>(lvlup_graphic)->name = "lvlup_graphic";
+
+	_entityManager->addComponent <AtlasSprite> (lvlup_graphic);
+	lvlup_graphic->get<AtlasSprite>()->sprite = new TexturedAtlasQuad(loltex);
+	rect src2 = {
+		0.0,140.0,320.0,70.0
+	};
+	lvlup_graphic->get<AtlasSprite>()->src = src2;
+	lvlup_graphic->get<AtlasSprite>()->z = 9.0;
+	
+	_entityManager->addComponent <Position> (lvlup_graphic);
+	lvlup_graphic->get<Position>()->x = 400+480/2;
+	lvlup_graphic->get<Position>()->y = 320/2+20;
+	
+	
+	cached_level = g_GameState.level;
+	lvlup_showing = false;
+	lvlup_countdown = 0.0;
 	
 }
 
@@ -150,7 +177,7 @@ Action *flyout_and_reset_action ()
 	actn->duration = 0.3;
 	actn->x = -400;
 	actn->y = 320/2+20;
-	
+	/*
 	MoveByAction *mb = new MoveByAction;
 	mb->x = 0.0;
 	mb->y = 400;
@@ -162,12 +189,14 @@ Action *flyout_and_reset_action ()
 	mb2->y = 0;
 	mb2->duration = 0.0;
 	mb->next_action = mb2;
+	*/
 	
 	MoveToAction *mb3 = new MoveToAction;
 	mb3->x = 480+200;
 	mb3->y = 320/2+20;
 	mb3->duration = 0.0;
-	mb2->next_action = mb3;
+	//mb2->next_action = mb3;
+	actn->next_action = mb3;
 
 	return actn;
 }
@@ -176,7 +205,7 @@ Action *flyout_and_reset_action ()
 void HUDSystem::update (float delta)
 {
 	char s[255];
-	sprintf(s,"Score: %i", g_GameState.score);
+	sprintf(s,"%i", g_GameState.score);
 	score_ui->get<TextLabel>()->text = s;
 	
 	sprintf(s, "XP: %i/%i", g_GameState.experience, g_GameState.experience_needed_to_levelup);
@@ -189,61 +218,92 @@ void HUDSystem::update (float delta)
 	
 	xp_bar->get<Position>()->scale_x = sx;
 	
-	if (g_GameState.game_state != GAMESTATE_WAITING_FOR_WAVE)
-		return;
 	
-	kawaii_countdown -= delta;
-	
-	//printf("enemies: %i\n", g_GameState.enemies_left);
-	
-	if (kawaii_countdown >= 0.0)
-	{	
-		char s[255];
-		sprintf(s,"Next wave in %.2f ...",kawaii_countdown );
-		next_wave_label->get<TextLabel>()->text = s;
-	}
-	
-	
-	if (!kawaii_showing)
+	if (g_GameState.game_state == GAMESTATE_PLAYING_LEVEL)
 	{
-		kawaii_showing = true;
-		kawaii_countdown = 5.0;
+		lvlup_countdown -= delta;
+		
+		//lvlup sound + gfx
+		if (cached_level != g_GameState.level)
+		{
+			cached_level = g_GameState.level;
 			
-		next_wave_label->get<Position>()->x = 480/2;
-		next_wave_label->get<Position>()->y = 320/2-20;
+			Entity *lvlup_sound = _entityManager->createNewEntity();
+			_entityManager->addComponent<SoundEffect>(lvlup_sound)->sfx_id = SFX_LEVELUP;
+			
+			if (!lvlup_showing)
+			{
+				lvlup_countdown = 2.5;
+				lvlup_showing = true;
+				Action *actn = flyin_and_shake_action();
+				_entityManager->addComponent(lvlup_graphic, actn);
+			}
+			
+		}
 		
-		Action *actn = flyin_and_shake_action();
-		
-		_entityManager->addComponent(kawaii_or_fail, actn);
-		
-		Entity *kawaii_sound = _entityManager->createNewEntity();
-		SoundEffect *sfx = new SoundEffect();
-		sfx->sfx_id = SFX_KAWAII;
-		_entityManager->addComponent(kawaii_sound, sfx);
+		if (lvlup_countdown <= 0.0 && lvlup_showing)
+		{
+			lvlup_showing = false;
+			Action *actn = flyout_and_reset_action();
+			_entityManager->addComponent(lvlup_graphic, actn);
+			
+		}
 	}
 	
-	if (kawaii_countdown <= 0.0 && kawaii_showing)
+	if (g_GameState.game_state == GAMESTATE_WAITING_FOR_WAVE)
 	{
+		kawaii_countdown -= delta;
+		lvlup_countdown = 0.0; //hide the lvlup info
 		
-		kawaii_showing = false;
-		Action *actn = flyout_and_reset_action();
-		_entityManager->addComponent(kawaii_or_fail, actn);
+		if (kawaii_countdown >= 0.0)
+		{	
+			char s[255];
+			sprintf(s,"Next wave in %.2f ...",kawaii_countdown );
+			next_wave_label->get<TextLabel>()->text = s;
+		}
+		
+		
+		if (!kawaii_showing)
+		{
+			kawaii_showing = true;
+			kawaii_countdown = 5.0;
+				
+			next_wave_label->get<Position>()->x = 480/2;
+			next_wave_label->get<Position>()->y = 320/2-20;
+			
+			Action *actn = flyin_and_shake_action();
+			
+			_entityManager->addComponent(kawaii_or_fail, actn);
+			
+			Entity *kawaii_sound = _entityManager->createNewEntity();
+			SoundEffect *sfx = new SoundEffect();
+			sfx->sfx_id = SFX_KAWAII;
+			_entityManager->addComponent(kawaii_sound, sfx);
+		}
+		
+		if (kawaii_countdown <= 0.0 && kawaii_showing)
+		{
+			
+			kawaii_showing = false;
+			Action *actn = flyout_and_reset_action();
+			_entityManager->addComponent(kawaii_or_fail, actn);
 
-		
-		next_wave_label->get<Position>()->x = 600+480/2;
-		next_wave_label->get<Position>()->y = 320/2-20;
-		
-		g_GameState.next_state = GAMESTATE_PLAYING_LEVEL;
-		
-		
-		Entity *kawaii_sound = _entityManager->createNewEntity();
-		SoundEffect *sfx = new SoundEffect();
-		sfx->sfx_id = SFX_KAWAII2;
-		_entityManager->addComponent(kawaii_sound, sfx);
-		
-		
-//		spawnEnemies();
-		kawaii_showing = false;
-	}
+			
+			next_wave_label->get<Position>()->x = 600+480/2;
+			next_wave_label->get<Position>()->y = 320/2-20;
+			
+			g_GameState.next_state = GAMESTATE_PLAYING_LEVEL;
+			
+			
+			Entity *kawaii_sound = _entityManager->createNewEntity();
+			SoundEffect *sfx = new SoundEffect();
+			sfx->sfx_id = SFX_KAWAII2;
+			_entityManager->addComponent(kawaii_sound, sfx);
+			
+			
+	//		spawnEnemies();
+			kawaii_showing = false;
+		}
+	}	
 	
 }

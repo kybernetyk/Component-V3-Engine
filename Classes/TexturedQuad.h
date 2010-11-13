@@ -89,7 +89,6 @@ class TexturedQuad : public IRenderable
 public:
 	TexturedQuad();
 	TexturedQuad(Texture2D *existing_texture);
-	TexturedQuad(Texture2D *existing_texture, float frame_x, float frame_y, float sprite_frame_width, float sprite_frame_height);
 	TexturedQuad(std::string filename);
 	~TexturedQuad ();
 
@@ -98,8 +97,6 @@ public:
 		IRenderable::init();
 		
 		texture = NULL;
-		isAtlas = false;
-		src.x = src.y = src.w = src.h = 0.0;
 	}
 	
 	bool loadFromFile (std::string filename);
@@ -107,16 +104,40 @@ public:
 	void transform ();
 	void renderContent();
 
-	void renderFromAtlas ();
 	
 //	int atlas_frame_index_x;		//the frame index of the sprite from the atlas
 //	int atlas_frame_index_y;		//this will be converted into texels. float texel_x = atlasInfo.w * atlas_frame_index_x ...
 									//frame indizes start in top left corner. so x0,y0 = top left subimage
 //	rect atlasInfo;
-	bool isAtlas;
+//	bool isAtlas;
 	
+	
+	
+	Texture2D *texture;
+};
+
+class TexturedAtlasQuad : public IRenderable
+{
+public:
+	TexturedAtlasQuad();
+	TexturedAtlasQuad(Texture2D *existing_texture);
+	TexturedAtlasQuad(std::string filename);
+	~TexturedAtlasQuad ();
+	
+	void init()
+	{
+		IRenderable::init();
+		
+		texture = NULL;
+		src.x = src.y = src.w = src.h = 0.0;
+	}
+	
+	bool loadFromFile (std::string filename);
+	
+	void transform ();
 	
 	rect src;
-	
+	void renderContent ();
+
 	Texture2D *texture;
 };

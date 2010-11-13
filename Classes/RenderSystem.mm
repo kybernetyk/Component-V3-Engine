@@ -12,6 +12,7 @@
 #import "Component.h"
 #import "Entity.h"
 
+
 RenderSystem::RenderSystem (MANAGERCLASS *entityManager)
 {
 	_entityManager = entityManager;
@@ -40,9 +41,27 @@ bool blah3 (IRenderable *q1, IRenderable *q2)
 	
 }
 
+bool blah4 (Entity *e1, Entity *e2)
+{
+	//ok, if both z's are equal the outome of the sort is undefined 
+	//and renderables with the same z value might switch render position every re-sort
+	//<strike>so we let the memory address decide which renderable to render first (the memory address shouldn't change)</strike>
+	//the guid it is
+	Renderable *ren1 = e1->entityManager->getComponent<Renderable>(e1);
+	Renderable *ren2 = e2->entityManager->getComponent<Renderable>(e2);
+	
+	if (ren1->z == ren2->z)
+		return (e1->checksum < e2->checksum);
+	
+	return (ren1->z < ren2->z);
+	
+}
+
+
 
 void RenderSystem::render (void)
 {
+#ifdef HUSOMANN			//old sorting 
 	bool isdirty = _entityManager->isDirty();
 	if (isdirty)
 	{
@@ -68,6 +87,7 @@ void RenderSystem::render (void)
 	TexturedQuad *textured_quad = NULL;
 	OGLFont *font = NULL;
 	
+
 	while (it != moveableList.end())
 	{
 		current_entity = *it;
@@ -130,7 +150,118 @@ void RenderSystem::render (void)
 		++it2;
 	}
 	
-//	printf("i: %i\n",i);
+#else		//new sorting with attribute passing @ draw (enabling one IRenderable to be managed for many entities)
+	bool isdirty = _entityManager->isDirty();
+	if (isdirty)
+	{
+		gl_data.clear();
+		moveableList.clear();
+		_entityManager->getEntitiesPossessingComponents (moveableList, Position::COMPONENT_ID, Renderable::COMPONENT_ID, ARGLIST_END);
+		std::sort (moveableList.begin(), moveableList.end(), blah4);
+	}
 	
+	 	
+	
+	std::vector<Entity*>::const_iterator it = moveableList.begin();
+	
+	Entity *current_entity = NULL;
+	Position *pos = NULL;
+	Renderable *ren = NULL;
+	//IRenderable *gl_object = NULL;
+	
+	Sprite *sprite = NULL;
+	AtlasSprite *atlas_sprite = NULL;
+	TextLabel *label = NULL;
+	
+	TexturedQuad *textured_quad = NULL;
+	TexturedAtlasQuad *textured_atlas_quad = NULL;
+	OGLFont *font = NULL;
+	
+	
+	while (it != moveableList.end())
+	{
+		current_entity = *it;
+		
+		pos = _entityManager->getComponent<Position>(current_entity);
+		ren = _entityManager->getComponent<Renderable>(current_entity);
+		
+
+		if (ren->_renderable_type == RENDERABLETYPE_ATLASSPRITE)
+		{
+			atlas_sprite = (AtlasSprite*)ren;
+			
+			textured_atlas_quad = atlas_sprite->sprite;
+			textured_atlas_quad->x = pos->x;
+			textured_atlas_quad->y = pos->y;
+			textured_atlas_quad->z = ren->z;
+			textured_atlas_quad->scale_x = pos->scale_x;
+			textured_atlas_quad->scale_y = pos->scale_y;
+			textured_atlas_quad->rotation = pos->rot;
+			textured_atlas_quad->alpha = atlas_sprite->alpha;
+			
+#ifdef ABORT_GUARDS			
+			if (atlas_sprite->src.w == 0 || atlas_sprite->src.h == 0)
+			{
+				_entityManager->dumpEntity(current_entity);
+				abort();
+			}
+#endif		
+			textured_atlas_quad->src = atlas_sprite->src;
+			
+			textured_atlas_quad->renderContent();
+			
+			++it;
+			continue;
+		}
+		
+		
+		if (ren->_renderable_type == RENDERABLETYPE_SPRITE)
+		{
+			sprite = (Sprite*)ren;
+			
+			textured_quad = sprite->sprite;
+			textured_quad->x = pos->x;
+			textured_quad->y = pos->y;
+			textured_quad->z = ren->z;
+			textured_quad->scale_x = pos->scale_x;
+			textured_quad->scale_y = pos->scale_y;
+			textured_quad->rotation = pos->rot;
+			textured_quad->alpha = sprite->alpha;
+			
+			textured_quad->renderContent();
+			
+			++it;
+			continue;
+		}
+		
+		if (ren->_renderable_type == RENDERABLETYPE_TEXT)
+		{
+			label = (TextLabel*)ren;
+			font = label->ogl_font;
+			font->x = pos->x;
+			font->y = pos->y;
+			font->z = ren->z;
+			font->rotation = pos->rot;
+			font->scale_x = pos->scale_x;
+			font->scale_y = pos->scale_y;			
+			font->text = (char*)label->text.c_str();
+			font->alpha = label->alpha;
+			font->renderContent();
+			
+			++it;
+			continue;
+		}
+
+#ifdef ABORT_GUARDS			
+		printf("unhandled render!\n");
+		_entityManager->dumpEntity(current_entity);
+		abort();
+#endif
+		++it;
+	}
+	
+	
+	
+#endif
 }
 

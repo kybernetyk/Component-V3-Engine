@@ -14,11 +14,12 @@
 #import "TexturedQuad.h"
 #include "Texture2D.h"
 
-static Texture2D *cachedTex = 0;
+Texture2D *cachedBlobTex = 0;
+TexturedAtlasQuad *cachedBlobQuad = 0;
 
 void SimpleMobFactory::destroySimpleMob (MANAGERCLASS *manager, Entity *e)
 {
-	Sprite *r = manager->getComponent <Sprite> (e);
+	AtlasSprite *r = manager->getComponent <AtlasSprite> (e);
 	if (r)
 	{
 
@@ -37,13 +38,17 @@ Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, 
 	pos->scale_x = 4.0;
 	pos->scale_y = 4.0;
 	
-	Sprite *sprite = system->addComponent <Sprite> (e);
+	AtlasSprite *sprite = system->addComponent <AtlasSprite> (e);
 	//sprite->sprite = [[CCSprite spriteWithFile: @"Icon.png"] retain];
 	
-	if (!cachedTex)
+	if (!cachedBlobTex)
 	{
-		cachedTex = new Texture2D("blobs4.png");
-		cachedTex->setAliasTexParams();
+		cachedBlobTex = new Texture2D("blobs4.png");
+		cachedBlobTex->setAliasTexParams();
+	}
+	if (!cachedBlobQuad)
+	{
+		cachedBlobQuad = new TexturedAtlasQuad (cachedBlobTex);
 	}
 	
 	/*sprite->sprite = new TexturedQuad (cachedTex);
@@ -67,9 +72,11 @@ Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, 
 	r->h = ffy;
 	sprite->sprite->isAtlas = true;*/
 	
-	sprite->sprite = new TexturedQuad (cachedTex,0.0,0.0, 32.0, 32.0);
+	sprite->sprite = cachedBlobQuad;
 	//sprite->sprite->scale = 4.0;
 	sprite->z = 0.0;
+	rect src = {0.0,0.0,32.0,32.0};
+	sprite->src = src;
 	
 	Name *name = system->addComponent <Name> (e);
 	name->name = "Simple Mob";

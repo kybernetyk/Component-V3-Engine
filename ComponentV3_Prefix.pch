@@ -2,7 +2,9 @@
 // Prefix header for all source files of the 'SpaceHike' target in the 'SpaceHike' project
 //
 #define __RUNTIME_INFORMATION__
+#define ABORT_GUARDS
 #define MANAGERCLASS FastEntityManager
+
 #include "globals.h"
 #include <stdint.h>
 #ifdef __OBJC__

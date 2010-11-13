@@ -18,6 +18,7 @@ ComponentID Movement::COMPONENT_ID = 3;
 
 ComponentID Renderable::COMPONENT_ID = 4;
 ComponentID Sprite::COMPONENT_ID = 4;
+ComponentID AtlasSprite::COMPONENT_ID = 4;
 ComponentID TextLabel::COMPONENT_ID = 4;
 
 ComponentID Name::COMPONENT_ID = 5;

@@ -76,14 +76,15 @@ void Scene::spawnEnemies ()
 			//	_entityManager->getComponent <Sprite> (blob)->sprite->atlas_frame_index_x = atlas_x;
 			//	_entityManager->getComponent <Sprite> (blob)->sprite->atlas_frame_index_y = atlas_y;
 			
-			blob->get<Sprite>()->sprite->src = mob->get<Sprite>()->sprite->src;
-			
+			blob->get<AtlasSprite>()->src = mob->get<AtlasSprite>()->src;
+						
 			Enemy *enemy = _entityManager->addComponent <Enemy> (blob);
 			enemy->origin_x = pos->x;
 			enemy->origin_y = pos->y;
 			
-			Sprite *r =	_entityManager->getComponent<Sprite>(blob);
+			AtlasSprite *r =	_entityManager->getComponent<AtlasSprite>(blob);
 			r->z = rand()%6;
+			r->alpha = 0.5;
 			
 			//MoveByAction *actn = _entityManager->addComponent <MoveByAction> (mob);
 			MoveToAction *actn = _entityManager->addComponent <MoveToAction> (blob);
@@ -94,7 +95,7 @@ void Scene::spawnEnemies ()
 			
 			actn->duration = 2.5;
 			
-			r->sprite->alpha = 0.5;
+
 			g_GameState.enemies_left ++;
 		}
 		
@@ -139,13 +140,19 @@ void Scene::init ()
 	// 3 blobs
 	rect src = {2 * 32.0, 0 * 32.0, 32.0,32.0};
 	green_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240,160+20);
-	_entityManager->getComponent <Sprite> (green_blob)->sprite->src = src;
+	_entityManager->getComponent <AtlasSprite> (green_blob)->src = src;
+	//_entityManager->getComponent <Sprite> (green_blob)->sprite->src = src;
+
+	
 	rect src2 = {2 * 32.0, 2 * 32.0, 32.0,32.0};	
 	red_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240-128,160+20);
-	_entityManager->getComponent <Sprite> (red_blob)->sprite->src = src2;
+	_entityManager->getComponent <AtlasSprite> (red_blob)->src = src2;
+	//_entityManager->getComponent <Sprite> (red_blob)->sprite->src = src2;
+	
 	rect src3 = {0 * 32.0, 1 * 32.0, 32.0,32.0};		
 	blue_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240+128,160+20);
-	_entityManager->getComponent <Sprite> (blue_blob)->sprite->src = src3;
+	_entityManager->getComponent <AtlasSprite> (blue_blob)->src = src3;
+	//_entityManager->getComponent <Sprite> (blue_blob)->sprite->src = src3;
 
 	
 	_entityManager->addComponent<Name>(green_blob)->name = "green_blob";

@@ -28,9 +28,14 @@ protected:
 	bool kawaii_showing;
 	float kawaii_countdown;
 	
+	bool lvlup_showing;
+	float lvlup_countdown;
+	
 	Entity *kawaii_or_fail;
 	Entity *next_wave_label;
+	Entity *lvlup_graphic;
 	
+	int cached_level;
 
 
 };

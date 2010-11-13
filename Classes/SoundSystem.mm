@@ -13,9 +13,9 @@
 #import "Entity.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "SimpleAudioEngine.h"
 
-
-SystemSoundID loadSound (const char *fn)
+/*SystemSoundID loadSound (const char *fn)
 {
 	NSString *filename = [NSString stringWithCString: fn];
 	
@@ -45,27 +45,37 @@ SystemSoundID loadSound (const char *fn)
 	//AudioServicesPlaySystemSound (sid);		
 	
 }
-
+*/
 
 SoundSystem::SoundSystem (MANAGERCLASS *entityManager)
 {
 	_entityManager = entityManager;
-	memset(sounds,0x00,32*sizeof(SystemSoundID));
+//	memset(sounds,0x00,32*sizeof(SystemSoundID));
 //	memset(sound_delays, 0x00, 32 * sizeof(float));
 	
 	for (int i = 0; i <32; i++)
 		sound_delays[i] = 0.0;
 	
 	music_playing = 0;
-	musicPlayer = nil;
 	
-	sounds[SFX_TICK] = loadSound("tick.wav");
-	sounds[SFX_BLAM] = loadSound("bam1.wav");
-	sounds[SFX_KAWAII] = loadSound("kawaii2.wav");
-	sounds[SFX_KAWAII2] = loadSound("kawaii.wav");
-	sounds[SFX_LEVELUP] = loadSound("levelup.wav");	
+	sounds[SFX_TICK] = "tick.wav";
+	sounds[SFX_BLAM] = "bam1.wav";
+	sounds[SFX_KAWAII] = "kawaii2.wav";
+	sounds[SFX_KAWAII2] = "kawaii.wav";
+	sounds[SFX_LEVELUP] = "levelup.wav";
 	
+	[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic: @"maulwurf.mp4"];
 	
+	for (int i = 0; i < 32; i++)
+	{
+		NSString *s = [NSString stringWithCString: sounds[i].c_str()];
+		if (!s || [s length] == 0)
+			continue;
+		
+		NSLog(@"sound preload: %@", s);
+		
+		[[SimpleAudioEngine sharedEngine] preloadEffect: s];
+	}
 }
 
 void SoundSystem::playMusic (int music_id)
@@ -73,9 +83,8 @@ void SoundSystem::playMusic (int music_id)
 	if (music_playing == music_id)
 		return;
 
-	[musicPlayer stop];
-	[musicPlayer release];
-	musicPlayer = nil;
+	
+	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 	
 	if (music_id == 0)
 		return;
@@ -89,14 +98,7 @@ void SoundSystem::playMusic (int music_id)
 	if (!filename)
 		return;
 	
-	NSError *error;
-	NSURL *soundURL   = [[NSBundle mainBundle] URLForResource: filename
-												withExtension: nil];
-		
-	musicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL: soundURL error: &error];
-	[musicPlayer setNumberOfLoops: -1];
-	[musicPlayer play];
-
+	[[SimpleAudioEngine sharedEngine] playBackgroundMusic: filename loop: YES];
 }
 
 
@@ -133,7 +135,9 @@ void SoundSystem::update (float delta)
 			{
 				if (sound_delays[sid] <= 0.0)
 				{	
-					AudioServicesPlaySystemSound (sounds[sid]);
+					
+					[[SimpleAudioEngine sharedEngine] playEffect: [NSString stringWithCString: sounds[sid].c_str()]];
+					
 					sound_delays[sid] = 0.05;
 				}
 			}

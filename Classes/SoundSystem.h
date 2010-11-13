@@ -34,13 +34,10 @@ public:
 protected:
 	MANAGERCLASS *_entityManager;
 	
-	SystemSoundID sounds[32];
+	std::string sounds[32];
 	float sound_delays[32];
 	
 	int music_playing;
-	
-	AVAudioPlayer *musicPlayer;
-	
-		std::vector<Entity*> _entities;
+	std::vector<Entity*> _entities;
 };
 

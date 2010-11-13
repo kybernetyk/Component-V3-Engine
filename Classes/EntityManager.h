@@ -156,7 +156,8 @@ public:
 	template<typename T> T *addComponent(Entity *e)
 	{
 		is_dirty = true;
-		
+
+#ifdef ABORT_GUARDS			
 		if (T::COMPONENT_ID >= MAX_COMPONENTS_PER_ENTITY)
 		{
 			printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,T::COMPONENT_ID);
@@ -170,6 +171,7 @@ public:
 			abort();
 			return NULL;
 		}
+#endif
 		
 		T *comp = new T;
 		
@@ -194,7 +196,8 @@ public:
 	Component *addComponent(Entity *e, Component *comp)
 	{
 		is_dirty = true;
-		
+
+#ifdef ABORT_GUARDS
 		if (comp->_id >= MAX_COMPONENTS_PER_ENTITY)
 		{
 			printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,comp->_id);
@@ -208,8 +211,8 @@ public:
 			abort();
 			return NULL;
 		}
-		
-		
+#endif		
+
 		if (_components[e->_guid][comp->_id])
 		{
 			//printf("warning: replacing component (%p / %i) on Entity (%p) without cleanup!\n", _components[e->_guid][T::COMPONENT_ID],T::COMPONENT_ID, e);

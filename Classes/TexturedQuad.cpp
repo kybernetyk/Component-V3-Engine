@@ -13,7 +13,8 @@
 #include "Texture2D.h"
 
 unsigned int IRenderable::LAST_GUID = 0;
-
+#pragma mark -
+#pragma mark textured quad
 TexturedQuad::TexturedQuad ()
 {
 	IRenderable::IRenderable();
@@ -30,46 +31,6 @@ TexturedQuad::TexturedQuad(Texture2D *existing_texture)
 	h = texture->h;
 }
 
-TexturedQuad::TexturedQuad(Texture2D *existing_texture, float frame_x, float frame_y, float sprite_frame_width, float sprite_frame_height)
-{
-	IRenderable::IRenderable();	
-	init();
-	isAtlas = true;
-	
-	texture = existing_texture;
-	
-	w = sprite_frame_width;
-	h = sprite_frame_height;
-	
-
-	src.x = frame_x;
-	src.y = frame_y;
-	src.w = sprite_frame_width;
-	src.h = sprite_frame_height;
-	
-/*	float ffx = (w / existing_texture->w);
-	float ffy = (h / existing_texture->h);
-	
-	atlasInfo.w = ffx; //frame width in texel units - not in pixels
-	atlasInfo.h = ffy; // " " "
-
-	atlasInfo.x = 0.0; //frame src x in texel units - not in pixels
-	atlasInfo.y = 0.0; //
-*/	
-/*	int i_x = 2;
-	int i_y = 0;
-	
-	rect *r = &sprite->sprite->atlasInfo;
-	r->x = ffx * i_x;
-	r->y = ffy * i_y;
-	r->w = ffx;
-	r->h = ffy;
-	sprite->sprite->isAtlas = true;*/
-	
-	//w = texture->atlas_frame_w;
-//	h = texture->atlas_frame_h;
-	
-}
 
 TexturedQuad::TexturedQuad(std::string filename)
 {
@@ -133,96 +94,8 @@ void TexturedQuad::transform ()
 #endif
 }
 
-
-void TexturedQuad::renderFromAtlas ()
-{
-	
-	if (texture)
-	{	
-		//glLoadIdentity();
-		glPushMatrix();
-		transform();
-		rect atlasInfo;
-		atlasInfo.x = src.x / texture->w;
-		atlasInfo.y = src.y / texture->h;
-		
-		atlasInfo.w = src.w / texture->w;
-		atlasInfo.h = src.h / texture->h;		
-		
-		//atlasInfo.x = atlas_frame_index_x * atlasInfo.w;
-		//atlasInfo.y = atlas_frame_index_y * atlasInfo.h;
-		
-	/*	GLfloat		coordinates[] = { 0.0f,	1.0,
-			1.0,	1.0,
-			0.0f,	0.0f,
-			1.0,	0.0f };*/
-
-		GLfloat		coordinates[] = { atlasInfo.x,	atlasInfo.y + atlasInfo.h,
-			atlasInfo.x + atlasInfo.w,	atlasInfo.y + atlasInfo.h,
-			atlasInfo.x,	atlasInfo.y,
-			atlasInfo.x + atlasInfo.w,	atlasInfo.y };
-
-
-/*		GLfloat		coordinates[] = { src.x,	src.y + src.h,
-		 src.x + src.w,	src.y + src.h,
-		 src.x,	src.y,
-		 src.x + src.w,	src.y };*/
-		
-		
-/*		GLfloat		coordinates[] = { 0.0f,	0.5,
-		 1.0,	1.0,
-		 0.5f,	0.0f,
-		 1.0,	0.0f };*/
-		
-#ifdef BIERFICK
-		GLfloat		vertices[] = 
-		{	
-			-w/2,-h/2,z,
-			w/2,-h/2,z,
-			-w/2,h/2,z,
-			w/2,h/2,z
-		};
-#else
-		GLfloat		vertices[] = 
-		{	
-			0,			0,			0,
-			w,	0,			0,
-			0,			h,	0,
-			w,			h,	0
-		};
-		
-#endif
-		
-		glEnableClientState( GL_VERTEX_ARRAY);
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-		
-		glEnable( GL_TEXTURE_2D);
-		texture->makeActive();
-		glColor4f(1.0, 1.0,1.0, alpha);
-		glVertexPointer(3, GL_FLOAT, 0, vertices);
-		glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-		
-		glDisable( GL_TEXTURE_2D);
-		glDisableClientState(GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-		glPopMatrix();
-	}
-	
-}
-
-
-
 void TexturedQuad::renderContent ()
 {
-	//	loadMatrix();
-	if (isAtlas)
-	{
-		renderFromAtlas();
-		return;
-	}
-	
-	
 	if (texture)
 	{	
 		//glLoadIdentity();
@@ -271,6 +144,166 @@ void TexturedQuad::renderContent ()
 }
 
 
+#pragma mark -
+#pragma mark atlas quad
+TexturedAtlasQuad::TexturedAtlasQuad ()
+{
+	IRenderable::IRenderable();
+	init();
+}
+
+TexturedAtlasQuad::TexturedAtlasQuad(Texture2D *existing_texture)
+{
+	IRenderable::IRenderable();
+	init();
+	
+	texture = existing_texture;
+}
+
+
+TexturedAtlasQuad::TexturedAtlasQuad(std::string filename)
+{
+	IRenderable::IRenderable();
+	init();
+	loadFromFile(filename);
+}
+
+TexturedAtlasQuad::~TexturedAtlasQuad ()
+{
+	printf("%p: TexturedQuad::~TexturedQuad()\n",this);
+	
+	if (texture)
+	{
+		delete texture;
+		texture = NULL;
+	}
+}
+
+bool TexturedAtlasQuad::loadFromFile (std::string filename)
+{
+	texture = new Texture2D(filename);
+	if (!texture)
+	{
+		delete texture;
+		texture = NULL;
+		return false;
+	}
+	texture->setAliasTexParams();
+	
+	
+	return true;
+}
+
+void TexturedAtlasQuad::transform ()
+{
+#ifdef BIERFICK
+	glTranslatef( (w/2.0*scale_x) - (anchorPoint.x*w*scale_x) + x , (h/2.0*scale_y) - (anchorPoint.y*h*scale_y) + y, 0.0);
+	//	glTranslatef( (w/2.0) - (anchorPoint.x*w) + x , (h/2.0) - (anchorPoint.y*h) + y, 0.0); - original ohne scale
+	
+	if (rotation != 0.0f )
+		glRotatef( -rotation, 0.0f, 0.0f, 1.0f );
+	
+	
+	if (scale_x != 1.0 || scale_y != 1.0)
+		glScalef( scale_x, scale_y, 1.0f );
+#else
+	glTranslatef(x, y, z);
+	
+	if (rotation != 0.0f )
+		glRotatef( -rotation, 0.0f, 0.0f, 1.0f );
+	
+	if (scale_x != 1.0 || scale_y != 1.0)
+		glScalef( scale_x, scale_y, 1.0f );
+	
+	glTranslatef(- (anchorPoint.x * w), - (anchorPoint.y * h), 0);
+#endif
+}
+
+
+void TexturedAtlasQuad::renderContent ()
+{
+	
+	if (texture)
+	{	
+		//glLoadIdentity();
+		glPushMatrix();
+		w = src.w;
+		h = src.h;
+		
+		transform();
+		rect atlasInfo;
+		atlasInfo.x = src.x / texture->w;
+		atlasInfo.y = src.y / texture->h;
+		
+		atlasInfo.w = src.w / texture->w;
+		atlasInfo.h = src.h / texture->h;
+		
+		
+		//atlasInfo.x = atlas_frame_index_x * atlasInfo.w;
+		//atlasInfo.y = atlas_frame_index_y * atlasInfo.h;
+		
+		/*	GLfloat		coordinates[] = { 0.0f,	1.0,
+		 1.0,	1.0,
+		 0.0f,	0.0f,
+		 1.0,	0.0f };*/
+		
+		GLfloat		coordinates[] = { atlasInfo.x,	atlasInfo.y + atlasInfo.h,
+			atlasInfo.x + atlasInfo.w,	atlasInfo.y + atlasInfo.h,
+			atlasInfo.x,	atlasInfo.y,
+			atlasInfo.x + atlasInfo.w,	atlasInfo.y };
+		
+		
+		/*		GLfloat		coordinates[] = { src.x,	src.y + src.h,
+		 src.x + src.w,	src.y + src.h,
+		 src.x,	src.y,
+		 src.x + src.w,	src.y };*/
+		
+		
+		/*		GLfloat		coordinates[] = { 0.0f,	0.5,
+		 1.0,	1.0,
+		 0.5f,	0.0f,
+		 1.0,	0.0f };*/
+		
+#ifdef BIERFICK
+		GLfloat		vertices[] = 
+		{	
+			-w/2,-h/2,z,
+			w/2,-h/2,z,
+			-w/2,h/2,z,
+			w/2,h/2,z
+		};
+#else
+		GLfloat		vertices[] = 
+		{	
+			0,			0,			0,
+			w,	0,			0,
+			0,			h,	0,
+			w,			h,	0
+		};
+		
+#endif
+		
+		glEnableClientState( GL_VERTEX_ARRAY);
+		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+		
+		glEnable( GL_TEXTURE_2D);
+		texture->makeActive();
+		glColor4f(1.0, 1.0,1.0, alpha);
+		glVertexPointer(3, GL_FLOAT, 0, vertices);
+		glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		
+		glDisable( GL_TEXTURE_2D);
+		glDisableClientState(GL_VERTEX_ARRAY );
+		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+		glPopMatrix();
+	}
+	
+}
+
+
+#pragma mark -
+#pragma mark font
 extern std::string pathForFile2 (const char *filename);
 #include "bm_font.h"
 #include <stdio.h>

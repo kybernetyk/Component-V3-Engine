@@ -10,8 +10,9 @@
 #include "GameLogicSystem.h"
 #include "Texture2D.h"
 #include "SoundSystem.h"
+extern TexturedAtlasQuad *cachedBlobQuad;
 
-Action *enemy_death_action_chain (Enemy *enemy_information)
+Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *enemy_information)
 {
 	//action chain
 	
@@ -21,7 +22,6 @@ Action *enemy_death_action_chain (Enemy *enemy_information)
 	mta->y = enemy_information->origin_y;
 	mta->duration = 0.5;
 	
-	
 	//2. play BLAM sound on origin point
 	SoundEffect *sfx = new SoundEffect;
 	sfx->sfx_id = SFX_BLAM;
@@ -30,17 +30,89 @@ Action *enemy_death_action_chain (Enemy *enemy_information)
 	blam_sound_action->components_to_add.push_back(sfx);
 	mta->next_action = blam_sound_action;
 	
+	
 	//3. remove the enemy entity
 	AddComponentAction *aca = new AddComponentAction();
 	aca->component_to_add = new MarkOfDeath();
 	blam_sound_action->next_action = aca;
+	
 
+	
+	//GOLD SIGN
+	Entity *gold_sign = _entityManager->createNewEntity();
+	
+	Position *pos = new Position();
+	pos->x = enemy_pos->x;
+	pos->y = enemy_pos->y;
+	_entityManager->addComponent(gold_sign, pos);
+
+	AtlasSprite *sprite = _entityManager->addComponent<AtlasSprite>(gold_sign);
+	sprite->sprite = cachedBlobQuad;
+	//sprite->sprite->w = 16.0;
+//	sprite->sprite->h = 16.0;
+	
+	rect src = {0.0,96.0,16.0,16.0};
+	sprite->src = src;
+	sprite->z = 9.0;
+	
+	
+	/*TextLabel *label = new TextLabel();
+	label->text = "+17G";
+	label->ogl_font = _smallFont;
+	label->z = 9.0;
+	_entityManager->addComponent(gold_sign, label);*/
+	
+	{
+		MoveToAction *_mt = new MoveToAction();
+		_mt->x = 16.0;
+		_mt->y = 12.0;
+		_mt->duration = 0.3;
+		
+		AddComponentAction *modaction = new AddComponentAction();
+		modaction->component_to_add = new MarkOfDeath();
+		_mt->next_action = modaction;
+		
+		_entityManager->addComponent(gold_sign, _mt);
+	}
+	
+	
+	//2. spawn +gold 
+	/*CreateEntityAction *gold_sign = new CreateEntityAction();
+	
+	Position *pos = new Position();
+	pos->x = enemy_pos->x;
+	pos->y = enemy_pos->y;
+	gold_sign->components_to_add.push_back(pos);
+	
+	TextLabel *label = new TextLabel();
+	label->text = "+17G";
+	label->ogl_font = _smallFont;
+	label->z = 9.0;
+	gold_sign->components_to_add.push_back(label);
+	
+	{
+		MoveByAction *_mb = new MoveByAction();
+		_mb->y = 50;
+		_mb->duration = 0.3;
+		
+		AddComponentAction *modaction = new AddComponentAction();
+		modaction->component_to_add = new MarkOfDeath();
+		_mb->next_action = modaction;
+		
+		gold_sign->components_to_add.push_back(_mb);
+	}*/
+	
+	
+										   
+							
 	return mta;
 }
 
 GameLogicSystem::GameLogicSystem (MANAGERCLASS *entityManager)
 {
 	_entityManager = entityManager;
+	_smallFont = new OGLFont("visitor_18.fnt");
+	
 	restoreGameStateFromFile();
 }
 
@@ -63,9 +135,6 @@ void GameLogicSystem::check_player_for_levelup ()
 		g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+280;
 		
 		saveGameStateToFile();
-		
-		Entity *lvlup_sound = _entityManager->createNewEntity();
-		_entityManager->addComponent<SoundEffect>(lvlup_sound)->sfx_id = SFX_LEVELUP;
 	}
 }
 
@@ -123,7 +192,7 @@ void GameLogicSystem::handle_player_enemy_collision ()
 			g_GameState.score += 17;
 			g_GameState.experience += 23;
 		//	g_GameState.enemies_left --;
-			Action *actn = enemy_death_action_chain(enemy_information);
+			Action *actn = enemy_death_action_chain(enemy_pos,enemy_information);
 			
 			//add the action chain
 			_entityManager->addComponent(enemy, actn);
