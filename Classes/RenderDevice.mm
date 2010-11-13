@@ -92,6 +92,12 @@ void RenderDevice::setupViewportAndProjection (int viewport_width_in_pixels, int
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
+	
+			glEnableClientState( GL_VERTEX_ARRAY);
+			glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+	
+			glEnable( GL_TEXTURE_2D);
+	
 //	printf("OMFG");
 
 /*	_pixelViewportSize.x = viewport_width_in_pixels;

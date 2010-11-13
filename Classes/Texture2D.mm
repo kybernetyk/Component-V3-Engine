@@ -30,7 +30,6 @@ std::string pathForFile2 (const char *filename)
 	
 	NSString *ret = [[NSBundle mainBundle] pathForResource:file ofType:nil inDirectory:imageDirectory];	
 	
-	//	- (const char *)cStringUsingEncoding:(NSStringEncoding)encoding
 	NSLog(@"ret: %@",ret);
 	if (!ret)
 	{
@@ -93,10 +92,8 @@ bool Texture2D::loadFromFile (std::string filename)
 	_openGlTextureID = tex_2d;
 	
 	_filename = filename;
-	//printf("loaded texture %s with id %i\n",_filename.c_str(),_openGlTextureID);
-//	this->makeActive();
 	
-	this->setAliasTexParams();
+	setAliasTexParams();
 	return true;
 } 
 
@@ -112,36 +109,10 @@ void Texture2D::makeActive ()
 	glBindTexture( GL_TEXTURE_2D, _openGlTextureID );
 }
 
-
-
-
-
-
-//an example using the PNG loading function:
-
-
-/*int main(int argc, char *argv[])
- {
- const char* filename = argc > 1 ? argv[1] : "test.png";
- 
- //load and decode
- std::vector<unsigned char> buffer, image;
- loadFile(buffer, filename);
- unsigned long w, h;
- int error = decodePNG(image, w, h, buffer.empty() ? 0 : &buffer[0], (unsigned long)buffer.size());
- 
- //if there's an error, display it
- if(error != 0) std::cout << "error: " << error << std::endl;
- 
- //the pixels are now in the vector "image", use it as texture, draw it, ...
- 
- if(image.size() > 4) std::cout << "width: " << w << " height: " << h << " first pixel: " << std::hex << int(image[0]) << int(image[1]) << int(image[2]) << int(image[3]) << std::endl;
- }
- */
-
 void Texture2D::setTexParams (TextureParams *texParams)
 {
-	glBindTexture( GL_TEXTURE_2D, _openGlTextureID );
+	//glBindTexture( GL_TEXTURE_2D, _openGlTextureID );
+	makeActive();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParams->minFilter );
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texParams->magFilter );
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texParams->wrapS );
@@ -161,16 +132,4 @@ void Texture2D::setAntiAliasTexParams ()
 	setTexParams(&texParams);
 }
 
-
-/*-(void) setTexParameters: (ccTexParams*) texParams
-{
-	NSAssert( (width_ == ccNextPOT(width_) && height_ == ccNextPOT(height_)) ||
-			 (texParams->wrapS == GL_CLAMP_TO_EDGE && texParams->wrapT == GL_CLAMP_TO_EDGE),
-			 @"GL_CLAMP_TO_EDGE should be used in NPOT textures");
-	glBindTexture( GL_TEXTURE_2D, self.name );
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texParams->minFilter );
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texParams->magFilter );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texParams->wrapS );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texParams->wrapT );
-}*/
 

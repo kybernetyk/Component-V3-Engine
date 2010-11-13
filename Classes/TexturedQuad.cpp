@@ -71,17 +71,6 @@ bool TexturedQuad::loadFromFile (std::string filename)
 
 void TexturedQuad::transform ()
 {
-#ifdef BIERFICK
-	glTranslatef( (w/2.0*scale_x) - (anchorPoint.x*w*scale_x) + x , (h/2.0*scale_y) - (anchorPoint.y*h*scale_y) + y, 0.0);
-//	glTranslatef( (w/2.0) - (anchorPoint.x*w) + x , (h/2.0) - (anchorPoint.y*h) + y, 0.0); - original ohne scale
-
-	if (rotation != 0.0f )
-		glRotatef( -rotation, 0.0f, 0.0f, 1.0f );
-
-
-	if (scale_x != 1.0 || scale_y != 1.0)
-		glScalef( scale_x, scale_y, 1.0f );
-#else
 	glTranslatef(x, y, z);
 	
 	if (rotation != 0.0f )
@@ -91,7 +80,6 @@ void TexturedQuad::transform ()
 		glScalef( scale_x, scale_y, 1.0f );
 	
 	glTranslatef(- (anchorPoint.x * w), - (anchorPoint.y * h), 0);
-#endif
 }
 
 void TexturedQuad::renderContent ()
@@ -107,15 +95,6 @@ void TexturedQuad::renderContent ()
 			1.0,	1.0,
 			0.0f,	0.0f,
 			1.0,	0.0f };
-#ifdef BIERFICK
-		GLfloat		vertices[] = 
-		{	
-			-w/2,-h/2,z,
-			w/2,-h/2,z,
-			-w/2,h/2,z,
-			w/2,h/2,z
-		};
-#else
 		GLfloat		vertices[] = 
 		{	
 			0,			0,			0,
@@ -123,21 +102,20 @@ void TexturedQuad::renderContent ()
 			0,			h,	0,
 			w,			h,	0
 		};
-#endif		
 		
-		glEnableClientState( GL_VERTEX_ARRAY);
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+//		glEnableClientState( GL_VERTEX_ARRAY);
+//		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 		
-		glEnable( GL_TEXTURE_2D);
+//		glEnable( GL_TEXTURE_2D);
 		texture->makeActive();
 		glColor4f(1.0, 1.0,1.0, alpha);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
 		glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		
-		glDisable( GL_TEXTURE_2D);
-		glDisableClientState(GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+//		glDisable( GL_TEXTURE_2D);
+//		glDisableClientState(GL_VERTEX_ARRAY );
+//		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 		glPopMatrix();
 	}
 	
@@ -196,17 +174,6 @@ bool TexturedAtlasQuad::loadFromFile (std::string filename)
 
 void TexturedAtlasQuad::transform ()
 {
-#ifdef BIERFICK
-	glTranslatef( (w/2.0*scale_x) - (anchorPoint.x*w*scale_x) + x , (h/2.0*scale_y) - (anchorPoint.y*h*scale_y) + y, 0.0);
-	//	glTranslatef( (w/2.0) - (anchorPoint.x*w) + x , (h/2.0) - (anchorPoint.y*h) + y, 0.0); - original ohne scale
-	
-	if (rotation != 0.0f )
-		glRotatef( -rotation, 0.0f, 0.0f, 1.0f );
-	
-	
-	if (scale_x != 1.0 || scale_y != 1.0)
-		glScalef( scale_x, scale_y, 1.0f );
-#else
 	glTranslatef(x, y, z);
 	
 	if (rotation != 0.0f )
@@ -216,7 +183,6 @@ void TexturedAtlasQuad::transform ()
 		glScalef( scale_x, scale_y, 1.0f );
 	
 	glTranslatef(- (anchorPoint.x * w), - (anchorPoint.y * h), 0);
-#endif
 }
 
 
@@ -239,13 +205,6 @@ void TexturedAtlasQuad::renderContent ()
 		atlasInfo.h = src.h / texture->h;
 		
 		
-		//atlasInfo.x = atlas_frame_index_x * atlasInfo.w;
-		//atlasInfo.y = atlas_frame_index_y * atlasInfo.h;
-		
-		/*	GLfloat		coordinates[] = { 0.0f,	1.0,
-		 1.0,	1.0,
-		 0.0f,	0.0f,
-		 1.0,	0.0f };*/
 		
 		GLfloat		coordinates[] = { atlasInfo.x,	atlasInfo.y + atlasInfo.h,
 			atlasInfo.x + atlasInfo.w,	atlasInfo.y + atlasInfo.h,
@@ -253,26 +212,6 @@ void TexturedAtlasQuad::renderContent ()
 			atlasInfo.x + atlasInfo.w,	atlasInfo.y };
 		
 		
-		/*		GLfloat		coordinates[] = { src.x,	src.y + src.h,
-		 src.x + src.w,	src.y + src.h,
-		 src.x,	src.y,
-		 src.x + src.w,	src.y };*/
-		
-		
-		/*		GLfloat		coordinates[] = { 0.0f,	0.5,
-		 1.0,	1.0,
-		 0.5f,	0.0f,
-		 1.0,	0.0f };*/
-		
-#ifdef BIERFICK
-		GLfloat		vertices[] = 
-		{	
-			-w/2,-h/2,z,
-			w/2,-h/2,z,
-			-w/2,h/2,z,
-			w/2,h/2,z
-		};
-#else
 		GLfloat		vertices[] = 
 		{	
 			0,			0,			0,
@@ -281,21 +220,19 @@ void TexturedAtlasQuad::renderContent ()
 			w,			h,	0
 		};
 		
-#endif
+//		glEnableClientState( GL_VERTEX_ARRAY);
+//		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 		
-		glEnableClientState( GL_VERTEX_ARRAY);
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-		
-		glEnable( GL_TEXTURE_2D);
+//		glEnable( GL_TEXTURE_2D);
 		texture->makeActive();
 		glColor4f(1.0, 1.0,1.0, alpha);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
 		glTexCoordPointer(2, GL_FLOAT, 0, coordinates);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		
-		glDisable( GL_TEXTURE_2D);
-		glDisableClientState(GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+//		glDisable( GL_TEXTURE_2D);
+//		glDisableClientState(GL_VERTEX_ARRAY );
+//		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 		glPopMatrix();
 	}
 	
@@ -345,9 +282,6 @@ int bm_loadfont (const char *filename, bm_font *font)
 	
 	if (font->tex_filename[strlen(font->tex_filename)-1] == '"')
 		font->tex_filename[strlen(font->tex_filename)-1] = 0; //remove "
-	
-	//printf("buff: %s\n",buff);
-	//printf("tex: %s\n",font->tex_filename);
 	
 	//char count
 	memset(buff,0x00,512);
@@ -456,20 +390,12 @@ bool OGLFont::loadFromFNTFile (std::string fnt_filename)
 		return false;
 	}
 	texture->setAliasTexParams();
-
-	
-//	w = texture->w;
-//	h = texture->h;
 }
 
 void OGLFont::transform ()
 {
 	int w = bm_width(&font, text);
 	float h = font.line_h*.75; //bm_height(&font, text);
-	//rotation = -45.0;
-//	anchorPoint.y = 0.5;
-/*	anchorPoint.x = 1.0;
-*/	
 	glTranslatef(x, y, z);
 	
 	if (rotation != 0.0f )
@@ -495,10 +421,10 @@ void OGLFont::renderContent()
 		int l = strlen(text);
 		
 		
-		glEnableClientState( GL_VERTEX_ARRAY);
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+//		glEnableClientState( GL_VERTEX_ARRAY);
+//		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 		
-		glEnable( GL_TEXTURE_2D);
+//		glEnable( GL_TEXTURE_2D);
 		texture->makeActive();
 		glColor4f(1.0, 1.0,1.0, alpha);
 
@@ -511,29 +437,10 @@ void OGLFont::renderContent()
 		{
 			pchar = &font.chars[ text[i] ];
 			
-//			int w = pchar->w;
-//			int h = pchar->h;
-			
 			tx = (double)pchar->x / (double)texture->w;
 			ty = (double)pchar->y / (double)texture->h;
 			tw = (double)pchar->w / (double)texture->w;
 			th = (double)pchar->h / (double)texture->h;
-			
-/*			int _x = 0;
-			int _y = 0;
-			int _w = _x+pchar->w;
-			int _h = _y+pchar->h;
-
-			GLfloat		vertices[] = 
-			 {	
-				 _x,	_y,		0,
-				 _w,	_y,		0,
-				 _x,	_h,		0,
-				 _w,	_h,		0
-			 };
-			 			
-*/			
-			
 			GLfloat		vertices[] = 
 			{	
 				0,			0,			0,
@@ -561,9 +468,9 @@ void OGLFont::renderContent()
 			glTranslatef(pchar->x_advance-pchar->x_offset, 0, 0.0);			
 		}
 		
-		glDisable( GL_TEXTURE_2D);
-		glDisableClientState(GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
+//		glDisable( GL_TEXTURE_2D);
+//		glDisableClientState(GL_VERTEX_ARRAY );
+//		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 		
 		
 		glPopMatrix();

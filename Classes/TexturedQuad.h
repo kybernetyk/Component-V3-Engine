@@ -103,15 +103,6 @@ public:
 		
 	void transform ();
 	void renderContent();
-
-	
-//	int atlas_frame_index_x;		//the frame index of the sprite from the atlas
-//	int atlas_frame_index_y;		//this will be converted into texels. float texel_x = atlasInfo.w * atlas_frame_index_x ...
-									//frame indizes start in top left corner. so x0,y0 = top left subimage
-//	rect atlasInfo;
-//	bool isAtlas;
-	
-	
 	
 	Texture2D *texture;
 };

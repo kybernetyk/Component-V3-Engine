@@ -47,12 +47,12 @@ Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *e
 	_entityManager->addComponent(gold_sign, pos);
 
 	AtlasSprite *sprite = _entityManager->addComponent<AtlasSprite>(gold_sign);
-	sprite->sprite = cachedBlobQuad;
+	sprite->atlas_quad = cachedBlobQuad;
 	//sprite->sprite->w = 16.0;
 //	sprite->sprite->h = 16.0;
 	
-	rect src = {0.0,96.0,16.0,16.0};
-	sprite->src = src;
+//	rect src = {0.0,96.0,16.0,16.0};
+	sprite->src = rect_make(0.0, 96.0, 16.0, 16.0);
 	sprite->z = 9.0;
 	
 	

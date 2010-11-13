@@ -32,7 +32,7 @@
  std::set<Entity*> positionList;
  myManager->getEntitiesWithComponentFamily <Position> (positionList);
 
- 
+ LOL THIS IS OUTDATED! DONT TRUST xD
  */
 //TODO: add component removal from entities, add component removal from manager (in case of kill, etc)
 #pragma once

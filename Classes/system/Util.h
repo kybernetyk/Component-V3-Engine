@@ -19,6 +19,8 @@ struct vector2D
 	float y;
 };
 
+vector2D vector2D_make (float x, float y);
+
 struct rect
 {
 	float x;
@@ -26,5 +28,7 @@ struct rect
 	float w;
 	float h;
 };
+
+rect rect_make (float x, float y, float w, float h);
 
 #endif

@@ -42,6 +42,8 @@ struct Component
 	DEBUGINFO("Component")
 	
 };
+#pragma mark -
+#pragma mark managment
 
 struct MarkOfDeath : public Component 
 {
@@ -55,6 +57,23 @@ struct MarkOfDeath : public Component
 	DEBUGINFO("Mark Of Death")
 };
 
+struct Name : public Component 
+{
+	static ComponentID COMPONENT_ID;
+	std::string name;
+	
+	Name()
+	{
+		name = "no name given";
+		_id = COMPONENT_ID;
+	}
+	
+	DEBUGINFO ("Name: %s",name.c_str())
+};
+
+
+#pragma mark -
+#pragma mark position
 struct Position : public Component 
 {
 	static ComponentID COMPONENT_ID;
@@ -73,22 +92,6 @@ struct Position : public Component
 	DEBUGINFO ("Position: x=%f, y=%f, rot=%f, scale_x=%f, scale_y=%f",x,y,rot,scale_x,scale_y)
 };
 
-
-struct Name : public Component 
-{
-	static ComponentID COMPONENT_ID;
-	std::string name;
-
-	Name()
-	{
-		name = "no name given";
-		_id = COMPONENT_ID;
-	}
-	
-	DEBUGINFO ("Name: %s",name.c_str())
-};
-
-
 struct Movement : public Component
 {
 	static ComponentID COMPONENT_ID;
@@ -106,6 +109,51 @@ struct Movement : public Component
 	
 	DEBUGINFO ("Movement: vx=%f, vy=%f",vx,vy)
 };
+
+struct Attachment : public Component
+{
+	static ComponentID COMPONENT_ID;
+	EntityGUID targetEntityID;
+	unsigned int entityChecksum;
+	
+	float offset_x;
+	float offset_y;
+	
+	Attachment ()
+	{
+		_id = COMPONENT_ID;
+		
+		offset_x = offset_y = 0.0;
+		entityChecksum = 0;
+		targetEntityID = 0;
+	}
+	
+	DEBUGINFO ("Attachment attached to: %i, attached entity checksum: %i",targetEntityID, entityChecksum)
+};
+
+
+#pragma mark -
+#pragma mark sound
+struct SoundEffect : public Component
+{
+	static ComponentID COMPONENT_ID;
+	
+	
+	int sfx_id;
+	
+	SoundEffect ()
+	{
+		_id = COMPONENT_ID;
+		sfx_id = 0;
+	}
+	
+	DEBUGINFO ("Sound effect id: %i", sfx_id)
+	
+};
+
+
+#pragma mark -
+#pragma mark Renderable
 
 #define RENDERABLETYPE_BASE 0
 #define RENDERABLETYPE_SPRITE 1
@@ -135,7 +183,7 @@ struct Sprite : public Renderable
 {
 	static ComponentID COMPONENT_ID;
 	
-	TexturedQuad *sprite;
+	TexturedQuad *quad;
 	
 	Sprite()
 	{
@@ -144,18 +192,18 @@ struct Sprite : public Renderable
 		_id = COMPONENT_ID;
 		_renderable_type = RENDERABLETYPE_SPRITE;
 		
-		sprite = NULL;
+		quad = NULL;
 	}
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 	
-	DEBUGINFO ("Renderable: sprite=%p, z=%f", sprite,z)
+	DEBUGINFO ("Renderable: quad=%p, z=%f", quad,z)
 };
 
 struct AtlasSprite : public Renderable
 {
 	static ComponentID COMPONENT_ID;
 	
-	TexturedAtlasQuad *sprite;
+	TexturedAtlasQuad *atlas_quad;
 	
 	rect src; 
 	
@@ -167,14 +215,12 @@ struct AtlasSprite : public Renderable
 		_renderable_type = RENDERABLETYPE_ATLASSPRITE;
 		src.x = src.y = src.w = src.h = 0;
 		
-		sprite = NULL;
+		atlas_quad = NULL;
 	}
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 	
-	DEBUGINFO ("Atlas Sprite: sprite=%p, z=%f", sprite,z)
+	DEBUGINFO ("Atlas Sprite: atlas_quad=%p, z=%f", atlas_quad,z)
 };
-
-
 
 struct TextLabel : public Renderable
 {
@@ -200,7 +246,8 @@ struct TextLabel : public Renderable
 	DEBUGINFO ("Renderable: %s, z=%f", text.c_str(),z)
 };
 
-
+#pragma mark -
+#pragma mark game 
 struct PlayerController : public Component
 {
 	static ComponentID COMPONENT_ID;
@@ -232,26 +279,9 @@ struct Enemy : public Component
 };
 
 
-struct Attachment : public Component
-{
-	static ComponentID COMPONENT_ID;
-	EntityGUID targetEntityID;
-	unsigned int entityChecksum;
-	
-	float offset_x;
-	float offset_y;
-	
-	Attachment ()
-	{
-		_id = COMPONENT_ID;
 
-		offset_x = offset_y = 0.0;
-		entityChecksum = 0;
-		targetEntityID = 0;
-	}
-	
-	DEBUGINFO ("Attachment attached to: %i, attached entity checksum: %i",targetEntityID, entityChecksum)
-};
+#pragma mark -
+#pragma mark action
 
 #define ACTIONTYPE_NONE 0
 #define ACTIONTYPE_MOVE_TO 1
@@ -362,22 +392,5 @@ struct CreateEntityAction : public Action
 	DEBUGINFO ("CreateEntityAction. duration: %f timestamp: %f",duration,_timestamp)
 };
 
-
-struct SoundEffect : public Component
-{
-	static ComponentID COMPONENT_ID;
-
-	
-	int sfx_id;
-	
-	SoundEffect ()
-	{
-		_id = COMPONENT_ID;
-		sfx_id = 0;
-	}
-	
-	DEBUGINFO ("Sound effect id: %i", sfx_id)
-	
-};
 
 #endif

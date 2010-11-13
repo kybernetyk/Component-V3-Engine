@@ -57,8 +57,6 @@ bool blah4 (Entity *e1, Entity *e2)
 	
 }
 
-
-
 void RenderSystem::render (void)
 {
 #ifdef HUSOMANN			//old sorting 
@@ -190,7 +188,7 @@ void RenderSystem::render (void)
 		{
 			atlas_sprite = (AtlasSprite*)ren;
 			
-			textured_atlas_quad = atlas_sprite->sprite;
+			textured_atlas_quad = atlas_sprite->atlas_quad;
 			textured_atlas_quad->x = pos->x;
 			textured_atlas_quad->y = pos->y;
 			textured_atlas_quad->z = ren->z;
@@ -219,7 +217,7 @@ void RenderSystem::render (void)
 		{
 			sprite = (Sprite*)ren;
 			
-			textured_quad = sprite->sprite;
+			textured_quad = sprite->quad;
 			textured_quad->x = pos->x;
 			textured_quad->y = pos->y;
 			textured_quad->z = ren->z;
@@ -259,9 +257,6 @@ void RenderSystem::render (void)
 #endif
 		++it;
 	}
-	
-	
-	
 #endif
 }
 

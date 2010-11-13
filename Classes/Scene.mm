@@ -128,31 +128,26 @@ void Scene::init ()
 	Entity *bg = _entityManager->createNewEntity();
 	Position *pos = _entityManager->addComponent <Position> (bg);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (bg);
-	sprite->sprite = new TexturedQuad("bg.png");
-	sprite->sprite->texture->setAliasTexParams();
-	sprite->sprite->anchorPoint.x = 0.0;
-	sprite->sprite->anchorPoint.y = 0.0;
+	sprite->quad = new TexturedQuad("bg.png");
+	sprite->quad->anchorPoint.x = 0.0;
+	sprite->quad->anchorPoint.y = 0.0;
 	sprite->z = -5.0;
 	
 	Name *name = _entityManager->addComponent <Name> (bg);
 	name->name = "Game Background";
 
 	// 3 blobs
-	rect src = {2 * 32.0, 0 * 32.0, 32.0,32.0};
 	green_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240,160+20);
-	_entityManager->getComponent <AtlasSprite> (green_blob)->src = src;
-	//_entityManager->getComponent <Sprite> (green_blob)->sprite->src = src;
+	_entityManager->getComponent <AtlasSprite> (green_blob)->src = rect_make(2*32.0, 0*32.0, 32.0, 32.0);
 
 	
-	rect src2 = {2 * 32.0, 2 * 32.0, 32.0,32.0};	
 	red_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240-128,160+20);
-	_entityManager->getComponent <AtlasSprite> (red_blob)->src = src2;
-	//_entityManager->getComponent <Sprite> (red_blob)->sprite->src = src2;
+	_entityManager->getComponent <AtlasSprite> (red_blob)->src = rect_make(2*32.0,2*32.0,32.0,32.0);
+
 	
-	rect src3 = {0 * 32.0, 1 * 32.0, 32.0,32.0};		
 	blue_blob = SimpleMobFactory::createNewSimpleMob(_entityManager, 240+128,160+20);
-	_entityManager->getComponent <AtlasSprite> (blue_blob)->src = src3;
-	//_entityManager->getComponent <Sprite> (blue_blob)->sprite->src = src3;
+	_entityManager->getComponent <AtlasSprite> (blue_blob)->src = rect_make(0*32.0, 1*32.0, 32.0, 32.0);
+
 
 	
 	_entityManager->addComponent<Name>(green_blob)->name = "green_blob";
@@ -170,10 +165,8 @@ void Scene::init ()
 	pos->scale_y = 0.5;
 
 	sprite = _entityManager->addComponent <Sprite> (player);	
-	sprite->sprite = new TexturedQuad("das_minyx.png");
+	sprite->quad = new TexturedQuad("das_minyx.png");
 	sprite->z = 3.0;
-	//sprite->sprite->scale = 0.5;
-	sprite->sprite->texture->setAliasTexParams();
 	
 	name = _entityManager->addComponent <Name> (player);
 	name->name = "Player Figure";
