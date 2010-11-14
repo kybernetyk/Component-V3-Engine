@@ -131,6 +131,44 @@ struct Attachment : public Component
 	DEBUGINFO ("Attachment attached to: %i, attached entity checksum: %i",targetEntityID, entityChecksum)
 };
 
+#pragma mark -
+#pragma mark animation
+#define ANIMATION_STATE_PAUSE 0
+#define ANIMATION_STATE_PLAY 1
+struct FrameAnimation : public Component
+{
+	static ComponentID COMPONENT_ID;
+
+	float current_frame;
+	float frames_per_second;
+	float speed_scale;
+	bool loop;
+	int state;
+	bool destroy_on_finish;
+	
+	int start_frame;
+	int end_frame;
+	
+	rect frame_size;
+	
+	FrameAnimation ()
+	{
+		_id = COMPONENT_ID;
+		current_frame = 0.0;
+		speed_scale = 1.0;
+		frames_per_second = 0.0;
+		loop = false;
+		destroy_on_finish = true;
+		frame_size = rect_make(0.0, 0.0, 0.0, 0.0);
+		state = ANIMATION_STATE_PAUSE;
+		start_frame = 0;
+		end_frame = 0;
+	}
+	
+	DEBUGINFO ("Frame Animation: frame: %f, start_fram: %i, end_frame: %i, speed: %f, fps: %f, loop: %i", current_frame, start_frame, end_frame, speed_scale, frames_per_second, loop)
+	
+	
+};
 
 #pragma mark -
 #pragma mark sound

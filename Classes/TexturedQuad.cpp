@@ -136,6 +136,10 @@ TexturedAtlasQuad::TexturedAtlasQuad(Texture2D *existing_texture)
 	init();
 	
 	texture = existing_texture;
+	
+	tex_w = texture->w;
+	tex_h = texture->h;
+
 }
 
 
@@ -144,6 +148,10 @@ TexturedAtlasQuad::TexturedAtlasQuad(std::string filename)
 	IRenderable::IRenderable();
 	init();
 	loadFromFile(filename);
+	
+	tex_w = texture->w;
+	tex_h = texture->h;
+
 }
 
 TexturedAtlasQuad::~TexturedAtlasQuad ()
@@ -167,7 +175,10 @@ bool TexturedAtlasQuad::loadFromFile (std::string filename)
 		return false;
 	}
 	texture->setAliasTexParams();
-	
+
+	tex_w = texture->w;
+	tex_h = texture->h;
+
 	
 	return true;
 }

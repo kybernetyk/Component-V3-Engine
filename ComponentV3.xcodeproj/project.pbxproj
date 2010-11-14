@@ -38,6 +38,8 @@
 		033DCC0B128D7D5D00C66D74 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033DCC0A128D7D5D00C66D74 /* OpenGLES.framework */; };
 		033DCC0D128D7D6F00C66D74 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033DCC0C128D7D6F00C66D74 /* QuartzCore.framework */; };
 		0352A696128F29C70005F657 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A695128F29C70005F657 /* util.cpp */; };
+		0352A717129006500005F657 /* AnimationSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A716129006500005F657 /* AnimationSystem.cpp */; };
+		0352A720129008C80005F657 /* anims.png in Resources */ = {isa = PBXBuildFile; fileRef = 0352A71F129008C80005F657 /* anims.png */; };
 		03A847D0128ED3FA006EACB3 /* CDAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A847C8128ED3FA006EACB3 /* CDAudioManager.m */; };
 		03A847D1128ED3FA006EACB3 /* CDOpenALSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A847CB128ED3FA006EACB3 /* CDOpenALSupport.m */; };
 		03A847D2128ED3FA006EACB3 /* CocosDenshion.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A847CD128ED3FA006EACB3 /* CocosDenshion.m */; };
@@ -154,6 +156,9 @@
 		033DCC0A128D7D5D00C66D74 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		033DCC0C128D7D6F00C66D74 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0352A695128F29C70005F657 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
+		0352A715129006500005F657 /* AnimationSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationSystem.h; sourceTree = "<group>"; };
+		0352A716129006500005F657 /* AnimationSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationSystem.cpp; sourceTree = "<group>"; };
+		0352A71F129008C80005F657 /* anims.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anims.png; sourceTree = "<group>"; };
 		03A847C7128ED3FA006EACB3 /* CDAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAudioManager.h; sourceTree = "<group>"; };
 		03A847C8128ED3FA006EACB3 /* CDAudioManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAudioManager.m; sourceTree = "<group>"; };
 		03A847C9128ED3FA006EACB3 /* CDConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDConfig.h; sourceTree = "<group>"; };
@@ -239,6 +244,7 @@
 				033DCB8C128D7C9700C66D74 /* Component */,
 				033DCB86128D7C9700C66D74 /* EntityManager */,
 				033DCB80128D7C9700C66D74 /* Game Objects */,
+				0352A714129006270005F657 /* Animation System */,
 				03EDF8F6128D8C3C0086763A /* SoundSystem */,
 				033DCB83128D7C9700C66D74 /* MovementSystem */,
 				033DCB7D128D7C9700C66D74 /* Render System */,
@@ -427,6 +433,15 @@
 			path = SOIL_iPhone;
 			sourceTree = "<group>";
 		};
+		0352A714129006270005F657 /* Animation System */ = {
+			isa = PBXGroup;
+			children = (
+				0352A715129006500005F657 /* AnimationSystem.h */,
+				0352A716129006500005F657 /* AnimationSystem.cpp */,
+			);
+			name = "Animation System";
+			sourceTree = "<group>";
+		};
 		03A847C6128ED3FA006EACB3 /* CocosDenshion */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,6 +461,7 @@
 		03EDF865128D81B50086763A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0352A71F129008C80005F657 /* anims.png */,
 				03EDFF22128E22740086763A /* levelup.wav */,
 				03EDFC8A128DF7280086763A /* xp_bar.png */,
 				03EDFC88128DF71E0086763A /* hud.png */,
@@ -642,6 +658,7 @@
 				03EDFC89128DF71E0086763A /* hud.png in Resources */,
 				03EDFC8B128DF7280086763A /* xp_bar.png in Resources */,
 				03EDFF23128E22740086763A /* levelup.wav in Resources */,
+				0352A720129008C80005F657 /* anims.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +704,7 @@
 				03A847D2128ED3FA006EACB3 /* CocosDenshion.m in Sources */,
 				03A847D3128ED3FA006EACB3 /* SimpleAudioEngine.m in Sources */,
 				0352A696128F29C70005F657 /* util.cpp in Sources */,
+				0352A717129006500005F657 /* AnimationSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +723,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "57992450-C3B2-4610-85D0-7AF67D3FB0D9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2B52CCCB-FFDC-4D4A-B3C2-960BABDED001";
 				SDKROOT = iphoneos4.1;
 			};
 			name = "Ad-Hoc";

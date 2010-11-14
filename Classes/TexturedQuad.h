@@ -121,11 +121,15 @@ public:
 		
 		texture = NULL;
 		src.x = src.y = src.w = src.h = 0.0;
+		tex_w = tex_h = 0;
 	}
 	
 	bool loadFromFile (std::string filename);
 	
 	void transform ();
+	
+	int tex_w;
+	int tex_h;
 	
 	rect src;
 	void renderContent ();

@@ -19,7 +19,7 @@
 #include "CorpseRetrievalSystem.h"
 #include "HUDSystem.h"
 #include "SoundSystem.h"
-
+#include "AnimationSystem.h"
 class Scene
 {
 public:
@@ -46,6 +46,7 @@ protected:
 	CorpseRetrievalSystem *_corpseRetrievalSystem;	
 	HUDSystem *_hudSystem;
 	SoundSystem *_soundSystem;
+	AnimationSystem *_animationSystem;
 	
 	Entity *red_blob;
 	Entity *green_blob;

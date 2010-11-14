@@ -121,6 +121,7 @@ void Scene::init ()
 	_corpseRetrievalSystem = new CorpseRetrievalSystem (_entityManager);
 	_hudSystem = new HUDSystem (_entityManager);
 	_soundSystem = new SoundSystem (_entityManager);
+	_animationSystem = new AnimationSystem (_entityManager);
 	
 	_soundSystem->playMusic(MUSIC_GAME);
 
@@ -172,9 +173,59 @@ void Scene::init ()
 	name->name = "Player Figure";
 	
 	
+	//Animation test
+	Entity *anim = _entityManager->createNewEntity();
 	
-		
+	Texture2D *tex = NULL;
+	
+	AtlasSprite *atlas_sprite = _entityManager->addComponent <AtlasSprite> (anim);
+	atlas_sprite->atlas_quad = new TexturedAtlasQuad ("anims.png");
+	atlas_sprite->src = rect_make(0.0, 0.0, 32.0, 32.0);
+	atlas_sprite->z = 9.0;
+	
+	pos = _entityManager->addComponent<Position>(anim);
+	pos->x = 480/2;
+	pos->y = 320/2;
+	
+	FrameAnimation *frame_animation = _entityManager->addComponent <FrameAnimation> (anim);
+	frame_animation->frame_size = rect_make(0.0, 0.0, 32.0, 32.0);
+	frame_animation->frames_per_second = 24;
+	frame_animation->speed_scale = 1.0;
+	frame_animation->start_frame = 31;
+	frame_animation->end_frame = 0;
+	frame_animation->current_frame = frame_animation->start_frame;
+	frame_animation->state = ANIMATION_STATE_PLAY;
+	frame_animation->loop = true;
+	frame_animation->destroy_on_finish = false;
 	_entityManager->dumpEntityCount();
+
+	
+	tex = atlas_sprite->atlas_quad->texture;
+	
+	anim = _entityManager->createNewEntity();
+	
+	atlas_sprite = _entityManager->addComponent <AtlasSprite> (anim);
+	atlas_sprite->atlas_quad = new TexturedAtlasQuad (tex);
+	atlas_sprite->src = rect_make(0.0, 0.0, 32.0, 32.0);
+	atlas_sprite->z = 9.0;
+	
+	pos = _entityManager->addComponent<Position>(anim);
+	pos->x = 480/2+64;
+	pos->y = 320/2;
+	
+	frame_animation = _entityManager->addComponent <FrameAnimation> (anim);
+	frame_animation->frame_size = rect_make(0.0, 0.0, 32.0, 32.0);
+	frame_animation->frames_per_second = 24;
+	frame_animation->speed_scale = 1.0;
+	frame_animation->start_frame = 0;
+	frame_animation->end_frame = 63;
+	frame_animation->current_frame = frame_animation->start_frame;
+	frame_animation->state = ANIMATION_STATE_PLAY;
+	frame_animation->loop = true;
+	frame_animation->destroy_on_finish = false;
+
+	_entityManager->dumpEntityCount();
+	
 	
 }
 
@@ -201,6 +252,7 @@ void Scene::update (float delta)
 	_actionSystem->update(delta);
 	_movementSystem->update(delta);
 	_attachmentSystem->update(delta);
+	_animationSystem->update(delta);
 	_gameLogicSystem->update(delta);
 	_hudSystem->update(delta);
 	_soundSystem->update(delta);
