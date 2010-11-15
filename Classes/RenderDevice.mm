@@ -84,13 +84,17 @@ void RenderDevice::setupViewportAndProjection (int viewport_width_in_pixels, int
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity(); //Reset projection matrix
 
-	glOrthof(-viewport_width_in_meters/2.0 , viewport_width_in_meters/2.0 , -viewport_height_in_meters/2.0, viewport_height_in_meters/2.0 , -10.0 , 10.0 );
+	//glOrthof(-viewport_width_in_meters/2.0 , viewport_width_in_meters/2.0 , -viewport_height_in_meters/2.0, viewport_height_in_meters/2.0 , -10.0 , 10.0 );
 
+	glOrthof(0 , viewport_width_in_meters , 0, viewport_height_in_meters , -10.0 , 10.0 );
+	
 	//landscape
 
 #ifdef MANUAL_LANDSCAPE
 	glRotatef(-90, 0, 0, 1);
 #endif
+
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
@@ -124,43 +128,26 @@ void RenderDevice::setupViewportAndProjection (int viewport_width_in_pixels, int
 
 void RenderDevice::init (void)
 {
-//	SDL_Init (SDL_INIT_VIDEO);
 
-	// Create a double-buffered draw context
-  //  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-	//fuer welches bildformat wurden die grafiken gemacht?
-//	_referenceScreenSize.x = 8000;
-//	_referenceScreenSize.y = 6000;
-
-//	_pixelToMeterRatio = 1.0 / 32.0f; //1 meter equals 32 pixels
-									  //wird nur fuer pixelToMeter() benutzt
-									  //mal depreacaten?
-	
-	_pixelToMeterRatio = 1.0;
-	
-	//physikalischer screen size
-#ifdef MANUAL_LANDSCAPE
-	float screen_size_x = 320.0;
-	float screen_size_y = 480.0;
-#else
+#ifdef ORIENTATION_LANDSCAPE
 	float screen_size_x = 480.0;
-	float screen_size_y = 320.0;
-#endif
-	float xyratio = screen_size_x / screen_size_y;
-	
+	float screen_size_y = 320.0;	//change to 280 for a 40px high empty strip [eg for an ad banner]
 
-#ifdef MANUAL_LANDSCAPE
-	float viewport_size_x = 320.0;
-	float viewport_size_y = 480.0;// / pixeltometerratio;//viewport_size_x / xyratio;
-#else
 	float viewport_size_x = 480.0;// / pixeltometerratio;//viewport_size_x / xyratio;
 	float viewport_size_y = 320.0;	
 #endif
-	
-	float mapzoom = 1.00; //cvgmap zooms in by 25% >.<
 
-	setupViewportAndProjection(screen_size_x,screen_size_y,viewport_size_x*mapzoom,viewport_size_y*mapzoom);
+#ifdef ORIENTATION_PORTRAIT
+	float screen_size_x = 320.0;
+	float screen_size_y = 480.0;
+	
+	float viewport_size_x = 320.0;// / pixeltometerratio;//viewport_size_x / xyratio;
+	float viewport_size_y = 480.0;	
+#endif	
+
+	
+
+	setupViewportAndProjection(screen_size_x,screen_size_y,viewport_size_x,viewport_size_y);
 	
 }
 
@@ -178,11 +165,7 @@ void RenderDevice::beginRender (void)
 {
 	glLoadIdentity();
 	
-#ifdef MANUAL_LANDSCAPE
-	glTranslatef(-_pixelViewportSize.y/2.0, -_pixelViewportSize.x/2.0, 0);
-#else
-	glTranslatef(-_pixelViewportSize.x/2.0, -_pixelViewportSize.y/2.0, 0);
-#endif
+	//glTranslatef(-_pixelViewportSize.x/2.0, -_pixelViewportSize.y/2.0, 0);
 }
 
 void RenderDevice::endRender (void)

@@ -33,10 +33,21 @@
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
 {
-	return YES;
+//	return YES;
     // Return YES for supported orientations
+#ifdef ORIENTATION_LANDSCAPE
     return (interfaceOrientation == UIInterfaceOrientationLandscapeRight ||
 			interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+#endif
+	
+#ifdef ORIENTATION_PORTRAIT
+	return (interfaceOrientation == UIInterfaceOrientationPortrait ||
+			interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+#endif
+	
+	//else
+	return YES;
+	
 }
 
 

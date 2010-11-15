@@ -153,8 +153,6 @@ int gMapX,gMapY; // returns map offset for navigation
 #pragma mark === Touch handling  ===
 #pragma mark
 
-#define ORIENTATION_LANDSCAPE
-
 -(CGPoint)convertToGL:(CGPoint)uiPoint
 {
 	CGSize size = [self bounds].size;

@@ -70,7 +70,7 @@ public:
 	//zu benutzen: fast immer, ausser man will einen background effekt ...
 
 	//sollte aber nicht zu oft genutzt werden. lieber den sprites zb. feste groessen in metern zuweisen
-	float pixelToMeter (float nPixels) //gibt die size von n-pixeln in metern zurueck
+/*	float pixelToMeter (float nPixels) //gibt die size von n-pixeln in metern zurueck
 	 {
 		 return nPixels * _pixelToMeterRatio;
 	 }
@@ -177,7 +177,7 @@ public:
 private:
 	void setupViewportAndProjection (int viewport_width_in_pixels, int viewport_height_in_pixels, float viewport_width_in_meters, float viewport_height_in_meters);
 
-	float _pixelToMeterRatio;
+//	float _pixelToMeterRatio;
 	
 //	vector2D _pixelToMeterRatio;
 //	vector2D _meterToPixelRatio;

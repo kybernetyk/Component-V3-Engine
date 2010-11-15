@@ -4,6 +4,8 @@
 #define __RUNTIME_INFORMATION__
 #define ABORT_GUARDS
 #define MANAGERCLASS FastEntityManager
+#define ORIENTATION_LANDSCAPE
+//ORIENTATION_PORTRAIT
 
 #include "globals.h"
 #include <stdint.h>
