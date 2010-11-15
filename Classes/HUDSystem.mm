@@ -21,7 +21,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	hud_img = _entityManager->createNewEntity();
 	_entityManager->addComponent<Position>(hud_img);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (hud_img);
-	sprite->quad = new TexturedQuad ("hud.png");
+	sprite->quad = new TexturedQuad ("MinyxUltra_Sidebar.png");
 	sprite->quad->anchorPoint.x = 0.0;
 	sprite->quad->anchorPoint.y = 0.0;
 	sprite->z = 5.5;
@@ -38,7 +38,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	sprite->quad = new TexturedQuad("xp_bar.png");
 	sprite->quad->anchorPoint.x = 0.0;
 	sprite->quad->anchorPoint.y = 0.0;
-	sprite->z = 5.6;
+	sprite->z = 5.4;
 	
 	score_ui = _entityManager->createNewEntity();
 	_entityManager->addComponent<Name>(score_ui)->name = "score_ui";
@@ -51,38 +51,39 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->ogl_font->anchorPoint.x = 0.0;
 	label->ogl_font->anchorPoint.y = 0.0;
 	label->text = "0";
-	score_ui->get<Position>()->x = 32.0;
-	score_ui->get<Position>()->y = 4;
+	score_ui->get<Position>()->x = 54.0;
+	score_ui->get<Position>()->y = 9;
 	label->z = 6.0;
 	score_ui->get<Position>()->scale_x = 0.4;	
 	score_ui->get<Position>()->scale_y = 0.4;
-	
+
+	//xp
 	xp_ui = _entityManager->createNewEntity();
 	_entityManager->addComponent<Name>(xp_ui)->name = "xp_ui";
-
 	_entityManager->addComponent <Position> (xp_ui);
 	label = _entityManager->addComponent<TextLabel> (xp_ui);
 	label->ogl_font = new OGLFont("zomg.fnt");
 	label->ogl_font->anchorPoint.x = 1.0;
 	label->ogl_font->anchorPoint.y = 0.0;
 	label->text = "Xp: 0/0";
-	xp_ui->get<Position>()->x = 480;
-	xp_ui->get<Position>()->y = 4;
+	xp_ui->get<Position>()->x = 480-2;
+	xp_ui->get<Position>()->y = 9;
 	label->z = 6.0;
 	xp_ui->get<Position>()->scale_x = 0.4;
 	xp_ui->get<Position>()->scale_y = 0.4;
 	
+	
+	//level
 	level_ui = _entityManager->createNewEntity();
 	_entityManager->addComponent<Name>(level_ui)->name = "level_ui";
-	
 	_entityManager->addComponent <Position> (level_ui);
 	label = _entityManager->addComponent<TextLabel> (level_ui);
 	label->ogl_font = new OGLFont("zomg.fnt");
 	label->ogl_font->anchorPoint.x = 0.5;
 	label->ogl_font->anchorPoint.y = 0.0;
-	label->text = "Level: 0";
-	level_ui->get<Position>()->x = 480/2;
-	level_ui->get<Position>()->y = 4;
+	label->text = "Lvl. 0";
+	level_ui->get<Position>()->x = 480/2-16;
+	level_ui->get<Position>()->y = 9;
 	label->z = 6.0;
 	level_ui->get<Position>()->scale_x = 0.4;
 	level_ui->get<Position>()->scale_y = 0.4;
@@ -205,7 +206,7 @@ void HUDSystem::update (float delta)
 	sprintf(s, "XP: %i/%i", g_GameState.experience, g_GameState.experience_needed_to_levelup);
 	xp_ui->get<TextLabel>()->text = s;
 	
-	sprintf(s, "Level: %i", g_GameState.level);
+	sprintf(s, "Lvl. %i", g_GameState.level);
 	level_ui->get<TextLabel>()->text = s;
 	
 	float sx = (1.0/g_GameState.experience_needed_to_levelup) * g_GameState.experience;

@@ -173,7 +173,7 @@ void Scene::init ()
 	name->name = "Player Figure";
 	
 	
-	//Animation test
+/*	//Animation test
 	Entity *anim = _entityManager->createNewEntity();
 	
 	Texture2D *tex = NULL;
@@ -223,7 +223,9 @@ void Scene::init ()
 	frame_animation->state = ANIMATION_STATE_PLAY;
 	frame_animation->loop = true;
 	frame_animation->destroy_on_finish = false;
-
+*/
+	
+	
 	_entityManager->dumpEntityCount();
 	
 	

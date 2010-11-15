@@ -64,8 +64,8 @@ Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *e
 	
 	{
 		MoveToAction *_mt = new MoveToAction();
-		_mt->x = 16.0;
-		_mt->y = 12.0;
+		_mt->x = 32.0;
+		_mt->y = 16.0;
 		_mt->duration = 0.3;
 		
 		AddComponentAction *modaction = new AddComponentAction();
@@ -126,15 +126,22 @@ void GameLogicSystem::saveGameStateToFile ()
 	[[[UIApplication sharedApplication] delegate] saveGameState];
 }
 
+void GameLogicSystem::shareLevelOnFarmville ()
+{
+	[[[UIApplication sharedApplication] delegate] shareLevelOnFarmville];
+}
+
 void GameLogicSystem::check_player_for_levelup ()
 {
 	if (g_GameState.experience > g_GameState.experience_needed_to_levelup)
 	{
 		g_GameState.level ++;
 		g_GameState.experience -= g_GameState.experience_needed_to_levelup;
-		g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+280;
+		g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+100;
 		
 		saveGameStateToFile();
+		
+		shareLevelOnFarmville();
 	}
 }
 
@@ -189,8 +196,8 @@ void GameLogicSystem::handle_player_enemy_collision ()
 			Entity *sound = _entityManager->createNewEntity();
 			_entityManager->addComponent <SoundEffect> (sound);
 			sound->get<SoundEffect>()->sfx_id = SFX_TICK;
-			g_GameState.score += 17;
-			g_GameState.experience += 23;
+			g_GameState.score += (10 + rand()%15);
+			g_GameState.experience += (g_GameState.level*1.3);
 		//	g_GameState.enemies_left --;
 			Action *actn = enemy_death_action_chain(enemy_pos,enemy_information);
 			

@@ -11,7 +11,7 @@
 #include <sys/time.h>
 #include "Entity.h"
 #include "EntityManager.h"
-
+#import "FacebookSubmitController.h"
 
 #include "Scene.h"
 #include "RenderDevice.h"
@@ -46,8 +46,105 @@ unsigned int My_SDL_GetTicks()
 
 @implementation ComponentV3AppDelegate
 
+
+
 @synthesize window;
 @synthesize glView;
+
+- (void) shareLevelOnFarmville
+{
+	NSLog(@"ok, let's see if we can submit to fb!");
+	
+	if (g_GameState.level == 10 || 
+		g_GameState.level == 15 || 
+		g_GameState.level == 20 ||
+		g_GameState.level == 25 ||
+		g_GameState.level >= 30)
+	{
+		// lol
+		NSLog(@"ok, we can submit to fb ...");
+	}
+	else
+	{
+		return;
+	}
+	
+	
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	if ([defs boolForKey: @"facebook_disable"])
+	{
+		NSLog(@"Facebook disabled by user!");
+		return;
+	}
+	
+	
+	NSString *token = [defs objectForKey: @"fbtoken"];
+	if (token)
+	{
+		NSLog(@"found token. init share!");
+		[self initFBShare];
+		return;
+	}
+	
+	NSLog(@"no token. let's ask user!");
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Share On Facebook" 
+														message: @"Do you want to share your progress on Facebook?" 
+													   delegate: self 
+											  cancelButtonTitle: @"No. Don't ask me again." 
+											  otherButtonTitles: @"Yes!", @"Not now.", nil];
+	
+	[alertView show];
+	[alertView autorelease]; 
+	
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	NSLog(@"omg der buttonen indexen: %i, %@", buttonIndex,	[alertView buttonTitleAtIndex: buttonIndex]);
+	if (buttonIndex == 1)
+	{
+		NSLog(@"user wants to share!");
+		[self initFBShare];
+		return;
+	}
+	if (buttonIndex == 2)
+	{
+		NSLog(@"user wants not to share now ...");
+		return;
+	}
+	
+	NSLog(@"user hates facebook!");
+	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
+	[defs setBool: YES forKey: @"facebook_disable"];
+	[defs synchronize];
+}
+
+
+- (void) initFBShare
+{
+	if (!facebookController)
+	{
+		facebookController = [[FacebookSubmitController alloc] initWithNibName: @"FacebookSubmitController" bundle: nil];
+		[facebookController setDelegate: self];
+		
+	}
+	
+	[facebookController setLevel: g_GameState.level];
+	[facebookController setScore: g_GameState.score];
+	
+	//	[self presentModalViewController: fbsc animated: YES];
+	[facebookController shareOverFarmville];
+}
+
+- (void) facebookSubmitControllerDidFinish: (id) controller
+{
+	NSLog(@"facebook controller finished");
+//	[controller autorelease];
+}
+
+
+#pragma mark -
+#pragma mark stuff
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
 	//mTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0/FPS) target:self selector:@selector(renderScene) userInfo:nil repeats:YES];
@@ -58,7 +155,7 @@ unsigned int My_SDL_GetTicks()
 	
 	scene = new Scene();
 	scene->init();
-
+	
 	RenderDevice::sharedInstance()->init ();
 	
 	next_game_tick = My_SDL_GetTicks();
@@ -69,6 +166,8 @@ unsigned int My_SDL_GetTicks()
 	paused = false;
 	//timer = new Timer();
 	//timer->update();
+	
+	
 }
 
 
@@ -97,7 +196,7 @@ unsigned int My_SDL_GetTicks()
 	//interpolation klappt nur, wenn SDL_GetTicks() geportet wurde >.<
 #define ADVANCED_LOOP
 	//interpoliert
-	timer.printFPS();
+	//timer.printFPS();
 #ifdef ADVANCED_LOOP
 	loops = 0;
 	while( My_SDL_GetTicks() > next_game_tick && loops < MAX_FRAMESKIP) 
@@ -146,6 +245,14 @@ unsigned int My_SDL_GetTicks()
 
 #pragma mark -
 #pragma mark delegate
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+	[[facebookController facebook] handleOpenURL: url];
+	
+	return YES;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application 
 {
 	[self saveGameState];
@@ -197,7 +304,7 @@ unsigned int My_SDL_GetTicks()
 	if (g_GameState.level <= 0)
 	{
 		g_GameState.level = 1;
-		g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+280;
+		g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+100;
 	}
 	
 	[defs setInteger: g_GameState.experience forKey: @"gs_experience"];
@@ -219,7 +326,7 @@ unsigned int My_SDL_GetTicks()
 	g_GameState.experience = xp;
 	g_GameState.level = level;
 	g_GameState.score = score;
-	g_GameState.experience_needed_to_levelup =g_GameState.level*g_GameState.level*g_GameState.level+280;
+	g_GameState.experience_needed_to_levelup =g_GameState.level*g_GameState.level*g_GameState.level+100;
 	
 }
 

@@ -125,11 +125,6 @@ void SoundSystem::update (float delta)
 		
 		if (current_sound)
 		{
-			if (current_sound->sfx_id == SFX_KAWAII)
-			{
-				printf("PENISSS \n");
-			}
-			
 			int sid = current_sound->sfx_id;
 			if (sid)
 			{

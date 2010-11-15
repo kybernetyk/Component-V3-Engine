@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #include "Timer.h"
+#import "FacebookSubmitController.h"
 
 #define FPS 60.0
 // handy value to convert degrees to radians
@@ -138,13 +139,16 @@ void StashGame();
 
 @class EAGLView;
 
-@interface ComponentV3AppDelegate : NSObject <UIApplicationDelegate> {
+@interface ComponentV3AppDelegate : NSObject <UIApplicationDelegate> 
+{
     UIWindow *window;
     EAGLView *glView;
 	NSTimer*				mTimer;   // Rendering Timer
 	CADisplayLink *displayLink;
 	
 	Timer timer;
+
+	FacebookSubmitController *facebookController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
