@@ -153,17 +153,60 @@ int gMapX,gMapY; // returns map offset for navigation
 #pragma mark === Touch handling  ===
 #pragma mark
 
+#define ORIENTATION_LANDSCAPE
+
+-(CGPoint)convertToGL:(CGPoint)uiPoint
+{
+	CGSize size = [self bounds].size;
+
+#ifdef ORIENTATION_LANDSCAPE
+	CGPoint ret = CGPointZero;
+	ret.x = uiPoint.x;
+	ret.y = size.height - uiPoint.y;
+#endif
+	
+	return ret;
+/*	CGSize s = winSizeInPoints_;
+	float newY = s.height - uiPoint.y;
+	float newX = s.width - uiPoint.x;
+	
+	CGPoint ret = CGPointZero;
+	switch ( deviceOrientation_) {
+		case CCDeviceOrientationPortrait:
+			ret = ccp( uiPoint.x, newY );
+			break;
+		case CCDeviceOrientationPortraitUpsideDown:
+			ret = ccp(newX, uiPoint.y);
+			break;
+		case CCDeviceOrientationLandscapeLeft:
+			ret.x = uiPoint.y;
+			ret.y = uiPoint.x;
+			break;
+		case CCDeviceOrientationLandscapeRight:
+			ret.x = newY;
+			ret.y = newX;
+			break;
+	}*/
+	
+	//	if( __ccContentScaleFactor != 1 && isContentScaleSupported_ )
+	//		ret = ccpMult(ret, __ccContentScaleFactor);
+	return ret;
+}
+
+
 // Handles the start of a touch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//NSLog(@"touch down!");
+
 	UITouch *touch = [[touches allObjects] objectAtIndex: 0];
 	CGPoint loc = [touch locationInView: self];
-	
-	vector2D v;
-	v.x = loc.y;
-	v.y = loc.x;
-	
+
+	loc = [self convertToGL: loc];
+	vector2D v = {loc.x,loc.y};
+
+	NSLog(@"touch down!");	
+	NSLog(@"loc: %f,%f",loc.x, loc.y);
+
 	InputDevice::sharedInstance()->setTouchActive(true);
 	InputDevice::sharedInstance()->setTouchLocation (v);
 	
@@ -193,11 +236,13 @@ int gMapX,gMapY; // returns map offset for navigation
 	//NSLog(@"moved!");
 	UITouch *touch = [[touches allObjects] objectAtIndex: 0];
 	CGPoint loc = [touch locationInView: self];
+
+	loc = [self convertToGL: loc];
+	vector2D v = {loc.x,loc.y};
 	
-	vector2D v;
-	v.x = loc.y;
-	v.y = loc.x;
-	
+	NSLog(@"touch moved!");	
+	NSLog(@"loc: %f,%f",loc.x, loc.y);
+
 	InputDevice::sharedInstance()->setTouchActive(true);
 	InputDevice::sharedInstance()->setTouchLocation (v);
 	
@@ -208,9 +253,12 @@ int gMapX,gMapY; // returns map offset for navigation
 	UITouch *touch = [[touches allObjects] objectAtIndex: 0];
 	CGPoint loc = [touch locationInView: self];
 	
-	vector2D v;
-	v.x = loc.y;
-	v.y = loc.x;
+	loc = [self convertToGL: loc];
+	vector2D v = {loc.x,loc.y};
+	
+	NSLog(@"touch ended!");	
+	NSLog(@"loc: %f,%f",loc.x, loc.y);
+
 	
 	//NSLog(@"touch ended");
 	InputDevice::sharedInstance()->setTouchActive(false);

@@ -3,9 +3,6 @@
 #include <string>
 #include <sstream>
 #include <stdio.h>
-#pragma once
-#ifndef __TIMER_H___LOL_
-#define __TIMER_H___LOL_ 23
 
 class Timer
 {
@@ -63,4 +60,3 @@ protected:
 	double frames;
 };
 
-#endif

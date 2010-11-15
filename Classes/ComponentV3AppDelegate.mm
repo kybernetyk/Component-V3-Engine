@@ -12,10 +12,11 @@
 #include "Entity.h"
 #include "EntityManager.h"
 #import "FacebookSubmitController.h"
-
+#import "MainViewController.h"
 #include "Scene.h"
 #include "RenderDevice.h"
 #import <QuartzCore/QuartzCore.h>
+#include "Timer.h"
 
 //Game::GameApp *app;
 
@@ -49,7 +50,7 @@ unsigned int My_SDL_GetTicks()
 
 
 @synthesize window;
-@synthesize glView;
+
 
 - (void) shareLevelOnFarmville
 {
@@ -151,7 +152,13 @@ unsigned int My_SDL_GetTicks()
 	
 	
 	//set landscape
-	//[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeRight animated:NO];
+//	[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeRight animated:NO];
+	
+
+	mainViewController = [[MainViewController alloc] initWithNibName: @"MainViewController" bundle: nil];
+	[window addSubview: [mainViewController view]];
+	
+	glView = [[mainViewController glView] retain];
 	
 	scene = new Scene();
 	scene->init();
@@ -178,6 +185,8 @@ unsigned int My_SDL_GetTicks()
 
 - (void)dealloc 
 {
+	[[mainViewController view] removeFromSuperview];
+	[mainViewController release];
 	[window release];
 	[glView release];
 	[super dealloc];

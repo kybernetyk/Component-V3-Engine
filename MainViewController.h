@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class EAGLView;
 
 @interface MainViewController : UIViewController 
 {
 	EAGLView *glView;
 }
+
+@property (nonatomic, retain) IBOutlet EAGLView *glView;
 
 @end

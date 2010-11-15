@@ -87,8 +87,10 @@ void RenderDevice::setupViewportAndProjection (int viewport_width_in_pixels, int
 	glOrthof(-viewport_width_in_meters/2.0 , viewport_width_in_meters/2.0 , -viewport_height_in_meters/2.0, viewport_height_in_meters/2.0 , -10.0 , 10.0 );
 
 	//landscape
+
+#ifdef MANUAL_LANDSCAPE
 	glRotatef(-90, 0, 0, 1);
-	
+#endif
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
@@ -138,45 +140,28 @@ void RenderDevice::init (void)
 	_pixelToMeterRatio = 1.0;
 	
 	//physikalischer screen size
+#ifdef MANUAL_LANDSCAPE
 	float screen_size_x = 320.0;
 	float screen_size_y = 480.0;
+#else
+	float screen_size_x = 480.0;
+	float screen_size_y = 320.0;
+#endif
 	float xyratio = screen_size_x / screen_size_y;
 	
-	/*_pixelToMeterRatio.x = 32.0 / 1.0;
-	_pixelToMeterRatio.y = _pixelToMeterRatio.x;
-	
-	_meterToPixelRatio.x = 1.0 / _pixelToMeterRatio.x;
-	_meterToPixelRatio.y = 1.0 / _pixelToMeterRatio.y;
-*/
-	
-	
-	//dazu passender viewport in metern
-//	float viewport_size_x = 15.0;
-//	float viewport_size_y = viewport_size_x / xyratio;// / pixeltometerratio;//viewport_size_x / xyratio;
 
+#ifdef MANUAL_LANDSCAPE
 	float viewport_size_x = 320.0;
 	float viewport_size_y = 480.0;// / pixeltometerratio;//viewport_size_x / xyratio;
-
+#else
+	float viewport_size_x = 480.0;// / pixeltometerratio;//viewport_size_x / xyratio;
+	float viewport_size_y = 320.0;	
+#endif
 	
 	float mapzoom = 1.00; //cvgmap zooms in by 25% >.<
-	
-	//setupViewportAndProjection(320,480,10.0f*1.25,(10.0/1.5)*1.25);
-	
-	//SDL_SetVideoMode(screen_size_x, screen_size_y, 0, SDL_OPENGL);
+
 	setupViewportAndProjection(screen_size_x,screen_size_y,viewport_size_x*mapzoom,viewport_size_y*mapzoom);
 	
-	/*SDL_SetVideoMode(480, 320, 0, SDL_OPENGL);
-	_referenceScreenSize.x = 480.0;
-	_referenceScreenSize.y = 320.0f;
-
-	
-	 
-	//auch das verhaeltnis des viewports nicht vergessen! pixel_x / pixel_y muss = meter_x / meter_y sein. sonst gibts verzerrungen
-	setupViewportAndProjection(480,320,10.0f*1.25,(10.0/1.5)*1.25);*/
-	
-	//printf("pixel to meter ratio: %f,%f\n",this->pixelToMeterTatio().x,this->pixelToMeterTatio().y);
-	//printf("meter to ratio: %f,%f\n",this->meterTopixelRatio().x,this->meterTopixelRatio().y);
-//	_frameTimer.update();
 }
 
 
@@ -192,7 +177,12 @@ void RenderDevice::init (void)
 void RenderDevice::beginRender (void)
 {
 	glLoadIdentity();
-	glTranslatef(-_pixelViewportSize.y/2.0, -_pixelViewportSize.x/2.0, 0);	
+	
+#ifdef MANUAL_LANDSCAPE
+	glTranslatef(-_pixelViewportSize.y/2.0, -_pixelViewportSize.x/2.0, 0);
+#else
+	glTranslatef(-_pixelViewportSize.x/2.0, -_pixelViewportSize.y/2.0, 0);
+#endif
 }
 
 void RenderDevice::endRender (void)

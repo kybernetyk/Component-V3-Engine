@@ -28,7 +28,6 @@
 		033DCBBE128D7C9700C66D74 /* TexturedQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA1128D7C9700C66D74 /* TexturedQuad.cpp */; };
 		033DCBBF128D7C9700C66D74 /* Texture2D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA3128D7C9700C66D74 /* Texture2D.mm */; };
 		033DCBC0128D7C9700C66D74 /* globals.c in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA5128D7C9700C66D74 /* globals.c */; };
-		033DCBC1128D7C9700C66D74 /* ccTexture2D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA7128D7C9700C66D74 /* ccTexture2D.mm */; };
 		033DCBC2128D7C9700C66D74 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA9128D7C9700C66D74 /* EAGLView.mm */; };
 		033DCBC3128D7C9700C66D74 /* ComponentV3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBAB128D7C9700C66D74 /* ComponentV3AppDelegate.mm */; };
 		033DCBCF128D7CAD00C66D74 /* image_DXT.m in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBC6128D7CAD00C66D74 /* image_DXT.m */; };
@@ -52,7 +51,7 @@
 		034F33DA1290560A00F54ABA /* FacebookSubmitController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034F33D81290560A00F54ABA /* FacebookSubmitController.xib */; };
 		034F34521291515500F54ABA /* MinyxUltra_Sidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 034F34511291515500F54ABA /* MinyxUltra_Sidebar.png */; };
 		034F34EF12919D2C00F54ABA /* wolke2000.png in Resources */ = {isa = PBXBuildFile; fileRef = 034F34EE12919D2C00F54ABA /* wolke2000.png */; };
-		034F354A1291CD8100F54ABA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 034F35481291CD8100F54ABA /* MainViewController.m */; };
+		034F354A1291CD8100F54ABA /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 034F35481291CD8100F54ABA /* MainViewController.mm */; };
 		034F354B1291CD8100F54ABA /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034F35491291CD8100F54ABA /* MainViewController.xib */; };
 		0352A696128F29C70005F657 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A695128F29C70005F657 /* util.cpp */; };
 		0352A717129006500005F657 /* AnimationSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A716129006500005F657 /* AnimationSystem.cpp */; };
@@ -140,7 +139,7 @@
 		033DCB95128D7C9700C66D74 /* InputDevice.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputDevice.mm; sourceTree = "<group>"; };
 		033DCB96128D7C9700C66D74 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
 		033DCB97128D7C9700C66D74 /* Resource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Resource.mm; sourceTree = "<group>"; };
-		033DCB98128D7C9700C66D74 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		033DCB98128D7C9700C66D74 /* Timer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Timer.h; sourceTree = "<group>"; };
 		033DCB99128D7C9700C66D74 /* Timer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Timer.mm; sourceTree = "<group>"; };
 		033DCB9A128D7C9700C66D74 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		033DCB9C128D7C9700C66D74 /* RenderDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderDevice.h; sourceTree = "<group>"; };
@@ -153,11 +152,9 @@
 		033DCBA3128D7C9700C66D74 /* Texture2D.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Texture2D.mm; sourceTree = "<group>"; };
 		033DCBA4128D7C9700C66D74 /* globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
 		033DCBA5128D7C9700C66D74 /* globals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = globals.c; sourceTree = "<group>"; };
-		033DCBA6128D7C9700C66D74 /* ccTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccTexture2D.h; sourceTree = "<group>"; };
-		033DCBA7128D7C9700C66D74 /* ccTexture2D.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ccTexture2D.mm; sourceTree = "<group>"; };
 		033DCBA8128D7C9700C66D74 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		033DCBA9128D7C9700C66D74 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
-		033DCBAA128D7C9700C66D74 /* ComponentV3AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentV3AppDelegate.h; sourceTree = "<group>"; };
+		033DCBAA128D7C9700C66D74 /* ComponentV3AppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ComponentV3AppDelegate.h; sourceTree = "<group>"; };
 		033DCBAB128D7C9700C66D74 /* ComponentV3AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ComponentV3AppDelegate.mm; sourceTree = "<group>"; };
 		033DCBC5128D7CAD00C66D74 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
 		033DCBC6128D7CAD00C66D74 /* image_DXT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = image_DXT.m; sourceTree = "<group>"; };
@@ -201,7 +198,7 @@
 		034F34511291515500F54ABA /* MinyxUltra_Sidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MinyxUltra_Sidebar.png; sourceTree = "<group>"; };
 		034F34EE12919D2C00F54ABA /* wolke2000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wolke2000.png; sourceTree = "<group>"; };
 		034F35471291CD8100F54ABA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		034F35481291CD8100F54ABA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		034F35481291CD8100F54ABA /* MainViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
 		034F35491291CD8100F54ABA /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		0352A695128F29C70005F657 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
 		0352A715129006500005F657 /* AnimationSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationSystem.h; sourceTree = "<group>"; };
@@ -533,7 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				034F35471291CD8100F54ABA /* MainViewController.h */,
-				034F35481291CD8100F54ABA /* MainViewController.m */,
+				034F35481291CD8100F54ABA /* MainViewController.mm */,
 				034F35491291CD8100F54ABA /* MainViewController.xib */,
 			);
 			name = "Main View Controller";
@@ -621,8 +618,6 @@
 				033DCB68128D7C9700C66D74 /* MXE */,
 				033DCB8F128D7C9700C66D74 /* system */,
 				033DCB9B128D7C9700C66D74 /* Game */,
-				033DCBA6128D7C9700C66D74 /* ccTexture2D.h */,
-				033DCBA7128D7C9700C66D74 /* ccTexture2D.mm */,
 				033DCBA8128D7C9700C66D74 /* EAGLView.h */,
 				033DCBA9128D7C9700C66D74 /* EAGLView.mm */,
 				033DCBAA128D7C9700C66D74 /* ComponentV3AppDelegate.h */,
@@ -806,7 +801,6 @@
 				033DCBBE128D7C9700C66D74 /* TexturedQuad.cpp in Sources */,
 				033DCBBF128D7C9700C66D74 /* Texture2D.mm in Sources */,
 				033DCBC0128D7C9700C66D74 /* globals.c in Sources */,
-				033DCBC1128D7C9700C66D74 /* ccTexture2D.mm in Sources */,
 				033DCBC2128D7C9700C66D74 /* EAGLView.mm in Sources */,
 				033DCBC3128D7C9700C66D74 /* ComponentV3AppDelegate.mm in Sources */,
 				033DCBCF128D7CAD00C66D74 /* image_DXT.m in Sources */,
@@ -832,7 +826,7 @@
 				034F33891290539500F54ABA /* FBLoginDialog.m in Sources */,
 				034F338A1290539500F54ABA /* FBDialog.m in Sources */,
 				034F33D91290560A00F54ABA /* FacebookSubmitController.m in Sources */,
-				034F354A1291CD8100F54ABA /* MainViewController.m in Sources */,
+				034F354A1291CD8100F54ABA /* MainViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
