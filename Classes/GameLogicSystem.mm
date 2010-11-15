@@ -64,7 +64,7 @@ Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *e
 	
 	{
 		MoveToAction *_mt = new MoveToAction();
-		_mt->x = 32.0;
+		_mt->x = 16.0;
 		_mt->y = 16.0;
 		_mt->duration = 0.3;
 		

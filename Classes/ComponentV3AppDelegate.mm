@@ -151,7 +151,7 @@ unsigned int My_SDL_GetTicks()
 	
 	
 	//set landscape
-	[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeRight animated:NO];
+	//[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeRight animated:NO];
 	
 	scene = new Scene();
 	scene->init();

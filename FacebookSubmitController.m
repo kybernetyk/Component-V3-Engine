@@ -284,7 +284,7 @@
 	//	NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 	//	[center postNotificationName: @"MXCanEnableFacebookButton" object: nil];
 	
-	
+	/*
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Facebook",nil) 
 													message:NSLocalizedString(@"Update successfully posted!",nil)
@@ -292,7 +292,7 @@
 										  cancelButtonTitle:@"OK" 
 										  otherButtonTitles: nil];
 	[alert show];
-	[alert release]; 
+	[alert release]; */
 	[facebook autorelease];
 	isPostingOnFB = NO;
 

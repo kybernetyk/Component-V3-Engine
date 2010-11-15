@@ -21,7 +21,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	hud_img = _entityManager->createNewEntity();
 	_entityManager->addComponent<Position>(hud_img);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (hud_img);
-	sprite->quad = new TexturedQuad ("MinyxUltra_Sidebar.png");
+	sprite->quad = new TexturedQuad ("wolke2000.png");
 	sprite->quad->anchorPoint.x = 0.0;
 	sprite->quad->anchorPoint.y = 0.0;
 	sprite->z = 5.5;
@@ -33,12 +33,12 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent<Name>(xp_bar)->name = "xp_bar";
 
 	Position *pos = _entityManager->addComponent <Position> (xp_bar);
-	pos->y = 32.0;
+	pos->y = -2.0;
 	sprite = _entityManager->addComponent<Sprite>(xp_bar);
 	sprite->quad = new TexturedQuad("xp_bar.png");
 	sprite->quad->anchorPoint.x = 0.0;
-	sprite->quad->anchorPoint.y = 0.0;
-	sprite->z = 5.4;
+	sprite->quad->anchorPoint.y = -0.0;
+	sprite->z = 5.6;
 	
 	score_ui = _entityManager->createNewEntity();
 	_entityManager->addComponent<Name>(score_ui)->name = "score_ui";
@@ -51,8 +51,8 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->ogl_font->anchorPoint.x = 0.0;
 	label->ogl_font->anchorPoint.y = 0.0;
 	label->text = "0";
-	score_ui->get<Position>()->x = 54.0;
-	score_ui->get<Position>()->y = 9;
+	score_ui->get<Position>()->x = 32.0;
+	score_ui->get<Position>()->y = 10;
 	label->z = 6.0;
 	score_ui->get<Position>()->scale_x = 0.4;	
 	score_ui->get<Position>()->scale_y = 0.4;
@@ -67,7 +67,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->ogl_font->anchorPoint.y = 0.0;
 	label->text = "Xp: 0/0";
 	xp_ui->get<Position>()->x = 480-2;
-	xp_ui->get<Position>()->y = 9;
+	xp_ui->get<Position>()->y = 10;
 	label->z = 6.0;
 	xp_ui->get<Position>()->scale_x = 0.4;
 	xp_ui->get<Position>()->scale_y = 0.4;
@@ -83,7 +83,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->ogl_font->anchorPoint.y = 0.0;
 	label->text = "Lvl. 0";
 	level_ui->get<Position>()->x = 480/2-16;
-	level_ui->get<Position>()->y = 9;
+	level_ui->get<Position>()->y = 10;
 	label->z = 6.0;
 	level_ui->get<Position>()->scale_x = 0.4;
 	level_ui->get<Position>()->scale_y = 0.4;

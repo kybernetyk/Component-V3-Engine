@@ -51,6 +51,9 @@
 		034F33D91290560A00F54ABA /* FacebookSubmitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 034F33D71290560A00F54ABA /* FacebookSubmitController.m */; };
 		034F33DA1290560A00F54ABA /* FacebookSubmitController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034F33D81290560A00F54ABA /* FacebookSubmitController.xib */; };
 		034F34521291515500F54ABA /* MinyxUltra_Sidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 034F34511291515500F54ABA /* MinyxUltra_Sidebar.png */; };
+		034F34EF12919D2C00F54ABA /* wolke2000.png in Resources */ = {isa = PBXBuildFile; fileRef = 034F34EE12919D2C00F54ABA /* wolke2000.png */; };
+		034F354A1291CD8100F54ABA /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 034F35481291CD8100F54ABA /* MainViewController.m */; };
+		034F354B1291CD8100F54ABA /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034F35491291CD8100F54ABA /* MainViewController.xib */; };
 		0352A696128F29C70005F657 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A695128F29C70005F657 /* util.cpp */; };
 		0352A717129006500005F657 /* AnimationSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A716129006500005F657 /* AnimationSystem.cpp */; };
 		0352A720129008C80005F657 /* anims.png in Resources */ = {isa = PBXBuildFile; fileRef = 0352A71F129008C80005F657 /* anims.png */; };
@@ -196,6 +199,10 @@
 		034F33D71290560A00F54ABA /* FacebookSubmitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookSubmitController.m; sourceTree = "<group>"; };
 		034F33D81290560A00F54ABA /* FacebookSubmitController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FacebookSubmitController.xib; sourceTree = "<group>"; };
 		034F34511291515500F54ABA /* MinyxUltra_Sidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MinyxUltra_Sidebar.png; sourceTree = "<group>"; };
+		034F34EE12919D2C00F54ABA /* wolke2000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wolke2000.png; sourceTree = "<group>"; };
+		034F35471291CD8100F54ABA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		034F35481291CD8100F54ABA /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		034F35491291CD8100F54ABA /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		0352A695128F29C70005F657 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
 		0352A715129006500005F657 /* AnimationSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationSystem.h; sourceTree = "<group>"; };
 		0352A716129006500005F657 /* AnimationSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationSystem.cpp; sourceTree = "<group>"; };
@@ -522,6 +529,16 @@
 			name = "Facebook Submit Controller";
 			sourceTree = "<group>";
 		};
+		034F35461291CD6C00F54ABA /* Main View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				034F35471291CD8100F54ABA /* MainViewController.h */,
+				034F35481291CD8100F54ABA /* MainViewController.m */,
+				034F35491291CD8100F54ABA /* MainViewController.xib */,
+			);
+			name = "Main View Controller";
+			sourceTree = "<group>";
+		};
 		0352A714129006270005F657 /* Animation System */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +567,7 @@
 		03EDF865128D81B50086763A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				034F34EE12919D2C00F54ABA /* wolke2000.png */,
 				034F34511291515500F54ABA /* MinyxUltra_Sidebar.png */,
 				0352A71F129008C80005F657 /* anims.png */,
 				03EDFF22128E22740086763A /* levelup.wav */,
@@ -643,6 +661,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				034F35461291CD6C00F54ABA /* Main View Controller */,
 				034F33D51290560A00F54ABA /* Facebook Submit Controller */,
 				034F33671290539400F54ABA /* FBConnect */,
 				03A847C6128ED3FA006EACB3 /* CocosDenshion */,
@@ -754,6 +773,8 @@
 				034F33801290539500F54ABA /* FBDialog.bundle in Resources */,
 				034F33DA1290560A00F54ABA /* FacebookSubmitController.xib in Resources */,
 				034F34521291515500F54ABA /* MinyxUltra_Sidebar.png in Resources */,
+				034F34EF12919D2C00F54ABA /* wolke2000.png in Resources */,
+				034F354B1291CD8100F54ABA /* MainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,6 +832,7 @@
 				034F33891290539500F54ABA /* FBLoginDialog.m in Sources */,
 				034F338A1290539500F54ABA /* FBDialog.m in Sources */,
 				034F33D91290560A00F54ABA /* FacebookSubmitController.m in Sources */,
+				034F354A1291CD8100F54ABA /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
