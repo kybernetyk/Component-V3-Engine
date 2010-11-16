@@ -39,18 +39,5 @@ public:
 	Component *getById (ComponentID _id);	//proxy method because templates suck, are .h only and .h cross inclusion is holocaust
 	
 	unsigned int checksum;
-/*	template<typename Type> Type *getComponent()
-	{
-		return entityManager->getComponent<Type>(this);	
-	}*/
-
-/*	template<typename Type> Type *getComponentCached()
-	{
-		return (Type*)_components[Type::COMPONENT_ID];
-	}*/
-	
-//	Component *getComponentCached (ComponentID _id);//
-	
-	//Component *_components[ENTITY_CACHE_SIZE];
 };
 

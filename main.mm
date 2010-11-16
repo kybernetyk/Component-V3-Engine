@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#include "globals.h"
 
 int main(int argc, char *argv[]) {
     

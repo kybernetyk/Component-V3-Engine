@@ -13,9 +13,8 @@
 #import "EntityManager.h"
 #import "TexturedQuad.h"
 #include "Texture2D.h"
-
-Texture2D *cachedBlobTex = 0;
-TexturedAtlasQuad *cachedBlobQuad = 0;
+#include "globals.h"
+#include "TextureManager.h"
 
 void SimpleMobFactory::destroySimpleMob (MANAGERCLASS *manager, Entity *e)
 {
@@ -30,17 +29,6 @@ void SimpleMobFactory::destroySimpleMob (MANAGERCLASS *manager, Entity *e)
 
 Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, float pos_y)
 {
-	if (!cachedBlobTex)
-	{
-		cachedBlobTex = new Texture2D("blobs4.png");
-		cachedBlobTex->setAliasTexParams();
-	}
-	if (!cachedBlobQuad)
-	{
-		cachedBlobQuad = new TexturedAtlasQuad (cachedBlobTex);
-	}
-	
-	
 	Entity *e = system->createNewEntity();
 	
 	Position *pos = system->addComponent <Position> (e);
@@ -50,7 +38,7 @@ Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, 
 	pos->scale_y = 4.0;
 	
 	AtlasSprite *sprite = system->addComponent <AtlasSprite> (e);
-	sprite->atlas_quad = cachedBlobQuad;
+	sprite->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("blobs4.png");
 	sprite->z = 0.0;
 	sprite->src = rect_make(0.0, 0.0, 32.0, 32.0);
 	

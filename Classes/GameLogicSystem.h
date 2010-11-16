@@ -32,7 +32,5 @@ protected:
 	float _delta;
 	
 	MANAGERCLASS *_entityManager;
-	
-	OGLFont *_smallFont;
 };
 

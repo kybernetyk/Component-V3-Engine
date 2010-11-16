@@ -17,6 +17,7 @@
 #include "RenderDevice.h"
 #import <QuartzCore/QuartzCore.h>
 #include "Timer.h"
+#include "globals.h"
 
 //Game::GameApp *app;
 

@@ -7,6 +7,11 @@
  *
  */
 #include "globals.h"
+#include "TextureManager.h"
+#include "TexturedQuad.h"
+
+TextureManager g_TextureManager;
+RenderableManager g_RenderableManager;
 
 GameState g_GameState;
 double g_FPS = 0.0;

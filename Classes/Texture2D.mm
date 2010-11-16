@@ -14,12 +14,13 @@
 #include <iostream>
 #include <fstream>
 #include "SOIL.h"
+
 std::string pathForFile2 (const char *filename)
 {
 	
 	
 	NSString *relPath = [NSString stringWithFormat: @"%s",filename];
-	NSLog(@"%@",relPath);
+//	NSLog(@"%@",relPath);
 	
 	
 	NSMutableArray *imagePathComponents = [NSMutableArray arrayWithArray:[relPath pathComponents]];
@@ -30,7 +31,7 @@ std::string pathForFile2 (const char *filename)
 	
 	NSString *ret = [[NSBundle mainBundle] pathForResource:file ofType:nil inDirectory:imageDirectory];	
 	
-	NSLog(@"ret: %@",ret);
+//	NSLog(@"ret: %@",ret);
 	if (!ret)
 	{
 		NSLog(@"%s wurde nicht gefunden! pathForFile()",filename);
@@ -67,7 +68,7 @@ bool Texture2D::loadFromFile (std::string filename)
 	
 	filename = pathForFile2(filename.c_str());
 	
-	printf("LOADING %s ...\n",filename.c_str());
+	//printf("LOADING %s ...\n",filename.c_str());
 	
 	GLuint tex_2d = SOIL_load_OGL_texture2
 	(

@@ -10,6 +10,8 @@
 #include <string>
 #include "Util.h"
 #include "bm_font.h"
+#include "globals.h"
+#include "TextureManager.h"
 
 class Texture2D;
 
@@ -24,6 +26,8 @@ public:
 		_guid = ++LAST_GUID;
 		init();
 	}
+	
+	std::string _filename;
 	
 	virtual void init()
 	{
@@ -62,10 +66,18 @@ public:
 	{
 		IRenderable::IRenderable();
 		init();
-		
+
 		loadFromFNTFile (fnt_filename);
 	}
 	
+	~OGLFont ()
+	{
+		if (texture)
+		{
+			g_TextureManager.releaseTexture(texture);
+			texture = NULL;
+		}
+	}
 	void init()
 	{
 		IRenderable::init();

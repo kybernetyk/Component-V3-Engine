@@ -359,18 +359,19 @@ void FastEntityManager::dumpComponents (Entity *e)
 		}
 	}
 }
-
+#define NUM_FAMILY_IDS 32
 void FastEntityManager::getEntitiesPossessingComponents (std::vector<Entity*> &result, ...)
 {
 	va_list listPointer;
 	va_start( listPointer, result );
 	
-	ComponentID family_ids[256];
+	ComponentID family_ids[NUM_FAMILY_IDS+1];
+	ComponentID arg;
 	int count = 0;
 	while (1)
 	{
-		ComponentID arg = va_arg( listPointer, int );
-		if (arg == -1 || count >= 255)
+		arg = va_arg( listPointer, int );
+		if (arg == -1 || count >= NUM_FAMILY_IDS)
 			break;
 		family_ids[count] = arg;
 		++count;

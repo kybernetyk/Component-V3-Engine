@@ -18,6 +18,7 @@
 #include "MovementSystem.h"
 #include "SimpleMob.h"
 #include "HUDSystem.h"
+#include "globals.h"
 
 void Scene::spawnEnemies ()
 {
@@ -129,7 +130,7 @@ void Scene::init ()
 	Entity *bg = _entityManager->createNewEntity();
 	Position *pos = _entityManager->addComponent <Position> (bg);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (bg);
-	sprite->quad = new TexturedQuad("bg.png");
+	sprite->quad = g_RenderableManager.accquireTexturedQuad ("bg.png");
 	sprite->anchorPoint.x = 0.0;
 	sprite->anchorPoint.y = 0.0;
 	sprite->z = -5.0;
@@ -166,20 +167,19 @@ void Scene::init ()
 	pos->scale_y = 0.5;
 
 	sprite = _entityManager->addComponent <Sprite> (player);	
-	sprite->quad = new TexturedQuad("das_minyx.png");
+	sprite->quad = g_RenderableManager.accquireTexturedQuad ("das_minyx.png");
 	sprite->z = 3.0;
 	
 	name = _entityManager->addComponent <Name> (player);
 	name->name = "Player Figure";
 	
 	
-/*	//Animation test
+	//Animation test
 	Entity *anim = _entityManager->createNewEntity();
 	
-	Texture2D *tex = NULL;
 	
 	AtlasSprite *atlas_sprite = _entityManager->addComponent <AtlasSprite> (anim);
-	atlas_sprite->atlas_quad = new TexturedAtlasQuad ("anims.png");
+	atlas_sprite->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("anims.png");
 	atlas_sprite->src = rect_make(0.0, 0.0, 32.0, 32.0);
 	atlas_sprite->z = 9.0;
 	
@@ -200,12 +200,11 @@ void Scene::init ()
 	_entityManager->dumpEntityCount();
 
 	
-	tex = atlas_sprite->atlas_quad->texture;
 	
 	anim = _entityManager->createNewEntity();
 	
 	atlas_sprite = _entityManager->addComponent <AtlasSprite> (anim);
-	atlas_sprite->atlas_quad = new TexturedAtlasQuad (tex);
+	atlas_sprite->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("anims.png");
 	atlas_sprite->src = rect_make(0.0, 0.0, 32.0, 32.0);
 	atlas_sprite->z = 9.0;
 	
@@ -223,7 +222,7 @@ void Scene::init ()
 	frame_animation->state = ANIMATION_STATE_PLAY;
 	frame_animation->loop = true;
 	frame_animation->destroy_on_finish = false;
-*/
+
 	
 	
 	_entityManager->dumpEntityCount();

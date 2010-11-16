@@ -19,14 +19,7 @@ Entity::Entity(EntityGUID _id)
 	checksum = 0;
 	_guid = _id;
 	entityManager->registerEntity(this);
-//	memset(_components,0x00,ENTITY_CACHE_SIZE*sizeof(Component*));
 }
-
-
-/*Component *Entity::getComponentCached (ComponentID _id)
-{
-	return _components[_id];
-}*/
 
 Component *Entity::getById (ComponentID _id)
 {

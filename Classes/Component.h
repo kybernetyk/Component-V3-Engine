@@ -35,10 +35,10 @@ struct Component
 		_id = 0;
 	}
 	
-	/*~Component ()
+	virtual ~Component ()
 	{
-		printf("PENIS LOL PENIS\n");
-	}*/
+		
+	}
 	DEBUGINFO("Component")
 	
 };
@@ -213,6 +213,10 @@ struct Renderable : public Component
 		z = 0.0;
 		alpha = 1.0;
 	}
+	virtual ~Renderable()
+	{
+		
+	}
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 
 	DEBUGINFO ("Renderable Base: z=%f alpha: a=%f", z,alpha)
@@ -232,6 +236,10 @@ struct Sprite : public Renderable
 		_renderable_type = RENDERABLETYPE_SPRITE;
 		
 		quad = NULL;
+	}
+	~Sprite()
+	{
+		g_RenderableManager.release(quad);
 	}
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 	
@@ -256,6 +264,11 @@ struct AtlasSprite : public Renderable
 		
 		atlas_quad = NULL;
 	}
+	~AtlasSprite()
+	{
+		g_RenderableManager.release(atlas_quad);
+	}
+	
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 	
 	DEBUGINFO ("Atlas Sprite: atlas_quad=%p, z=%f", atlas_quad,z)
@@ -280,6 +293,12 @@ struct TextLabel : public Renderable
 		
 		ogl_font = NULL;
 	}
+	
+	~TextLabel()
+	{
+		g_RenderableManager.release(ogl_font);
+	}
+	
 	//WARNING: Don't forget to set the entity manager to dirty when you change the z value of an existing component! (Which shouldn't happen too often anyways)
 	
 	DEBUGINFO ("Renderable: %s, z=%f", text.c_str(),z)

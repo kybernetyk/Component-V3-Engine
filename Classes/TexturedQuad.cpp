@@ -45,22 +45,20 @@ TexturedQuad::~TexturedQuad ()
 	
 	if (texture)
 	{
-		delete texture;
+		g_TextureManager.releaseTexture(texture);
 		texture = NULL;
 	}
 }
 
 bool TexturedQuad::loadFromFile (std::string filename)
 {
-	texture = new Texture2D(filename);
-	if (!texture)
-	{
-		delete texture;
-		texture = NULL;
-		return false;
-	}
-	texture->setAliasTexParams();
 	
+	texture = g_TextureManager.accquireTexture (filename);
+	if (!texture)
+		abort();
+	
+	texture->setAliasTexParams();
+	_filename = filename;
 	w = texture->w;
 	h = texture->h;
 	
@@ -160,22 +158,19 @@ TexturedAtlasQuad::~TexturedAtlasQuad ()
 	
 	if (texture)
 	{
-		delete texture;
+		g_TextureManager.releaseTexture(texture);
 		texture = NULL;
 	}
 }
 
 bool TexturedAtlasQuad::loadFromFile (std::string filename)
 {
-	texture = new Texture2D(filename);
+	texture = g_TextureManager.accquireTexture (filename);
 	if (!texture)
-	{
-		delete texture;
-		texture = NULL;
-		return false;
-	}
+		abort();
+	
 	texture->setAliasTexParams();
-
+	_filename = filename;
 	tex_w = texture->w;
 	tex_h = texture->h;
 
@@ -390,17 +385,14 @@ bool OGLFont::loadFromFNTFile (std::string fnt_filename)
 		abort();
 	}
 	
-	texture = new Texture2D(font.tex_filename);
+	
+	texture = g_TextureManager.accquireTexture (font.tex_filename);
 	if (!texture)
-	{
-		delete texture;
-		texture = NULL;
-		
 		abort();
-		
-		return false;
-	}
+	
 	texture->setAliasTexParams();
+	_filename = fnt_filename;
+	return true;
 }
 
 void OGLFont::transform ()

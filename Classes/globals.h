@@ -7,6 +7,8 @@
  *
  */
 #pragma once
+#include "TextureManager.h"
+#include "RenderableManager.h"
 
 typedef struct GameState
 {
@@ -30,3 +32,5 @@ typedef struct GameState
 
 extern GameState g_GameState;
 extern double g_FPS;
+extern TextureManager g_TextureManager;
+extern RenderableManager g_RenderableManager;

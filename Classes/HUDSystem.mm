@@ -11,6 +11,7 @@
 #include "Texture2D.h"
 #include "SoundSystem.h"
 #include "Timer.h"
+#include "globals.h"
 
 HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 {
@@ -22,7 +23,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	hud_img = _entityManager->createNewEntity();
 	_entityManager->addComponent<Position>(hud_img);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (hud_img);
-	sprite->quad = new TexturedQuad ("wolke2000.png");
+	sprite->quad = g_RenderableManager.accquireTexturedQuad ("wolke2000.png");
 	sprite->anchorPoint.x = 0.0;
 	sprite->anchorPoint.y = 0.0;
 	sprite->z = 5.5;
@@ -36,7 +37,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	Position *pos = _entityManager->addComponent <Position> (xp_bar);
 	pos->y = -2.0;
 	sprite = _entityManager->addComponent<Sprite>(xp_bar);
-	sprite->quad = new TexturedQuad("xp_bar.png");
+	sprite->quad = g_RenderableManager.accquireTexturedQuad ("xp_bar.png");
 	sprite->anchorPoint.x = 0.0;
 	sprite->anchorPoint.y = -0.0;
 	sprite->z = 5.6;
@@ -44,7 +45,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	score_ui = _entityManager->createNewEntity();
 	_entityManager->addComponent<Name>(score_ui)->name = "score_ui";
 
-	font = new OGLFont("zomg.fnt");
+	font = g_RenderableManager.accquireOGLFont("zomg.fnt");
 	
 	//score
 	_entityManager->addComponent <Position> (score_ui);
@@ -103,7 +104,6 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	label->z = 6.0;
 	
 	
-	Texture2D *loltex = new Texture2D("lolsheet.png");
 	
 	//LOLSHEET
 	kawaii_or_fail = _entityManager->createNewEntity();
@@ -114,7 +114,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	kawaii_or_fail->get<Position>()->y = 320/2+20;
 	
 	_entityManager->addComponent <AtlasSprite> (kawaii_or_fail);
-	kawaii_or_fail->get<AtlasSprite>()->atlas_quad = new TexturedAtlasQuad(loltex);
+	kawaii_or_fail->get<AtlasSprite>()->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("lolsheet.png");
 	kawaii_or_fail->get<AtlasSprite>()->src = rect_make(0.0, 0.0, 296.0, 64.0);
 	kawaii_or_fail->get<AtlasSprite>()->z = 9.0;
 	
@@ -139,7 +139,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent<Name>(lvlup_graphic)->name = "lvlup_graphic";
 
 	_entityManager->addComponent <AtlasSprite> (lvlup_graphic);
-	lvlup_graphic->get<AtlasSprite>()->atlas_quad = new TexturedAtlasQuad(loltex);
+	lvlup_graphic->get<AtlasSprite>()->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("lolsheet.png");
 	lvlup_graphic->get<AtlasSprite>()->src = rect_make(0.0, 140.0, 320.0, 70.0);
 	lvlup_graphic->get<AtlasSprite>()->z = 9.0;
 	

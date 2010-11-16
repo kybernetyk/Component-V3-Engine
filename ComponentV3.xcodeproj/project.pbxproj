@@ -27,7 +27,7 @@
 		033DCBBD128D7C9700C66D74 /* Scene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB9F128D7C9700C66D74 /* Scene.mm */; };
 		033DCBBE128D7C9700C66D74 /* TexturedQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA1128D7C9700C66D74 /* TexturedQuad.cpp */; };
 		033DCBBF128D7C9700C66D74 /* Texture2D.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA3128D7C9700C66D74 /* Texture2D.mm */; };
-		033DCBC0128D7C9700C66D74 /* globals.c in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA5128D7C9700C66D74 /* globals.c */; };
+		033DCBC0128D7C9700C66D74 /* globals.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA5128D7C9700C66D74 /* globals.mm */; };
 		033DCBC2128D7C9700C66D74 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBA9128D7C9700C66D74 /* EAGLView.mm */; };
 		033DCBC3128D7C9700C66D74 /* ComponentV3AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBAB128D7C9700C66D74 /* ComponentV3AppDelegate.mm */; };
 		033DCBCF128D7CAD00C66D74 /* image_DXT.m in Sources */ = {isa = PBXBuildFile; fileRef = 033DCBC6128D7CAD00C66D74 /* image_DXT.m */; };
@@ -53,6 +53,8 @@
 		034F34EF12919D2C00F54ABA /* wolke2000.png in Resources */ = {isa = PBXBuildFile; fileRef = 034F34EE12919D2C00F54ABA /* wolke2000.png */; };
 		034F354A1291CD8100F54ABA /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 034F35481291CD8100F54ABA /* MainViewController.mm */; };
 		034F354B1291CD8100F54ABA /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034F35491291CD8100F54ABA /* MainViewController.xib */; };
+		034F37421292B26000F54ABA /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F37411292B26000F54ABA /* TextureManager.cpp */; };
+		034F37C31292B92500F54ABA /* RenderableManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F37C21292B92500F54ABA /* RenderableManager.cpp */; };
 		0352A696128F29C70005F657 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A695128F29C70005F657 /* util.cpp */; };
 		0352A717129006500005F657 /* AnimationSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0352A716129006500005F657 /* AnimationSystem.cpp */; };
 		0352A720129008C80005F657 /* anims.png in Resources */ = {isa = PBXBuildFile; fileRef = 0352A71F129008C80005F657 /* anims.png */; };
@@ -82,7 +84,7 @@
 		03EDF891128D81B50086763A /* visitor_32.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF87A128D81B50086763A /* visitor_32.png */; };
 		03EDF892128D81B50086763A /* zomg.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF87B128D81B50086763A /* zomg.fnt */; };
 		03EDF893128D81B50086763A /* zomg.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF87C128D81B50086763A /* zomg.png */; };
-		03EDF8A9128D822D0086763A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EDF8A8128D822D0086763A /* main.m */; };
+		03EDF8A9128D822D0086763A /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03EDF8A8128D822D0086763A /* main.mm */; };
 		03EDF8E7128D86CD0086763A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF8E6128D86CD0086763A /* MainWindow.xib */; };
 		03EDF8F9128D8C4B0086763A /* SoundSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03EDF8F8128D8C4B0086763A /* SoundSystem.mm */; };
 		03EDF93D128D8E430086763A /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 03EDF939128D8E430086763A /* tick.wav */; };
@@ -97,7 +99,6 @@
 		03EDFB3F128DADBA0086763A /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFB3D128DADBA0086763A /* Entitlements.plist */; };
 		03EDFB40128DADBA0086763A /* EntitlementsDebug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFB3E128DADBA0086763A /* EntitlementsDebug.plist */; };
 		03EDFB7B128DB17B0086763A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFB7A128DB17B0086763A /* Icon.png */; };
-		03EDFB97128DB2780086763A /* ComponentV3-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFB96128DB2780086763A /* ComponentV3-Info.plist */; };
 		03EDFC89128DF71E0086763A /* hud.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFC88128DF71E0086763A /* hud.png */; };
 		03EDFC8B128DF7280086763A /* xp_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFC8A128DF7280086763A /* xp_bar.png */; };
 		03EDFF23128E22740086763A /* levelup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFF22128E22740086763A /* levelup.wav */; };
@@ -151,7 +152,7 @@
 		033DCBA2128D7C9700C66D74 /* Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
 		033DCBA3128D7C9700C66D74 /* Texture2D.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Texture2D.mm; sourceTree = "<group>"; };
 		033DCBA4128D7C9700C66D74 /* globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
-		033DCBA5128D7C9700C66D74 /* globals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = globals.c; sourceTree = "<group>"; };
+		033DCBA5128D7C9700C66D74 /* globals.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = globals.mm; sourceTree = "<group>"; };
 		033DCBA8128D7C9700C66D74 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		033DCBA9128D7C9700C66D74 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		033DCBAA128D7C9700C66D74 /* ComponentV3AppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ComponentV3AppDelegate.h; sourceTree = "<group>"; };
@@ -200,6 +201,10 @@
 		034F35471291CD8100F54ABA /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		034F35481291CD8100F54ABA /* MainViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
 		034F35491291CD8100F54ABA /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		034F37401292B26000F54ABA /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureManager.h; sourceTree = "<group>"; };
+		034F37411292B26000F54ABA /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
+		034F37C11292B92500F54ABA /* RenderableManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderableManager.h; sourceTree = "<group>"; };
+		034F37C21292B92500F54ABA /* RenderableManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderableManager.cpp; sourceTree = "<group>"; };
 		0352A695128F29C70005F657 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
 		0352A715129006500005F657 /* AnimationSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationSystem.h; sourceTree = "<group>"; };
 		0352A716129006500005F657 /* AnimationSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationSystem.cpp; sourceTree = "<group>"; };
@@ -235,7 +240,7 @@
 		03EDF87A128D81B50086763A /* visitor_32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = visitor_32.png; sourceTree = "<group>"; };
 		03EDF87B128D81B50086763A /* zomg.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zomg.fnt; sourceTree = "<group>"; };
 		03EDF87C128D81B50086763A /* zomg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zomg.png; sourceTree = "<group>"; };
-		03EDF8A8128D822D0086763A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		03EDF8A8128D822D0086763A /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		03EDF8E6128D86CD0086763A /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		03EDF8F7128D8C4B0086763A /* SoundSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundSystem.h; sourceTree = "<group>"; };
 		03EDF8F8128D8C4B0086763A /* SoundSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SoundSystem.mm; sourceTree = "<group>"; };
@@ -422,6 +427,10 @@
 				033DCB9A128D7C9700C66D74 /* Util.h */,
 				033DCB90128D7C9700C66D74 /* Font */,
 				0352A695128F29C70005F657 /* util.cpp */,
+				034F37401292B26000F54ABA /* TextureManager.h */,
+				034F37411292B26000F54ABA /* TextureManager.cpp */,
+				034F37C11292B92500F54ABA /* RenderableManager.h */,
+				034F37C21292B92500F54ABA /* RenderableManager.cpp */,
 			);
 			path = system;
 			sourceTree = "<group>";
@@ -456,7 +465,7 @@
 				033DCBA2128D7C9700C66D74 /* Texture2D.h */,
 				033DCBA3128D7C9700C66D74 /* Texture2D.mm */,
 				033DCBA4128D7C9700C66D74 /* globals.h */,
-				033DCBA5128D7C9700C66D74 /* globals.c */,
+				033DCBA5128D7C9700C66D74 /* globals.mm */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -660,7 +669,7 @@
 				034F33D51290560A00F54ABA /* Facebook Submit Controller */,
 				034F33671290539400F54ABA /* FBConnect */,
 				03A847C6128ED3FA006EACB3 /* CocosDenshion */,
-				03EDF8A8128D822D0086763A /* main.m */,
+				03EDF8A8128D822D0086763A /* main.mm */,
 				033DCBD3128D7CB700C66D74 /* ComponentV3_Prefix.pch */,
 				033DCBC4128D7CAD00C66D74 /* SOIL_iPhone */,
 			);
@@ -760,7 +769,6 @@
 				03EDFB3F128DADBA0086763A /* Entitlements.plist in Resources */,
 				03EDFB40128DADBA0086763A /* EntitlementsDebug.plist in Resources */,
 				03EDFB7B128DB17B0086763A /* Icon.png in Resources */,
-				03EDFB97128DB2780086763A /* ComponentV3-Info.plist in Resources */,
 				03EDFC89128DF71E0086763A /* hud.png in Resources */,
 				03EDFC8B128DF7280086763A /* xp_bar.png in Resources */,
 				03EDFF23128E22740086763A /* levelup.wav in Resources */,
@@ -800,14 +808,14 @@
 				033DCBBD128D7C9700C66D74 /* Scene.mm in Sources */,
 				033DCBBE128D7C9700C66D74 /* TexturedQuad.cpp in Sources */,
 				033DCBBF128D7C9700C66D74 /* Texture2D.mm in Sources */,
-				033DCBC0128D7C9700C66D74 /* globals.c in Sources */,
+				033DCBC0128D7C9700C66D74 /* globals.mm in Sources */,
 				033DCBC2128D7C9700C66D74 /* EAGLView.mm in Sources */,
 				033DCBC3128D7C9700C66D74 /* ComponentV3AppDelegate.mm in Sources */,
 				033DCBCF128D7CAD00C66D74 /* image_DXT.m in Sources */,
 				033DCBD0128D7CAD00C66D74 /* image_helper.m in Sources */,
 				033DCBD1128D7CAD00C66D74 /* SOIL.m in Sources */,
 				033DCBD2128D7CAD00C66D74 /* stb_image_aug.m in Sources */,
-				03EDF8A9128D822D0086763A /* main.m in Sources */,
+				03EDF8A9128D822D0086763A /* main.mm in Sources */,
 				03EDF8F9128D8C4B0086763A /* SoundSystem.mm in Sources */,
 				03A847D0128ED3FA006EACB3 /* CDAudioManager.m in Sources */,
 				03A847D1128ED3FA006EACB3 /* CDOpenALSupport.m in Sources */,
@@ -827,6 +835,8 @@
 				034F338A1290539500F54ABA /* FBDialog.m in Sources */,
 				034F33D91290560A00F54ABA /* FacebookSubmitController.m in Sources */,
 				034F354A1291CD8100F54ABA /* MainViewController.mm in Sources */,
+				034F37421292B26000F54ABA /* TextureManager.cpp in Sources */,
+				034F37C31292B92500F54ABA /* RenderableManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

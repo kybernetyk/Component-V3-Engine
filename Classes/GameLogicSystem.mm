@@ -10,7 +10,8 @@
 #include "GameLogicSystem.h"
 #include "Texture2D.h"
 #include "SoundSystem.h"
-extern TexturedAtlasQuad *cachedBlobQuad;
+#include "globals.h"
+
 
 Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *enemy_information)
 {
@@ -47,7 +48,7 @@ Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *e
 	_entityManager->addComponent(gold_sign, pos);
 
 	AtlasSprite *sprite = _entityManager->addComponent<AtlasSprite>(gold_sign);
-	sprite->atlas_quad = cachedBlobQuad;
+	sprite->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("blobs4.png");
 	//sprite->sprite->w = 16.0;
 //	sprite->sprite->h = 16.0;
 	
@@ -111,7 +112,6 @@ Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *e
 GameLogicSystem::GameLogicSystem (MANAGERCLASS *entityManager)
 {
 	_entityManager = entityManager;
-	_smallFont = new OGLFont("visitor_18.fnt");
 	
 	restoreGameStateFromFile();
 }
