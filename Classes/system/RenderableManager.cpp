@@ -12,11 +12,9 @@
 
 TexturedQuad *RenderableManager::accquireTexturedQuad (std::string filename)
 {
-	printf("loading tex quad: %s = ", filename.c_str());
 	if (_referenceCounts[filename] > 0)
 	{
 		_referenceCounts[filename] ++;
-		printf("%p\n",_renderables[filename]);
 		return (TexturedQuad*)_renderables[filename];
 	}
 	
@@ -26,18 +24,15 @@ TexturedQuad *RenderableManager::accquireTexturedQuad (std::string filename)
 	
 	_renderables[filename] = ret;
 	_referenceCounts[filename] = 1;
-	printf("%p\n",_renderables[filename]);	
 	return ret;
 }
 
 
 TexturedAtlasQuad *RenderableManager::accquireTexturedAtlasQuad (std::string filename)
 {
-	printf("loading tex atlas quad: %s = ", filename.c_str());
 	if (_referenceCounts[filename] > 0)
 	{
 		_referenceCounts[filename] ++;
-		printf("%p\n",_renderables[filename]);
 		return (TexturedAtlasQuad*)_renderables[filename];
 	}
 	
@@ -47,7 +42,6 @@ TexturedAtlasQuad *RenderableManager::accquireTexturedAtlasQuad (std::string fil
 	
 	_renderables[filename] = ret;
 	_referenceCounts[filename] = 1;
-	printf("%p\n",_renderables[filename]);	
 	return ret;
 	
 }
@@ -55,11 +49,9 @@ TexturedAtlasQuad *RenderableManager::accquireTexturedAtlasQuad (std::string fil
 
 OGLFont *RenderableManager::accquireOGLFont (std::string filename)
 {
-	printf("loading ogl font: %s = ", filename.c_str());
 	if (_referenceCounts[filename] > 0)
 	{
 		_referenceCounts[filename] ++;
-		printf("%p\n",_renderables[filename]);
 		return (OGLFont*)_renderables[filename];
 	}
 	
@@ -69,7 +61,6 @@ OGLFont *RenderableManager::accquireOGLFont (std::string filename)
 	
 	_renderables[filename] = ret;
 	_referenceCounts[filename] = 1;
-	printf("%p\n",_renderables[filename]);	
 	return ret;
 	
 }
@@ -81,9 +72,7 @@ void RenderableManager::release (IRenderable *pRenderable)
 	
 	std::string filename = pRenderable->_filename;
 	
-	printf("releasing renderable: %s =\n", filename.c_str());
 	_referenceCounts[filename] --;
-	printf("%p | %i\n",_renderables[filename],_referenceCounts[filename]);
 	if (_referenceCounts[filename] <= 0)
 	{
 		IRenderable *p = _renderables[filename];

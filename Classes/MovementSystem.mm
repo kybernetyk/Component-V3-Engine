@@ -12,7 +12,7 @@
 #import "Component.h"
 #import "Entity.h"
 
-MovementSystem::MovementSystem (MANAGERCLASS *entityManager)
+MovementSystem::MovementSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 }

@@ -16,18 +16,12 @@
 #include "globals.h"
 #include "TextureManager.h"
 
-void SimpleMobFactory::destroySimpleMob (MANAGERCLASS *manager, Entity *e)
+void SimpleMobFactory::destroySimpleMob (EntityManager *manager, Entity *e)
 {
-	AtlasSprite *r = manager->getComponent <AtlasSprite> (e);
-	if (r)
-	{
-
-	}
-	
 	manager->removeEntity(e->_guid);
 }
 
-Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, float pos_y)
+Entity *SimpleMobFactory::createNewSimpleMob(EntityManager *system, float pos_x, float pos_y)
 {
 	Entity *e = system->createNewEntity();
 	
@@ -48,7 +42,7 @@ Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, 
 	return e;
 }
 
-Entity *SimpleMobFactory::createNewSimpleMob(MANAGERCLASS *system, float pos_x, float pos_y, float vx, float vy)
+Entity *SimpleMobFactory::createNewSimpleMob(EntityManager *system, float pos_x, float pos_y, float vx, float vy)
 {
 	Entity *e = SimpleMobFactory::createNewSimpleMob(system,pos_x,pos_y);
 	Movement *mov = system->addComponent <Movement>(e);

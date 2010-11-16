@@ -12,7 +12,7 @@
 
 
 
-MANAGERCLASS *Entity::entityManager = NULL;
+EntityManager *Entity::entityManager = NULL;
 
 Entity::Entity(EntityGUID _id)
 {

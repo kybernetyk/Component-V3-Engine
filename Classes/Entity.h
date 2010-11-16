@@ -15,7 +15,7 @@
 #include "Component.h"
 //#include "EntityManager.h"
 //class EntityManager;
-class FastEntityManager;
+class EntityManager;
 
 
 #define ENTITY_CACHE_SIZE 32
@@ -23,12 +23,12 @@ class FastEntityManager;
 class Entity
 {
 public:
-	static MANAGERCLASS *entityManager;
+	static EntityManager *entityManager;
 	EntityGUID _guid;
 	Entity(EntityGUID _id);
 	
 	//this is only a convinience method. don't use it in performance critical parts as you do 3 method calls herein
-	//use MANAGERCLASS::getComponent<Type>() instead for speed.
+	//use EntityManager::getComponent<Type>() instead for speed.
 	template<typename Type> Type *get ()
 	{
 		//	return entityManager->getComponent<Type>(this);	

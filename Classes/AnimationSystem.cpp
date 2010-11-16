@@ -9,7 +9,7 @@
 
 #include "AnimationSystem.h"
 
-AnimationSystem::AnimationSystem (MANAGERCLASS *entityManager)
+AnimationSystem::AnimationSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 }

@@ -13,7 +13,7 @@
 #include "Timer.h"
 #include "globals.h"
 
-HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
+HUDSystem::HUDSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 
@@ -24,8 +24,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent<Position>(hud_img);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (hud_img);
 	sprite->quad = g_RenderableManager.accquireTexturedQuad ("wolke2000.png");
-	sprite->anchorPoint.x = 0.0;
-	sprite->anchorPoint.y = 0.0;
+	sprite->anchorPoint = vector2D_make(0.0, 0.0);
 	sprite->z = 5.5;
 	_entityManager->addComponent<Name>(hud_img)->name = "hud_img";
 
@@ -38,8 +37,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	pos->y = -2.0;
 	sprite = _entityManager->addComponent<Sprite>(xp_bar);
 	sprite->quad = g_RenderableManager.accquireTexturedQuad ("xp_bar.png");
-	sprite->anchorPoint.x = 0.0;
-	sprite->anchorPoint.y = -0.0;
+	sprite->anchorPoint = vector2D_make(0.0, 0.0);
 	sprite->z = 5.6;
 	
 	score_ui = _entityManager->createNewEntity();
@@ -51,8 +49,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent <Position> (score_ui);
 	TextLabel *label = _entityManager->addComponent <TextLabel> (score_ui);
 	label->ogl_font = font;
-	label->anchorPoint.x = 0.0;
-	label->anchorPoint.y = 0.0;
+	label->anchorPoint = vector2D_make(0.0, 0.0);
 	label->text = "0";
 	score_ui->get<Position>()->x = 32.0;
 	score_ui->get<Position>()->y = 10;
@@ -66,8 +63,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent <Position> (xp_ui);
 	label = _entityManager->addComponent<TextLabel> (xp_ui);
 	label->ogl_font = font;
-	label->anchorPoint.x = 1.0;
-	label->anchorPoint.y = 0.0;
+	label->anchorPoint = vector2D_make(1.0, 0.0);
 	label->text = "Xp: 0/0";
 	xp_ui->get<Position>()->x = 480-2;
 	xp_ui->get<Position>()->y = 10;
@@ -82,8 +78,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent <Position> (level_ui);
 	label = _entityManager->addComponent<TextLabel> (level_ui);
 	label->ogl_font = font;
-	label->anchorPoint.x = 0.5;
-	label->anchorPoint.y = 0.0;
+	label->anchorPoint = vector2D_make(0.5, 0.0);
 	label->text = "Lvl. 0";
 	level_ui->get<Position>()->x = 480/2-16;
 	level_ui->get<Position>()->y = 10;

@@ -13,9 +13,9 @@
 class PlayerControlledSystem
 {
 public:
-	PlayerControlledSystem (MANAGERCLASS *entityManager);
+	PlayerControlledSystem (EntityManager *entityManager);
 	void update (float delta);	
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 };
 

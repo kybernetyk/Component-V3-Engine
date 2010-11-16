@@ -7,7 +7,7 @@
  *
  */
 
-#include "Util.h"
+#include "util.h"
 
 vector2D vector2D_make (float x, float y)
 {

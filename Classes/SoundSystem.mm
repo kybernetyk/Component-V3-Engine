@@ -47,7 +47,7 @@
 }
 */
 
-SoundSystem::SoundSystem (MANAGERCLASS *entityManager)
+SoundSystem::SoundSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 //	memset(sounds,0x00,32*sizeof(SystemSoundID));

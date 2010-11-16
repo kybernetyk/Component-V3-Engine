@@ -14,10 +14,10 @@
 class AttachmentSystem
 {
 public:
-	AttachmentSystem (MANAGERCLASS *entityManager);
+	AttachmentSystem (EntityManager *entityManager);
 	void update (float delta);	
 
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 };
 

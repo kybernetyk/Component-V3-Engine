@@ -10,7 +10,7 @@
 #include "CorpseRetrievalSystem.h"
 
 
-CorpseRetrievalSystem::CorpseRetrievalSystem (MANAGERCLASS *entityManager)
+CorpseRetrievalSystem::CorpseRetrievalSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 }

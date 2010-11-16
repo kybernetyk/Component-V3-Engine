@@ -15,11 +15,11 @@
 class HUDSystem
 {
 public:
-	HUDSystem (MANAGERCLASS *entityManager);
+	HUDSystem (EntityManager *entityManager);
 	void update (float delta);
 	
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 	Entity *hud_img;
 	Entity *xp_bar;
 	Entity *score_ui;

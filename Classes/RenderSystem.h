@@ -19,11 +19,11 @@ class IRenderable;
 class RenderSystem
 {
 public:
-	RenderSystem (MANAGERCLASS *entityManager);
+	RenderSystem (EntityManager *entityManager);
 	void render (void);	
 
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 	
 	std::vector <IRenderable *> gl_data;
 	std::vector<Entity*> moveableList;

@@ -14,11 +14,11 @@
 class MovementSystem
 {
 public:
-	MovementSystem (MANAGERCLASS *entityManager);
+	MovementSystem (EntityManager *entityManager);
 	void update (float delta);	
 
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 	std::vector<Entity*> moveableList;
 };
 

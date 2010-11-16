@@ -7,13 +7,12 @@
  *
  */
 #pragma once
-#ifndef __COMPONENT_H__
-#define __COMPONENT_H__
 #include <math.h>
 #import "types.h"
 #include <string>
 #include "TexturedQuad.h"
 #include <vector>
+
 
 #ifdef __RUNTIME_INFORMATION__
 	#define DEBUGINFO(format,...) virtual std::string toString () \
@@ -139,17 +138,17 @@ struct FrameAnimation : public Component
 {
 	static ComponentID COMPONENT_ID;
 
+	rect frame_size;
+
 	float current_frame;
 	float frames_per_second;
 	float speed_scale;
-	bool loop;
 	int state;
-	bool destroy_on_finish;
-	
 	int start_frame;
 	int end_frame;
+	bool loop;
+	bool destroy_on_finish;
 	
-	rect frame_size;
 	
 	FrameAnimation ()
 	{
@@ -201,9 +200,9 @@ struct SoundEffect : public Component
 struct Renderable : public Component
 {
 	static ComponentID COMPONENT_ID;
+	vector2D anchorPoint;
 	unsigned int _renderable_type;
 	float alpha;
-	vector2D anchorPoint;
 	float z;
 	Renderable()
 	{
@@ -303,40 +302,6 @@ struct TextLabel : public Renderable
 	
 	DEBUGINFO ("Renderable: %s, z=%f", text.c_str(),z)
 };
-
-#pragma mark -
-#pragma mark game 
-struct PlayerController : public Component
-{
-	static ComponentID COMPONENT_ID;
-	
-	PlayerController ()
-	{
-		_id = COMPONENT_ID;
-	}
-	
-	DEBUGINFO ("Player Controller")
-};
-
-struct Enemy : public Component
-{
-	static ComponentID COMPONENT_ID;
-	
-	bool has_been_handled;
-	float origin_x;
-	float origin_y;
-	
-	Enemy ()
-	{
-		_id = COMPONENT_ID;
-		has_been_handled = false;
-		origin_x = origin_y = 0.0;
-	}
-	
-	DEBUGINFO ("Enemy. has_been_handled: %i origin_x: %f origin_y: %f", has_been_handled, origin_x, origin_y)
-};
-
-
 
 #pragma mark -
 #pragma mark action
@@ -451,4 +416,4 @@ struct CreateEntityAction : public Action
 };
 
 
-#endif
+#include "GameComponents.h"

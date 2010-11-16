@@ -49,97 +49,12 @@
 //#define __ENTITY_MANAGER_WARNINGS__
 
 struct Component;
-//class Entity;
-/*
+
+
 class EntityManager
 {
 public:
-	EntityManager ();	
-	EntityGUID getNextAvailableID();
-	
-	//entity creation destruction
-	Entity *createNewEntity (void);
-	void registerEntity(Entity *e);
-	void removeEntity(EntityGUID _id);
-	void removeAllEntities (void);
-	
-	//entity query
-	Entity *getEntity(EntityGUID _id);
-	
-	void getEntitiesPossessingComponent (std::vector<Entity*> &result, ComponentID familyId);
-	void getEntitiesPossessingComponents (std::vector<Entity*> &result, ...);
-	
-	//component managment
-	template<typename T> T *addComponent(Entity *e)
-	{
-		T *comp = new T;
-		
-		if (_componentStore[T::COMPONENT_ID][e])
-		{
-			printf("warning: replacing component (%p / %i) on Entity (%p) without cleanup!\n", _componentStore[T::COMPONENT_ID][e],T::COMPONENT_ID, e);
-		}
-		//_componentStore[T::COMPONENT_ID].insert(std::pair<Entity*, Component*>(e, comp));
-		
-		_componentStore[T::COMPONENT_ID][e] = comp;//.insert(std::pair<Entity*, Component*>(e, comp));
-		is_dirty = true;
-
-//		e->_components[T::COMPONENT_ID] = comp; //cache
-		
-		return comp;
-	}
-
-	//component query
-	template <typename T> T *getComponent(Entity *e) 
-	{
-		std::map<Entity*, Component*> &store = _componentStore[T::COMPONENT_ID];
-		return (T*)store[e];
-	}
-
-	template <typename T> T *getComponentCached(Entity *e) 
-	{
-		std::map<Entity*, Component*> &store = _componentStore[T::COMPONENT_ID];
-		return (T*)store[e];
-	//	return (T*)e->_components[T::COMPONENT_ID];
-	}
-	
-	
-	template<typename T> void removeComponent(Entity *e)
-	{
-		Component *component = _componentStore[T::COMPONENT_ID][e];
-		delete component;
-		_componentStore[T::COMPONENT_ID][e] = NULL;
-		//e->_components[T::COMPONENT_ID] = NULL; //cache
-		is_dirty = true;
-	}
-	void removeAllComponents (Entity *e);
-	
-	void dumpEntity (Entity *e);
-	void dumpEntities (void);
-	void dumpComponents (Entity *e);
-	
-	bool isDirty ()
-	{
-		return is_dirty;
-	}
-	
-	void setIsDirty (bool b)
-	{
-		is_dirty = b;
-	}
-	
-protected:
-	bool is_dirty;
-	std::map <EntityGUID, Entity *> _entities;
-	std::map <ComponentID, std::map <Entity *, Component *> > _componentStore;
-};
-
-*/
-
-
-class FastEntityManager
-{
-public:
-	FastEntityManager();
+	EntityManager();
 	EntityGUID getNextAvailableID();
 	
 	Entity *createNewEntity (void);

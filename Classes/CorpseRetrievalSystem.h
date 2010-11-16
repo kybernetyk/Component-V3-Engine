@@ -19,9 +19,9 @@
 class CorpseRetrievalSystem
 {
 public:
-	CorpseRetrievalSystem (MANAGERCLASS *entityManager);
+	CorpseRetrievalSystem (EntityManager *entityManager);
 	void collectCorpses ();
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 };
 

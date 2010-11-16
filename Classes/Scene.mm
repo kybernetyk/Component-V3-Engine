@@ -112,7 +112,7 @@ void Scene::init ()
 	g_GameState.game_state = GAMESTATE_WAITING_FOR_WAVE;
 	g_GameState.next_state = GAMESTATE_WAITING_FOR_WAVE;
 	
-	_entityManager = new MANAGERCLASS;
+	_entityManager = new EntityManager;
 	_renderSystem = new RenderSystem (_entityManager);
 	_movementSystem = new MovementSystem (_entityManager);
 	_playerControlledSystem = new PlayerControlledSystem (_entityManager);
@@ -131,8 +131,7 @@ void Scene::init ()
 	Position *pos = _entityManager->addComponent <Position> (bg);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (bg);
 	sprite->quad = g_RenderableManager.accquireTexturedQuad ("bg.png");
-	sprite->anchorPoint.x = 0.0;
-	sprite->anchorPoint.y = 0.0;
+	sprite->anchorPoint = vector2D_make(0.0, 0.0);
 	sprite->z = -5.0;
 	
 	Name *name = _entityManager->addComponent <Name> (bg);
@@ -175,7 +174,7 @@ void Scene::init ()
 	
 	
 	//Animation test
-	Entity *anim = _entityManager->createNewEntity();
+/*		Entity *anim = _entityManager->createNewEntity();
 	
 	
 	AtlasSprite *atlas_sprite = _entityManager->addComponent <AtlasSprite> (anim);
@@ -199,7 +198,7 @@ void Scene::init ()
 	frame_animation->destroy_on_finish = false;
 	_entityManager->dumpEntityCount();
 
-	
+
 	
 	anim = _entityManager->createNewEntity();
 	
@@ -226,7 +225,7 @@ void Scene::init ()
 	
 	
 	_entityManager->dumpEntityCount();
-	
+	*/
 	
 }
 

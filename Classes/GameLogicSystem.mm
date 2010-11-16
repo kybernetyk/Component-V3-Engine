@@ -109,7 +109,7 @@ Action *GameLogicSystem::enemy_death_action_chain (Position *enemy_pos, Enemy *e
 	return mta;
 }
 
-GameLogicSystem::GameLogicSystem (MANAGERCLASS *entityManager)
+GameLogicSystem::GameLogicSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 	

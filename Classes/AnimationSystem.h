@@ -15,11 +15,11 @@
 class AnimationSystem
 {
 public:
-	AnimationSystem (MANAGERCLASS *entityManager);
+	AnimationSystem (EntityManager *entityManager);
 	void update (float delta);	
 	
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 	std::vector<Entity*> _entities;
 };
 

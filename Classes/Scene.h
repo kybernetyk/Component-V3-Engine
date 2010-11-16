@@ -36,7 +36,7 @@ public:
 protected:
 	bool _isRunning;
 	
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 	RenderSystem *_renderSystem;
 	MovementSystem *_movementSystem;
 	PlayerControlledSystem *_playerControlledSystem;

@@ -11,7 +11,7 @@
 #include "PlayerControlledSystem.h"
 #include "InputDevice.h"
 
-PlayerControlledSystem::PlayerControlledSystem (MANAGERCLASS *entityManager)
+PlayerControlledSystem::PlayerControlledSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 }

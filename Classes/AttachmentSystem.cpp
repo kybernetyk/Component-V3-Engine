@@ -10,7 +10,7 @@
 #include "Util.h"
 #include "AttachmentSystem.h"
 
-AttachmentSystem::AttachmentSystem (MANAGERCLASS *entityManager)
+AttachmentSystem::AttachmentSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 }

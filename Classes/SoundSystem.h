@@ -26,13 +26,13 @@
 class SoundSystem
 {
 public:
-	SoundSystem (MANAGERCLASS *entityManager);
+	SoundSystem (EntityManager *entityManager);
 	void update (float delta);	
 	
 	void playMusic (int music_id);
 	
 protected:
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 	
 	std::string sounds[32];
 	float sound_delays[32];

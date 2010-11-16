@@ -36,7 +36,3 @@ ComponentID SoundEffect::COMPONENT_ID = 8;
 ComponentID FrameAnimation::COMPONENT_ID = 9;
 
 
-//user
-ComponentID PlayerController::COMPONENT_ID = 16;
-
-ComponentID Enemy::COMPONENT_ID = 17;

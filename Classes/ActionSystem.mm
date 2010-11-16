@@ -10,7 +10,7 @@
 #include "ActionSystem.h"
 #include <math.h>
 
-ActionSystem::ActionSystem (MANAGERCLASS *entityManager)
+ActionSystem::ActionSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 }

@@ -14,7 +14,7 @@
 class ActionSystem
 {
 public:
-	ActionSystem (MANAGERCLASS *entityManager);
+	ActionSystem (EntityManager *entityManager);
 	void update (float delta);	
 	
 	
@@ -23,7 +23,7 @@ protected:
 	
 	void setupNextActionOrStop (Entity *e,Action *current_action);
 	
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 	
 	std::vector<Entity*> _entities;
 };

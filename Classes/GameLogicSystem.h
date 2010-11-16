@@ -14,7 +14,7 @@
 class GameLogicSystem
 {
 public:
-	GameLogicSystem (MANAGERCLASS *entityManager);
+	GameLogicSystem (EntityManager *entityManager);
 	void update (float delta);
 	
 protected:
@@ -31,6 +31,6 @@ protected:
 	std::vector<Entity*> _players;
 	float _delta;
 	
-	MANAGERCLASS *_entityManager;
+	EntityManager *_entityManager;
 };
 

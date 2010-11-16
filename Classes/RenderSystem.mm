@@ -13,7 +13,7 @@
 #import "Entity.h"
 
 
-RenderSystem::RenderSystem (MANAGERCLASS *entityManager)
+RenderSystem::RenderSystem (EntityManager *entityManager)
 {
 	_entityManager = entityManager;
 }
