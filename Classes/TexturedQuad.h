@@ -27,8 +27,7 @@ public:
 	
 	virtual void init()
 	{
-		anchorPoint.x = 0.5;
-		anchorPoint.y = 0.5;
+		anchorPoint = vector2D_make(0.5, 0.5);
 		x = y = z = 0.0;
 		scale_x = scale_y = 1.0;
 		rotation = 0.0;

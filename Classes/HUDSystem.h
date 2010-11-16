@@ -10,6 +10,7 @@
 #pragma once
 #include <vector>
 #include "EntityManager.h"
+#include "Timer.h"
 
 class HUDSystem
 {
@@ -37,6 +38,8 @@ protected:
 	
 	int cached_level;
 
+	Entity *fps_label;
 
+	OGLFont *font;
 };
 

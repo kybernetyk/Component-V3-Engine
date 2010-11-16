@@ -202,8 +202,8 @@ int gMapX,gMapY; // returns map offset for navigation
 	loc = [self convertToGL: loc];
 	vector2D v = {loc.x,loc.y};
 
-	NSLog(@"touch down!");	
-	NSLog(@"loc: %f,%f",loc.x, loc.y);
+//	NSLog(@"touch down!");	
+//	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
 	InputDevice::sharedInstance()->setTouchActive(true);
 	InputDevice::sharedInstance()->setTouchLocation (v);
@@ -238,8 +238,8 @@ int gMapX,gMapY; // returns map offset for navigation
 	loc = [self convertToGL: loc];
 	vector2D v = {loc.x,loc.y};
 	
-	NSLog(@"touch moved!");	
-	NSLog(@"loc: %f,%f",loc.x, loc.y);
+//	NSLog(@"touch moved!");	
+//	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
 	InputDevice::sharedInstance()->setTouchActive(true);
 	InputDevice::sharedInstance()->setTouchLocation (v);
@@ -254,8 +254,8 @@ int gMapX,gMapY; // returns map offset for navigation
 	loc = [self convertToGL: loc];
 	vector2D v = {loc.x,loc.y};
 	
-	NSLog(@"touch ended!");	
-	NSLog(@"loc: %f,%f",loc.x, loc.y);
+//	NSLog(@"touch ended!");	
+//	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
 	
 	//NSLog(@"touch ended");

@@ -106,6 +106,7 @@ void RenderSystem::render (void)
 			textured_atlas_quad->scale_y = pos->scale_y;
 			textured_atlas_quad->rotation = pos->rot;
 			textured_atlas_quad->alpha = atlas_sprite->alpha;
+			textured_atlas_quad->anchorPoint = atlas_sprite->anchorPoint;
 			
 #ifdef ABORT_GUARDS			
 			if (atlas_sprite->src.w == 0 || atlas_sprite->src.h == 0)
@@ -135,6 +136,7 @@ void RenderSystem::render (void)
 			textured_quad->scale_y = pos->scale_y;
 			textured_quad->rotation = pos->rot;
 			textured_quad->alpha = sprite->alpha;
+			textured_quad->anchorPoint = sprite->anchorPoint;
 			
 			textured_quad->renderContent();
 			
@@ -154,6 +156,7 @@ void RenderSystem::render (void)
 			font->scale_y = pos->scale_y;			
 			font->text = (char*)label->text.c_str();
 			font->alpha = label->alpha;
+			font->anchorPoint = label->anchorPoint;
 			font->renderContent();
 			
 			++it;

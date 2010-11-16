@@ -130,8 +130,8 @@ void Scene::init ()
 	Position *pos = _entityManager->addComponent <Position> (bg);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (bg);
 	sprite->quad = new TexturedQuad("bg.png");
-	sprite->quad->anchorPoint.x = 0.0;
-	sprite->quad->anchorPoint.y = 0.0;
+	sprite->anchorPoint.x = 0.0;
+	sprite->anchorPoint.y = 0.0;
 	sprite->z = -5.0;
 	
 	Name *name = _entityManager->addComponent <Name> (bg);

@@ -9,3 +9,4 @@
 #include "globals.h"
 
 GameState g_GameState;
+double g_FPS = 0.0;

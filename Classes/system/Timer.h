@@ -37,18 +37,24 @@ public:
 		return s.str();
 	}
 	
-	void printFPS ()
+	double printFPS (bool printout)
 	{
 		frames ++;
 		temp += m_ulDelta;
 		//printf ("%f\n",temp);
 		if (temp >= 0.5f)
 		{
-			printf ("fps: %f\n", frames / temp);
+			if (printout)
+				printf ("fps: %f\n", frames / temp);
+			
+			fps = frames / temp;
 			
 			temp = 0.0;
 			frames = 0.0;
+			
 		}
+		
+		return fps;
 	}
 	
 protected:
@@ -58,5 +64,7 @@ protected:
 	
 	double temp;
 	double frames;
+	
+	double fps;
 };
 

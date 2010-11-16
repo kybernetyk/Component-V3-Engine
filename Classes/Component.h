@@ -203,12 +203,13 @@ struct Renderable : public Component
 	static ComponentID COMPONENT_ID;
 	unsigned int _renderable_type;
 	float alpha;
+	vector2D anchorPoint;
 	float z;
 	Renderable()
 	{
 		_id = COMPONENT_ID;
 		_renderable_type = RENDERABLETYPE_BASE;
-		
+		anchorPoint = vector2D_make( 0.5, 0.5);
 		z = 0.0;
 		alpha = 1.0;
 	}

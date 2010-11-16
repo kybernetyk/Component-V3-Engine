@@ -199,6 +199,7 @@ unsigned int My_SDL_GetTicks()
 		return;
 	
 	timer.update();
+	g_FPS = timer.printFPS(false);
 	
 //	loops = 0;
 
@@ -220,6 +221,7 @@ unsigned int My_SDL_GetTicks()
 #else
 	scene->update(timer.fdelta());
 #endif
+
 	
 	//printf("delta: %f\n", timer->fdelta());
 	//interpolation = float( My_SDL_GetTicks() + SKIP_TICKS - next_game_tick ) / float( SKIP_TICKS );

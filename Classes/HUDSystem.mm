@@ -10,6 +10,7 @@
 #include "HUDSystem.h"
 #include "Texture2D.h"
 #include "SoundSystem.h"
+#include "Timer.h"
 
 HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 {
@@ -22,8 +23,8 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent<Position>(hud_img);
 	Sprite *sprite = _entityManager->addComponent <Sprite> (hud_img);
 	sprite->quad = new TexturedQuad ("wolke2000.png");
-	sprite->quad->anchorPoint.x = 0.0;
-	sprite->quad->anchorPoint.y = 0.0;
+	sprite->anchorPoint.x = 0.0;
+	sprite->anchorPoint.y = 0.0;
 	sprite->z = 5.5;
 	_entityManager->addComponent<Name>(hud_img)->name = "hud_img";
 
@@ -36,20 +37,21 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	pos->y = -2.0;
 	sprite = _entityManager->addComponent<Sprite>(xp_bar);
 	sprite->quad = new TexturedQuad("xp_bar.png");
-	sprite->quad->anchorPoint.x = 0.0;
-	sprite->quad->anchorPoint.y = -0.0;
+	sprite->anchorPoint.x = 0.0;
+	sprite->anchorPoint.y = -0.0;
 	sprite->z = 5.6;
 	
 	score_ui = _entityManager->createNewEntity();
 	_entityManager->addComponent<Name>(score_ui)->name = "score_ui";
 
+	font = new OGLFont("zomg.fnt");
 	
 	//score
 	_entityManager->addComponent <Position> (score_ui);
 	TextLabel *label = _entityManager->addComponent <TextLabel> (score_ui);
-	label->ogl_font = new OGLFont("zomg.fnt");
-	label->ogl_font->anchorPoint.x = 0.0;
-	label->ogl_font->anchorPoint.y = 0.0;
+	label->ogl_font = font;
+	label->anchorPoint.x = 0.0;
+	label->anchorPoint.y = 0.0;
 	label->text = "0";
 	score_ui->get<Position>()->x = 32.0;
 	score_ui->get<Position>()->y = 10;
@@ -62,9 +64,9 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent<Name>(xp_ui)->name = "xp_ui";
 	_entityManager->addComponent <Position> (xp_ui);
 	label = _entityManager->addComponent<TextLabel> (xp_ui);
-	label->ogl_font = new OGLFont("zomg.fnt");
-	label->ogl_font->anchorPoint.x = 1.0;
-	label->ogl_font->anchorPoint.y = 0.0;
+	label->ogl_font = font;
+	label->anchorPoint.x = 1.0;
+	label->anchorPoint.y = 0.0;
 	label->text = "Xp: 0/0";
 	xp_ui->get<Position>()->x = 480-2;
 	xp_ui->get<Position>()->y = 10;
@@ -78,15 +80,28 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	_entityManager->addComponent<Name>(level_ui)->name = "level_ui";
 	_entityManager->addComponent <Position> (level_ui);
 	label = _entityManager->addComponent<TextLabel> (level_ui);
-	label->ogl_font = new OGLFont("zomg.fnt");
-	label->ogl_font->anchorPoint.x = 0.5;
-	label->ogl_font->anchorPoint.y = 0.0;
+	label->ogl_font = font;
+	label->anchorPoint.x = 0.5;
+	label->anchorPoint.y = 0.0;
 	label->text = "Lvl. 0";
 	level_ui->get<Position>()->x = 480/2-16;
 	level_ui->get<Position>()->y = 10;
 	label->z = 6.0;
 	level_ui->get<Position>()->scale_x = 0.4;
 	level_ui->get<Position>()->scale_y = 0.4;
+	
+	//fps label
+	fps_label = _entityManager->createNewEntity();
+	_entityManager->addComponent<Name>(fps_label)->name = "fps_label";
+	_entityManager->addComponent<Position> (fps_label);
+	fps_label->get<Position>()->x = 0.0;
+	fps_label->get<Position>()->y = 320.0;
+	label = _entityManager->addComponent<TextLabel> (fps_label);
+	label->ogl_font = font;
+	label->anchorPoint = vector2D_make(0.0, 1.0);
+	label->text = "FPS: 0";
+	label->z = 6.0;
+	
 	
 	Texture2D *loltex = new Texture2D("lolsheet.png");
 	
@@ -115,7 +130,7 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	next_wave_label->get<Position>()->scale_y = 0.5;
 	
 	label = _entityManager->addComponent <TextLabel> (next_wave_label);
-	label->ogl_font = new OGLFont("zomg.fnt");
+	label->ogl_font = font;
 	label->z = 9.0;
 	label->text = "Next wave in 5 ...";
 	
@@ -136,7 +151,6 @@ HUDSystem::HUDSystem (MANAGERCLASS *entityManager)
 	cached_level = g_GameState.level;
 	lvlup_showing = false;
 	lvlup_countdown = 0.0;
-	
 }
 
 Action *flyin_and_shake_action ()
@@ -208,6 +222,12 @@ void HUDSystem::update (float delta)
 	
 	sprintf(s, "Lvl. %i", g_GameState.level);
 	level_ui->get<TextLabel>()->text = s;
+	
+	if (delta > 0.0)
+	{
+		sprintf(s, "Fps: %.2f", g_FPS);
+		fps_label->get<TextLabel>()->text = s;
+	}
 	
 	float sx = (1.0/g_GameState.experience_needed_to_levelup) * g_GameState.experience;
 	

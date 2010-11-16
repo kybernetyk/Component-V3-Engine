@@ -29,3 +29,4 @@ typedef struct GameState
 #define GAMESTATE_PLAYING_LEVEL 1
 
 extern GameState g_GameState;
+extern double g_FPS;
