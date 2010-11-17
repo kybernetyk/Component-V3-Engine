@@ -253,6 +253,7 @@ int gMapX,gMapY; // returns map offset for navigation
 	
 	loc = [self convertToGL: loc];
 	mx3::vector2D v = {loc.x,loc.y};
+	mx3::InputDevice::sharedInstance()->setTouchLocation (v);
 	
 //	NSLog(@"touch ended!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);

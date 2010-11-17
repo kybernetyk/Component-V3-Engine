@@ -149,13 +149,6 @@ unsigned int My_SDL_GetTicks()
 #pragma mark stuff
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {
-	//mTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0/FPS) target:self selector:@selector(renderScene) userInfo:nil repeats:YES];
-	
-	
-	//set landscape
-//	[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeRight animated:NO];
-	
-
 	mainViewController = [[MainViewController alloc] initWithNibName: @"MainViewController" bundle: nil];
 	[window addSubview: [mainViewController view]];
 	
@@ -167,10 +160,14 @@ unsigned int My_SDL_GetTicks()
 	RenderDevice::sharedInstance()->init ();
 	
 	next_game_tick = My_SDL_GetTicks();
-	
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 	displayLink = [CADisplayLink displayLinkWithTarget: self selector:@selector(renderScene)];
 	[displayLink setFrameInterval: 1];
 	[displayLink addToRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+	//mac init
+#endif
+	
 	paused = false;
 	//timer = new Timer();
 	//timer->update();
@@ -202,12 +199,7 @@ unsigned int My_SDL_GetTicks()
 	timer.update();
 	g_FPS = timer.printFPS(false);
 	
-//	loops = 0;
-
-	//interpolation klappt nur, wenn SDL_GetTicks() geportet wurde >.<
 #define ADVANCED_LOOP
-	//interpoliert
-	//timer.printFPS();
 #ifdef ADVANCED_LOOP
 	loops = 0;
 	while( My_SDL_GetTicks() > next_game_tick && loops < MAX_FRAMESKIP) 
@@ -215,33 +207,19 @@ unsigned int My_SDL_GetTicks()
 		scene->update(1.0/TICKS_PER_SECOND);
 		next_game_tick += SKIP_TICKS;
 		loops++;
-		//printf(".");
 	}
-	//printf("\n");
-	
 #else
 	scene->update(timer.fdelta());
 #endif
 
 	
-	//printf("delta: %f\n", timer->fdelta());
-	//interpolation = float( My_SDL_GetTicks() + SKIP_TICKS - next_game_tick ) / float( SKIP_TICKS );
-
+	//draw
 	[glView startDrawing];
 	RenderDevice::sharedInstance()->beginRender();
 
 	//scene->render(interpolation * (1.0/TICKS_PER_SECOND));
 	scene->render(1.0);
 	
-	////////////////////////////////////////////////
-	//oder einfach auf nstimer verlassen
-	
-/*	app->update(1.0/TICKS_PER_SECOND);
-	interpolation = 1.0;
-	app->render(interpolation * (1.0/TICKS_PER_SECOND));*/
-	
-	//nxf::RenderDevice::sharedInstance()->flushRenderPipeline();
-
 	scene->frameDone();
 	RenderDevice::sharedInstance()->endRender();
 	[glView endDrawing];
