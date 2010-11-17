@@ -9,75 +9,81 @@
 
 #include "RenderableManager.h"
 #include "TexturedQuad.h"
-
-TexturedQuad *RenderableManager::accquireTexturedQuad (std::string filename)
+namespace mx3 
 {
-	if (_referenceCounts[filename] > 0)
+		
+		
+	TexturedQuad *RenderableManager::accquireTexturedQuad (std::string filename)
 	{
-		_referenceCounts[filename] ++;
-		return (TexturedQuad*)_renderables[filename];
+		if (_referenceCounts[filename] > 0)
+		{
+			_referenceCounts[filename] ++;
+			return (TexturedQuad*)_renderables[filename];
+		}
+		
+		TexturedQuad *ret = new TexturedQuad(filename);
+		if (!ret)
+			return NULL;
+		
+		_renderables[filename] = ret;
+		_referenceCounts[filename] = 1;
+		return ret;
 	}
-	
-	TexturedQuad *ret = new TexturedQuad(filename);
-	if (!ret)
-		return NULL;
-	
-	_renderables[filename] = ret;
-	_referenceCounts[filename] = 1;
-	return ret;
-}
 
 
-TexturedAtlasQuad *RenderableManager::accquireTexturedAtlasQuad (std::string filename)
-{
-	if (_referenceCounts[filename] > 0)
+	TexturedAtlasQuad *RenderableManager::accquireTexturedAtlasQuad (std::string filename)
 	{
-		_referenceCounts[filename] ++;
-		return (TexturedAtlasQuad*)_renderables[filename];
+		if (_referenceCounts[filename] > 0)
+		{
+			_referenceCounts[filename] ++;
+			return (TexturedAtlasQuad*)_renderables[filename];
+		}
+		
+		TexturedAtlasQuad *ret = new TexturedAtlasQuad(filename);
+		if (!ret)
+			return NULL;
+		
+		_renderables[filename] = ret;
+		_referenceCounts[filename] = 1;
+		return ret;
+		
 	}
-	
-	TexturedAtlasQuad *ret = new TexturedAtlasQuad(filename);
-	if (!ret)
-		return NULL;
-	
-	_renderables[filename] = ret;
-	_referenceCounts[filename] = 1;
-	return ret;
-	
-}
 
 
-OGLFont *RenderableManager::accquireOGLFont (std::string filename)
-{
-	if (_referenceCounts[filename] > 0)
+	OGLFont *RenderableManager::accquireOGLFont (std::string filename)
 	{
-		_referenceCounts[filename] ++;
-		return (OGLFont*)_renderables[filename];
+		if (_referenceCounts[filename] > 0)
+		{
+			_referenceCounts[filename] ++;
+			return (OGLFont*)_renderables[filename];
+		}
+		
+		OGLFont *ret = new OGLFont(filename);
+		if (!ret)
+			return NULL;
+		
+		_renderables[filename] = ret;
+		_referenceCounts[filename] = 1;
+		return ret;
+		
 	}
-	
-	OGLFont *ret = new OGLFont(filename);
-	if (!ret)
-		return NULL;
-	
-	_renderables[filename] = ret;
-	_referenceCounts[filename] = 1;
-	return ret;
-	
-}
 
-void RenderableManager::release (IRenderable *pRenderable)
-{
-	if (!pRenderable)
-		return;
-	
-	std::string filename = pRenderable->_filename;
-	
-	_referenceCounts[filename] --;
-	if (_referenceCounts[filename] <= 0)
+	void RenderableManager::release (IRenderable *pRenderable)
 	{
-		IRenderable *p = _renderables[filename];
-		_renderables[filename] = NULL;
-		delete p;
-		_referenceCounts[filename] = 0;
+		if (!pRenderable)
+			return;
+		
+		std::string filename = pRenderable->_filename;
+		
+		_referenceCounts[filename] --;
+		if (_referenceCounts[filename] <= 0)
+		{
+			IRenderable *p = _renderables[filename];
+			_renderables[filename] = NULL;
+			delete p;
+			_referenceCounts[filename] = 0;
+		}
 	}
+
+
 }

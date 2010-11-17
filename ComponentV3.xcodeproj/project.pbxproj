@@ -19,7 +19,7 @@
 		033DCBB5128D7C9700C66D74 /* EntityManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB88128D7C9700C66D74 /* EntityManager.mm */; };
 		033DCBB6128D7C9700C66D74 /* Entity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB8B128D7C9700C66D74 /* Entity.mm */; };
 		033DCBB7128D7C9700C66D74 /* Component.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB8E128D7C9700C66D74 /* Component.mm */; };
-		033DCBB8128D7C9700C66D74 /* bm_font.m in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB92128D7C9700C66D74 /* bm_font.m */; };
+		033DCBB8128D7C9700C66D74 /* bm_font.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB92128D7C9700C66D74 /* bm_font.mm */; };
 		033DCBB9128D7C9700C66D74 /* InputDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB95128D7C9700C66D74 /* InputDevice.mm */; };
 		033DCBBB128D7C9700C66D74 /* Timer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB99128D7C9700C66D74 /* Timer.mm */; };
 		033DCBBC128D7C9700C66D74 /* RenderDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = 033DCB9D128D7C9700C66D74 /* RenderDevice.mm */; };
@@ -135,7 +135,7 @@
 		033DCB8D128D7C9700C66D74 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
 		033DCB8E128D7C9700C66D74 /* Component.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Component.mm; sourceTree = "<group>"; };
 		033DCB91128D7C9700C66D74 /* bm_font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bm_font.h; sourceTree = "<group>"; };
-		033DCB92128D7C9700C66D74 /* bm_font.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bm_font.m; sourceTree = "<group>"; };
+		033DCB92128D7C9700C66D74 /* bm_font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = bm_font.mm; sourceTree = "<group>"; };
 		033DCB94128D7C9700C66D74 /* InputDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputDevice.h; sourceTree = "<group>"; };
 		033DCB95128D7C9700C66D74 /* InputDevice.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputDevice.mm; sourceTree = "<group>"; };
 		033DCB98128D7C9700C66D74 /* Timer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Timer.h; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				033DCB91128D7C9700C66D74 /* bm_font.h */,
-				033DCB92128D7C9700C66D74 /* bm_font.m */,
+				033DCB92128D7C9700C66D74 /* bm_font.mm */,
 			);
 			name = Font;
 			sourceTree = "<group>";
@@ -579,7 +579,6 @@
 				03EDF8F6128D8C3C0086763A /* SoundSystem */,
 				033DCB83128D7C9700C66D74 /* MovementSystem */,
 				033DCB7D128D7C9700C66D74 /* Render System */,
-				033DCB7A128D7C9700C66D74 /* Player Control System */,
 				033DCB77128D7C9700C66D74 /* Attachement System */,
 				033DCB74128D7C9700C66D74 /* Action System */,
 			);
@@ -589,6 +588,7 @@
 		034F38631292DBE900F54ABA /* Game Systems */ = {
 			isa = PBXGroup;
 			children = (
+				033DCB7A128D7C9700C66D74 /* Player Control System */,
 				033DCB6F128D7C9700C66D74 /* Game Logic System */,
 				033DCB69128D7C9700C66D74 /* HUD System */,
 			);
@@ -875,7 +875,7 @@
 				033DCBB5128D7C9700C66D74 /* EntityManager.mm in Sources */,
 				033DCBB6128D7C9700C66D74 /* Entity.mm in Sources */,
 				033DCBB7128D7C9700C66D74 /* Component.mm in Sources */,
-				033DCBB8128D7C9700C66D74 /* bm_font.m in Sources */,
+				033DCBB8128D7C9700C66D74 /* bm_font.mm in Sources */,
 				033DCBB9128D7C9700C66D74 /* InputDevice.mm in Sources */,
 				033DCBBB128D7C9700C66D74 /* Timer.mm in Sources */,
 				033DCBBC128D7C9700C66D74 /* RenderDevice.mm in Sources */,

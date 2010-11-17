@@ -11,7 +11,7 @@
 #import "FacebookSubmitController.h"
 
 #include "Timer.h"
-
+#include "Scene.h"
 
 #define FPS 60.0
 // handy value to convert degrees to radians
@@ -23,7 +23,8 @@
     UIWindow *window;
 	NSTimer*			mTimer;   // Rendering Timer
 	CADisplayLink *displayLink;
-	Timer timer;
+	mx3::Timer timer;
+	game::Scene *scene;
 
 	EAGLView *glView;
 	

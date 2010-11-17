@@ -7,28 +7,28 @@
  *
  */
 #pragma once
-#ifndef __UTIL_H__
-#define __UTIL_H__ 44
 
 #define DEG2RAD(x) (0.0174532925 * (x))
 #define RAD2DEG(x) (57.295779578 * (x))
-
-struct vector2D
+namespace mx3 
 {
-	float x;
-	float y;
-};
+		
+	struct vector2D
+	{
+		float x;
+		float y;
+	};
 
-vector2D vector2D_make (float x, float y);
+	vector2D vector2D_make (float x, float y);
 
-struct rect
-{
-	float x;
-	float y;
-	float w;
-	float h;
-};
+	struct rect
+	{
+		float x;
+		float y;
+		float w;
+		float h;
+	};
 
-rect rect_make (float x, float y, float w, float h);
+	rect rect_make (float x, float y, float w, float h);
 
-#endif
+}

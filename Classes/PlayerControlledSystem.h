@@ -9,13 +9,18 @@
 #pragma once
 #include <vector>
 #include "EntityManager.h"
+using namespace mx3;
 
-class PlayerControlledSystem
+namespace game
 {
-public:
-	PlayerControlledSystem (EntityManager *entityManager);
-	void update (float delta);	
-protected:
-	EntityManager *_entityManager;
-};
+	class PlayerControlledSystem
+	{
+	public:
+		PlayerControlledSystem (EntityManager *entityManager);
+		void update (float delta);	
+	protected:
+		EntityManager *_entityManager;
+	};
+	
+}
 

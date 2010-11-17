@@ -10,15 +10,17 @@
 
 #include <map>
 #include "Texture2D.h"
-
-
-class TextureManager
+namespace mx3 
 {
-public:
-	Texture2D *accquireTexture (std::string filename);
-	void releaseTexture (Texture2D *pTexture);
-	
-protected:
-	std::map <std::string, int> _referenceCounts;
-	std::map <std::string, Texture2D *> _textures;
-};
+	class TextureManager
+	{
+	public:
+		Texture2D *accquireTexture (std::string filename);
+		void releaseTexture (Texture2D *pTexture);
+		
+	protected:
+		std::map <std::string, int> _referenceCounts;
+		std::map <std::string, Texture2D *> _textures;
+	};
+
+}

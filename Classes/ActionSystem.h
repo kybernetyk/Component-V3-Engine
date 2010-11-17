@@ -10,22 +10,26 @@
 
 #include <vector>
 #include "EntityManager.h"
-
-class ActionSystem
+namespace mx3 
 {
-public:
-	ActionSystem (EntityManager *entityManager);
-	void update (float delta);	
 	
-	
-protected:
+		
+	class ActionSystem
+	{
+	public:
+		ActionSystem (EntityManager *entityManager);
+		void update (float delta);	
+		
+		
+	protected:
 
-	
-	void setupNextActionOrStop (Entity *e,Action *current_action);
-	
-	EntityManager *_entityManager;
-	
-	std::vector<Entity*> _entities;
-};
+		
+		void setupNextActionOrStop (Entity *e,Action *current_action);
+		
+		EntityManager *_entityManager;
+		
+		std::vector<Entity*> _entities;
+	};
 
 
+}

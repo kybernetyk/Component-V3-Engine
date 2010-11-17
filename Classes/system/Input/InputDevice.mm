@@ -4,35 +4,38 @@
 
 #include "InputDevice.h"
 #include <stddef.h>
-
-
-InputDevice* InputDevice::_sharedInstance = 0;
-
-InputDevice::InputDevice (void)
-{
-	_is_touch_active = false;
-	_touchup_handled = false;
-	_is_touchup_active = false;
-}
-
-InputDevice::~InputDevice (void)
+namespace mx3 
 {
 	
-}
+	InputDevice* InputDevice::_sharedInstance = 0;
 
-InputDevice* InputDevice::sharedInstance (void)
-{
-	if(!_sharedInstance)
-		_sharedInstance = new InputDevice;
-	
-	return _sharedInstance;
-}
-
-void InputDevice::unload (void)
-{
-	if (_sharedInstance)
+	InputDevice::InputDevice (void)
 	{
-		delete _sharedInstance;
-		_sharedInstance = NULL;
+		_is_touch_active = false;
+		_touchup_handled = false;
+		_is_touchup_active = false;
 	}
+
+	InputDevice::~InputDevice (void)
+	{
+		
+	}
+
+	InputDevice* InputDevice::sharedInstance (void)
+	{
+		if(!_sharedInstance)
+			_sharedInstance = new InputDevice;
+		
+		return _sharedInstance;
+	}
+
+	void InputDevice::unload (void)
+	{
+		if (_sharedInstance)
+		{
+			delete _sharedInstance;
+			_sharedInstance = NULL;
+		}
+	}
+
 }

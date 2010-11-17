@@ -10,27 +10,32 @@
 #include "TextureManager.h"
 #include "RenderableManager.h"
 
-typedef struct GameState
+namespace game 
 {
-	int score;
-	
-	int enemies_left;
-	
-	
-	int game_state;
-	int next_state;
-	
-	int level;
-	
-	int experience;
-	int experience_needed_to_levelup;
-	
-} GameState;
+	typedef struct GameState
+	{
+		int score;
+		
+		int enemies_left;
+		
+		
+		int game_state;
+		int next_state;
+		
+		int level;
+		
+		int experience;
+		int experience_needed_to_levelup;
+		
+	} GameState;
 
-#define GAMESTATE_WAITING_FOR_WAVE 0
-#define GAMESTATE_PLAYING_LEVEL 1
 
-extern GameState g_GameState;
+	#define GAMESTATE_WAITING_FOR_WAVE 0
+	#define GAMESTATE_PLAYING_LEVEL 1
+}
+
+extern game::GameState g_GameState;
 extern double g_FPS;
-extern TextureManager g_TextureManager;
-extern RenderableManager g_RenderableManager;
+	
+extern mx3::TextureManager g_TextureManager;
+extern mx3::RenderableManager g_RenderableManager;

@@ -47,170 +47,175 @@
 #include "Entity.h"
 
 //#define __ENTITY_MANAGER_WARNINGS__
-
-struct Component;
-
-
-class EntityManager
+namespace mx3 
 {
-public:
-	EntityManager();
-	EntityGUID getNextAvailableID();
 	
-	Entity *createNewEntity (void);
-	void registerEntity(Entity *e);
-	void removeEntity(EntityGUID _id);
-	void removeAllEntities (void);
-	
-	
-	Entity *getEntity(EntityGUID _id);
-	
-	void getEntitiesPossessingComponent (std::vector<Entity*> &result, ComponentID familyId);
-	void getEntitiesPossessingComponents (std::vector<Entity*> &result, ...);
+		
+	struct Component;
 
-	template<typename T> T *addComponent(Entity *e)
+
+	class EntityManager
 	{
-		is_dirty = true;
-
-#ifdef ABORT_GUARDS			
-		if (T::COMPONENT_ID >= MAX_COMPONENTS_PER_ENTITY)
-		{
-			printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,T::COMPONENT_ID);
-			abort();
-			return NULL;
-		}
-
-		if (T::COMPONENT_ID == 0)
-		{
-			printf("** Fast Entity Manager Error!\t[!] Component ID 0 is reserved! You may not use that!\n");
-			abort();
-			return NULL;
-		}
-#endif
+	public:
+		EntityManager();
+		EntityGUID getNextAvailableID();
 		
-		T *comp = new T;
+		Entity *createNewEntity (void);
+		void registerEntity(Entity *e);
+		void removeEntity(EntityGUID _id);
+		void removeAllEntities (void);
 		
-		if (_components[e->_guid][T::COMPONENT_ID])
+		
+		Entity *getEntity(EntityGUID _id);
+		
+		void getEntitiesPossessingComponent (std::vector<Entity*> &result, ComponentID familyId);
+		void getEntitiesPossessingComponents (std::vector<Entity*> &result, ...);
+
+		template<typename T> T *addComponent(Entity *e)
 		{
-			//printf("warning: replacing component (%p / %i) on Entity (%p) without cleanup!\n", _components[e->_guid][T::COMPONENT_ID],T::COMPONENT_ID, e);
-#ifdef __ENTITY_MANAGER_WARNINGS__
-			printf("this slot is already used by a component. you want to replace the component @ slot %i which is: [%s]\n", T::COMPONENT_ID,_components[e->_guid][T::COMPONENT_ID]->toString().c_str());
-			printf("the component's parent entity:");
-			dumpEntity(e);
-			printf("I am now removing this component and adding the new one!\n");
-#endif
-			removeComponent <T> (e);
+			is_dirty = true;
+
+	#ifdef ABORT_GUARDS			
+			if (T::COMPONENT_ID >= MAX_COMPONENTS_PER_ENTITY)
+			{
+				printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,T::COMPONENT_ID);
+				abort();
+				return NULL;
+			}
+
+			if (T::COMPONENT_ID == 0)
+			{
+				printf("** Fast Entity Manager Error!\t[!] Component ID 0 is reserved! You may not use that!\n");
+				abort();
+				return NULL;
+			}
+	#endif
 			
-		}
-
-		
-		_components[e->_guid][T::COMPONENT_ID] = comp;
-		return comp;
-	}
-
-	Component *addComponent(Entity *e, Component *comp)
-	{
-		is_dirty = true;
-
-#ifdef ABORT_GUARDS
-		if (comp->_id >= MAX_COMPONENTS_PER_ENTITY)
-		{
-			printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,comp->_id);
-			abort();
-			return NULL;
-		}
-		
-		if (comp->_id == 0)
-		{
-			printf("** Fast Entity Manager Error!\t[!] Component ID 0 is reserved! You may not use that!\n");
-			abort();
-			return NULL;
-		}
-#endif		
-
-		if (_components[e->_guid][comp->_id])
-		{
-			//printf("warning: replacing component (%p / %i) on Entity (%p) without cleanup!\n", _components[e->_guid][T::COMPONENT_ID],T::COMPONENT_ID, e);
-#ifdef __ENTITY_MANAGER_WARNINGS__
-
-			printf("this slot is already used by a component. you want to replace the component @ slot %i which is: [%s]\n", comp->_id,_components[e->_guid][comp->_id]->toString().c_str());
-			printf("the component's parent entity:");
-			dumpEntity(e);
+			T *comp = new T;
 			
-			printf("I am now removing this component and adding the new one!\n");
-#endif
-//			removeComponent <T> (e);
-			removeComponent(e, _components[e->_guid][comp->_id]);
+			if (_components[e->_guid][T::COMPONENT_ID])
+			{
+				//printf("warning: replacing component (%p / %i) on Entity (%p) without cleanup!\n", _components[e->_guid][T::COMPONENT_ID],T::COMPONENT_ID, e);
+	#ifdef __ENTITY_MANAGER_WARNINGS__
+				printf("this slot is already used by a component. you want to replace the component @ slot %i which is: [%s]\n", T::COMPONENT_ID,_components[e->_guid][T::COMPONENT_ID]->toString().c_str());
+				printf("the component's parent entity:");
+				dumpEntity(e);
+				printf("I am now removing this component and adding the new one!\n");
+	#endif
+				removeComponent <T> (e);
+				
+			}
+
 			
+			_components[e->_guid][T::COMPONENT_ID] = comp;
+			return comp;
 		}
 
-		
-		_components[e->_guid][comp->_id] = comp;
-		return comp;
-	}
-	
-	//component query
-	template <typename T> T *getComponent(Entity *e) 
-	{
-		return (T*)_components[e->_guid][T::COMPONENT_ID];
-	}
+		Component *addComponent(Entity *e, Component *comp)
+		{
+			is_dirty = true;
 
-	Component *getComponent(Entity *e, ComponentID _id) 
-	{
-		return _components[e->_guid][_id];
-	}
-	
-	
-	template<typename T> void removeComponent(Entity *e)
-	{
-		Component *component = _components[e->_guid][T::COMPONENT_ID];
-		delete component;
-		_components[e->_guid][T::COMPONENT_ID] = NULL;
-		is_dirty = true;
-	}
-	
-	void removeComponent(Entity *e, Component *comp)
-	{
-		_components[e->_guid][comp->_id] = NULL;
-		delete comp;
+	#ifdef ABORT_GUARDS
+			if (comp->_id >= MAX_COMPONENTS_PER_ENTITY)
+			{
+				printf("** Fast Entity Manager Error!\t[!] No more Entity slots free!\n\t\tMAX_SLOTS: %i | Component ID: %i\n",MAX_COMPONENTS_PER_ENTITY,comp->_id);
+				abort();
+				return NULL;
+			}
+			
+			if (comp->_id == 0)
+			{
+				printf("** Fast Entity Manager Error!\t[!] Component ID 0 is reserved! You may not use that!\n");
+				abort();
+				return NULL;
+			}
+	#endif		
+
+			if (_components[e->_guid][comp->_id])
+			{
+				//printf("warning: replacing component (%p / %i) on Entity (%p) without cleanup!\n", _components[e->_guid][T::COMPONENT_ID],T::COMPONENT_ID, e);
+	#ifdef __ENTITY_MANAGER_WARNINGS__
+
+				printf("this slot is already used by a component. you want to replace the component @ slot %i which is: [%s]\n", comp->_id,_components[e->_guid][comp->_id]->toString().c_str());
+				printf("the component's parent entity:");
+				dumpEntity(e);
+				
+				printf("I am now removing this component and adding the new one!\n");
+	#endif
+	//			removeComponent <T> (e);
+				removeComponent(e, _components[e->_guid][comp->_id]);
+				
+			}
+
+			
+			_components[e->_guid][comp->_id] = comp;
+			return comp;
+		}
 		
-		is_dirty = true;
-	}
-	
-	void removeComponent (Entity *e, ComponentID _id)
-	{
-		Component *comp =  _components[e->_guid][_id];
-		_components[e->_guid][_id] = NULL;
-		delete comp;
+		//component query
+		template <typename T> T *getComponent(Entity *e) 
+		{
+			return (T*)_components[e->_guid][T::COMPONENT_ID];
+		}
+
+		Component *getComponent(Entity *e, ComponentID _id) 
+		{
+			return _components[e->_guid][_id];
+		}
 		
-		is_dirty = true;
-	}
-	
-	void removeAllComponents (Entity *e);
-	
-	void dumpEntity (Entity *e);
-	void dumpEntityCount (void);
-	void dumpEntities (void);
-	void dumpComponent (Entity *e, Component *c);
-	void dumpComponents (Entity *e);
-	
-	
-	
-	bool isDirty ()
-	{
-		return is_dirty;
-	}
-	
-	void setIsDirty (bool b)
-	{
-		is_dirty = b;
-	}
-	
-	unsigned int generateChecksum();
-	
-protected:
-	bool is_dirty;
-	
-	Entity *_entities[MAX_ENTITIES];	//index is entity id
-	Component *_components[MAX_ENTITIES][MAX_COMPONENTS_PER_ENTITY];	//[entity_id][component_id]
-};
+		
+		template<typename T> void removeComponent(Entity *e)
+		{
+			Component *component = _components[e->_guid][T::COMPONENT_ID];
+			delete component;
+			_components[e->_guid][T::COMPONENT_ID] = NULL;
+			is_dirty = true;
+		}
+		
+		void removeComponent(Entity *e, Component *comp)
+		{
+			_components[e->_guid][comp->_id] = NULL;
+			delete comp;
+			
+			is_dirty = true;
+		}
+		
+		void removeComponent (Entity *e, ComponentID _id)
+		{
+			Component *comp =  _components[e->_guid][_id];
+			_components[e->_guid][_id] = NULL;
+			delete comp;
+			
+			is_dirty = true;
+		}
+		
+		void removeAllComponents (Entity *e);
+		
+		void dumpEntity (Entity *e);
+		void dumpEntityCount (void);
+		void dumpEntities (void);
+		void dumpComponent (Entity *e, Component *c);
+		void dumpComponents (Entity *e);
+		
+		
+		
+		bool isDirty ()
+		{
+			return is_dirty;
+		}
+		
+		void setIsDirty (bool b)
+		{
+			is_dirty = b;
+		}
+		
+		unsigned int generateChecksum();
+		
+	protected:
+		bool is_dirty;
+		
+		Entity *_entities[MAX_ENTITIES];	//index is entity id
+		Component *_components[MAX_ENTITIES][MAX_COMPONENTS_PER_ENTITY];	//[entity_id][component_id]
+	};
+
+}

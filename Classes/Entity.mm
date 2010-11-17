@@ -10,18 +10,21 @@
 #import "Entity.h"
 
 
-
-
-EntityManager *Entity::entityManager = NULL;
-
-Entity::Entity(EntityGUID _id)
+namespace mx3 
 {
-	checksum = 0;
-	_guid = _id;
-	entityManager->registerEntity(this);
-}
+	
+	EntityManager *Entity::entityManager = NULL;
 
-Component *Entity::getById (ComponentID _id)
-{
-	return entityManager->getComponent(this, _id);
+	Entity::Entity(EntityGUID _id)
+	{
+		checksum = 0;
+		_guid = _id;
+		entityManager->registerEntity(this);
+	}
+
+	Component *Entity::getById (ComponentID _id)
+	{
+		return entityManager->getComponent(this, _id);
+	}
+
 }

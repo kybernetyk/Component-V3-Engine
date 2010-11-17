@@ -10,15 +10,19 @@
 #include <vector>
 #include "EntityManager.h"
 #include "Entity.h"
-
-class MovementSystem
+namespace mx3 
 {
-public:
-	MovementSystem (EntityManager *entityManager);
-	void update (float delta);	
+	
+		
+	class MovementSystem
+	{
+	public:
+		MovementSystem (EntityManager *entityManager);
+		void update (float delta);	
 
-protected:
-	EntityManager *_entityManager;
-	std::vector<Entity*> moveableList;
-};
+	protected:
+		EntityManager *_entityManager;
+		std::vector<Entity*> moveableList;
+	};
 
+}

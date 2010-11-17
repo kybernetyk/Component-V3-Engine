@@ -7,7 +7,12 @@
  *
  */
 #pragma once
-typedef int EntityGUID;
-typedef int ComponentID;
+namespace mx3 
+{
 
-#define ARGLIST_END -1
+	typedef int EntityGUID;
+	typedef int ComponentID;
+
+	#define ARGLIST_END -1
+
+}

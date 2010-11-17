@@ -11,20 +11,26 @@
 #include <vector>
 #include "EntityManager.h"
 
-
-class TexturedQuad;
-class IRenderable;
-
-
-class RenderSystem
+namespace mx3 
 {
-public:
-	RenderSystem (EntityManager *entityManager);
-	void render (void);	
-
-protected:
-	EntityManager *_entityManager;
 	
-	std::vector <IRenderable *> gl_data;
-	std::vector<Entity*> moveableList;
-};
+		
+
+	class TexturedQuad;
+	class IRenderable;
+
+
+	class RenderSystem
+	{
+	public:
+		RenderSystem (EntityManager *entityManager);
+		void render (void);	
+
+	protected:
+		EntityManager *_entityManager;
+		
+		std::vector <IRenderable *> gl_data;
+		std::vector<Entity*> moveableList;
+	};
+
+}

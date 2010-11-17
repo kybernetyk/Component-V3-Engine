@@ -9,7 +9,11 @@
 
 #include "GameComponents.h"
 
-//user
-ComponentID PlayerController::COMPONENT_ID = 16;
-
-ComponentID Enemy::COMPONENT_ID = 17;
+using namespace mx3;
+namespace game 
+{
+	//user
+	ComponentID PlayerController::COMPONENT_ID = 16;
+	
+	ComponentID Enemy::COMPONENT_ID = 17;
+}

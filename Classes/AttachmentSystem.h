@@ -10,14 +10,18 @@
 #pragma once
 #include <vector>
 #include "EntityManager.h"
-
-class AttachmentSystem
+namespace mx3 
 {
-public:
-	AttachmentSystem (EntityManager *entityManager);
-	void update (float delta);	
+	
+		
+	class AttachmentSystem
+	{
+	public:
+		AttachmentSystem (EntityManager *entityManager);
+		void update (float delta);	
 
-protected:
-	EntityManager *_entityManager;
-};
+	protected:
+		EntityManager *_entityManager;
+	};
 
+}

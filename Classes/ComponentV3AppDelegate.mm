@@ -19,9 +19,9 @@
 #include "Timer.h"
 #include "globals.h"
 
-//Game::GameApp *app;
+using namespace mx3;
+using namespace game;
 
-Scene::Scene *scene;
 
 
 const int TICKS_PER_SECOND = 60;

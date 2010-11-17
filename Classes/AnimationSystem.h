@@ -11,15 +11,19 @@
 #include <vector>
 #include "EntityManager.h"
 #include "Entity.h"
-
-class AnimationSystem
+namespace mx3 
 {
-public:
-	AnimationSystem (EntityManager *entityManager);
-	void update (float delta);	
 	
-protected:
-	EntityManager *_entityManager;
-	std::vector<Entity*> _entities;
-};
+		
+	class AnimationSystem
+	{
+	public:
+		AnimationSystem (EntityManager *entityManager);
+		void update (float delta);	
+		
+	protected:
+		EntityManager *_entityManager;
+		std::vector<Entity*> _entities;
+	};
 
+}

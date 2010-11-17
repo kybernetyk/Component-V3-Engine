@@ -200,13 +200,13 @@ int gMapX,gMapY; // returns map offset for navigation
 	CGPoint loc = [touch locationInView: self];
 
 	loc = [self convertToGL: loc];
-	vector2D v = {loc.x,loc.y};
+	mx3::vector2D v = {loc.x,loc.y};
 
 //	NSLog(@"touch down!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
-	InputDevice::sharedInstance()->setTouchActive(true);
-	InputDevice::sharedInstance()->setTouchLocation (v);
+	mx3::InputDevice::sharedInstance()->setTouchActive(true);
+	mx3::InputDevice::sharedInstance()->setTouchLocation (v);
 	
 	
 	// Enumerate through all the touch objects.
@@ -236,13 +236,13 @@ int gMapX,gMapY; // returns map offset for navigation
 	CGPoint loc = [touch locationInView: self];
 
 	loc = [self convertToGL: loc];
-	vector2D v = {loc.x,loc.y};
+	mx3::vector2D v = {loc.x,loc.y};
 	
 //	NSLog(@"touch moved!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
-	InputDevice::sharedInstance()->setTouchActive(true);
-	InputDevice::sharedInstance()->setTouchLocation (v);
+	mx3::InputDevice::sharedInstance()->setTouchActive(true);
+	mx3::InputDevice::sharedInstance()->setTouchLocation (v);
 	
 }
 
@@ -252,15 +252,15 @@ int gMapX,gMapY; // returns map offset for navigation
 	CGPoint loc = [touch locationInView: self];
 	
 	loc = [self convertToGL: loc];
-	vector2D v = {loc.x,loc.y};
+	mx3::vector2D v = {loc.x,loc.y};
 	
 //	NSLog(@"touch ended!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
 	
 	//NSLog(@"touch ended");
-	InputDevice::sharedInstance()->setTouchActive(false);
-	InputDevice::sharedInstance()->setTouchUpReceived(true);
+	mx3::InputDevice::sharedInstance()->setTouchActive(false);
+	mx3::InputDevice::sharedInstance()->setTouchUpReceived(true);
 }
 @end
 

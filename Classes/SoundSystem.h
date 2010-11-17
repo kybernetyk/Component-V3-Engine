@@ -14,30 +14,34 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-#define SFX_EMPTY 0
-#define SFX_TICK 1
-#define SFX_BLAM 2
-#define SFX_KAWAII 3
-#define SFX_KAWAII2 4
-#define SFX_LEVELUP 5
-
-#define MUSIC_GAME 1
-
-class SoundSystem
+namespace mx3 
 {
-public:
-	SoundSystem (EntityManager *entityManager);
-	void update (float delta);	
-	
-	void playMusic (int music_id);
-	
-protected:
-	EntityManager *_entityManager;
-	
-	std::string sounds[32];
-	float sound_delays[32];
-	
-	int music_playing;
-	std::vector<Entity*> _entities;
-};
 
+	#define SFX_EMPTY 0
+	#define SFX_TICK 1
+	#define SFX_BLAM 2
+	#define SFX_KAWAII 3
+	#define SFX_KAWAII2 4
+	#define SFX_LEVELUP 5
+
+	#define MUSIC_GAME 1
+
+	class SoundSystem
+	{
+	public:
+		SoundSystem (EntityManager *entityManager);
+		void update (float delta);	
+		
+		void playMusic (int music_id);
+		
+	protected:
+		EntityManager *_entityManager;
+		
+		std::string sounds[32];
+		float sound_delays[32];
+		
+		int music_playing;
+		std::vector<Entity*> _entities;
+	};
+
+}

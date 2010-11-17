@@ -10,23 +10,28 @@
 #pragma once
 
 #include <map>
-//#include "TexturedQuad.h"
-class TexturedQuad;
-class TexturedAtlasQuad;
-class OGLFont;
-class IRenderable;
-
-
-class RenderableManager
+namespace mx3 
 {
-public:
-	TexturedQuad *accquireTexturedQuad (std::string filename);
-	TexturedAtlasQuad *accquireTexturedAtlasQuad (std::string filename);
-	OGLFont *accquireOGLFont (std::string filename);
 	
-	void release (IRenderable *pRenderable);
-	
-protected:
-	std::map <std::string, int> _referenceCounts;
-	std::map <std::string, IRenderable *> _renderables;
-};
+		
+	class TexturedQuad;
+	class TexturedAtlasQuad;
+	class OGLFont;
+	class IRenderable;
+
+
+	class RenderableManager
+	{
+	public:
+		TexturedQuad *accquireTexturedQuad (std::string filename);
+		TexturedAtlasQuad *accquireTexturedAtlasQuad (std::string filename);
+		OGLFont *accquireOGLFont (std::string filename);
+		
+		void release (IRenderable *pRenderable);
+		
+	protected:
+		std::map <std::string, int> _referenceCounts;
+		std::map <std::string, IRenderable *> _renderables;
+	};
+
+}

@@ -9,34 +9,40 @@
 #pragma once
 #include <string>
 #include <OpenGLES/ES1/gl.h>
-
-typedef struct _TextureParams 
+namespace mx3 
 {
-	GLuint	minFilter;
-	GLuint	magFilter;
-	GLuint	wrapS;
-	GLuint	wrapT;
-} TextureParams;
+	
+		
+	typedef struct _TextureParams 
+	{
+		GLuint	minFilter;
+		GLuint	magFilter;
+		GLuint	wrapS;
+		GLuint	wrapT;
+	} TextureParams;
 
 
-class Texture2D
-{
-public:
-	Texture2D (std::string filename);
-	~Texture2D ();
-	
-	bool loadFromFile (std::string filename);
-	void makeActive ();
-	
-	unsigned int _openGlTextureID;
-	
-	std::string _filename;
-	
-	void setTexParams (TextureParams *texParams);
-	
-	void setAliasTexParams ();
-	void setAntiAliasTexParams ();
-	
-	unsigned int w;
-	unsigned int h;
-};
+	class Texture2D
+	{
+	public:
+		Texture2D (std::string filename);
+		~Texture2D ();
+		
+		bool loadFromFile (std::string filename);
+		void makeActive ();
+		
+		unsigned int _openGlTextureID;
+		
+		std::string _filename;
+		
+		void setTexParams (TextureParams *texParams);
+		
+		void setAliasTexParams ();
+		void setAntiAliasTexParams ();
+		
+		unsigned int w;
+		unsigned int h;
+	};
+
+
+}

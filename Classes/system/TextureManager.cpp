@@ -8,36 +8,41 @@
  */
 
 #include "TextureManager.h"
-
-Texture2D *TextureManager::accquireTexture (std::string filename)
+namespace mx3 
 {
-	if (_referenceCounts[filename] > 0)
+		
+		
+	Texture2D *TextureManager::accquireTexture (std::string filename)
 	{
-		_referenceCounts[filename] ++;
-		return _textures[filename];
+		if (_referenceCounts[filename] > 0)
+		{
+			_referenceCounts[filename] ++;
+			return _textures[filename];
+		}
+
+		Texture2D *ret = new Texture2D(filename);
+		if (!ret)
+			return NULL;
+
+		_textures[filename] = ret;
+		_referenceCounts[filename] = 1;
+		return ret;
 	}
 
-	Texture2D *ret = new Texture2D(filename);
-	if (!ret)
-		return NULL;
-
-	_textures[filename] = ret;
-	_referenceCounts[filename] = 1;
-	return ret;
-}
-
-void TextureManager::releaseTexture (Texture2D *pTexture)
-{
-	if (!pTexture)
-		return;
-	
-	std::string filename = pTexture->_filename;
-	_referenceCounts[filename] --;
-	if (_referenceCounts[filename] <= 0)
+	void TextureManager::releaseTexture (Texture2D *pTexture)
 	{
-		Texture2D *p = _textures[filename];
-		_textures[filename] = NULL;
-		delete p;
-		_referenceCounts[filename] = 0;
+		if (!pTexture)
+			return;
+		
+		std::string filename = pTexture->_filename;
+		_referenceCounts[filename] --;
+		if (_referenceCounts[filename] <= 0)
+		{
+			Texture2D *p = _textures[filename];
+			_textures[filename] = NULL;
+			delete p;
+			_referenceCounts[filename] = 0;
+		}
 	}
+
 }

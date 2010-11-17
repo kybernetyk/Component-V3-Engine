@@ -7,7 +7,10 @@
  *
  */
 #pragma once
-
+namespace mx3 
+{
+	
+	
 typedef struct bm_char
 {
 	int x,y,w,h;
@@ -47,3 +50,6 @@ int bm_loadfont (const char *filename, bm_font *font);
 int bm_width (bm_font *font, char *text);
 int bm_height (bm_font *font, char *text);
 void bm_destroyfont (bm_font *font);
+
+
+}

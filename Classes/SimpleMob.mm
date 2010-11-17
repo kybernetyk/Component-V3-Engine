@@ -15,39 +15,41 @@
 #include "Texture2D.h"
 #include "globals.h"
 #include "TextureManager.h"
-
-void SimpleMobFactory::destroySimpleMob (EntityManager *manager, Entity *e)
+namespace game
 {
-	manager->removeEntity(e->_guid);
-}
+	void SimpleMobFactory::destroySimpleMob (EntityManager *manager, Entity *e)
+	{
+		manager->removeEntity(e->_guid);
+	}
 
-Entity *SimpleMobFactory::createNewSimpleMob(EntityManager *system, float pos_x, float pos_y)
-{
-	Entity *e = system->createNewEntity();
-	
-	Position *pos = system->addComponent <Position> (e);
-	pos->x = pos_x;
-	pos->y = pos_y;
-	pos->scale_x = 4.0;
-	pos->scale_y = 4.0;
-	
-	AtlasSprite *sprite = system->addComponent <AtlasSprite> (e);
-	sprite->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("blobs4.png");
-	sprite->z = 0.0;
-	sprite->src = rect_make(0.0, 0.0, 32.0, 32.0);
-	
-	Name *name = system->addComponent <Name> (e);
-	name->name = "Simple Mob";
-	
-	return e;
-}
+	Entity *SimpleMobFactory::createNewSimpleMob(EntityManager *system, float pos_x, float pos_y)
+	{
+		Entity *e = system->createNewEntity();
+		
+		Position *pos = system->addComponent <Position> (e);
+		pos->x = pos_x;
+		pos->y = pos_y;
+		pos->scale_x = 4.0;
+		pos->scale_y = 4.0;
+		
+		AtlasSprite *sprite = system->addComponent <AtlasSprite> (e);
+		sprite->atlas_quad = g_RenderableManager.accquireTexturedAtlasQuad ("blobs4.png");
+		sprite->z = 0.0;
+		sprite->src = rect_make(0.0, 0.0, 32.0, 32.0);
+		
+		Name *name = system->addComponent <Name> (e);
+		name->name = "Simple Mob";
+		
+		return e;
+	}
 
-Entity *SimpleMobFactory::createNewSimpleMob(EntityManager *system, float pos_x, float pos_y, float vx, float vy)
-{
-	Entity *e = SimpleMobFactory::createNewSimpleMob(system,pos_x,pos_y);
-	Movement *mov = system->addComponent <Movement>(e);
-	mov->vx = vx;
-	mov->vy = vy;
+	Entity *SimpleMobFactory::createNewSimpleMob(EntityManager *system, float pos_x, float pos_y, float vx, float vy)
+	{
+		Entity *e = SimpleMobFactory::createNewSimpleMob(system,pos_x,pos_y);
+		Movement *mov = system->addComponent <Movement>(e);
+		mov->vx = vx;
+		mov->vy = vy;
 
-	return e;
+		return e;
+	}
 }

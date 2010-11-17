@@ -20,39 +20,46 @@
 #include "HUDSystem.h"
 #include "SoundSystem.h"
 #include "AnimationSystem.h"
-class Scene
+
+using namespace mx3;
+
+namespace game 
 {
-public:
-	virtual void init ();
-	virtual void end ();
-	
-	virtual void update (float delta);
-	virtual void render (float interpolation);
-	
-	virtual void frameDone ();
 
-	void spawnEnemies ();
-	
-protected:
-	bool _isRunning;
-	
-	EntityManager *_entityManager;
-	RenderSystem *_renderSystem;
-	MovementSystem *_movementSystem;
-	PlayerControlledSystem *_playerControlledSystem;
-	AttachmentSystem *_attachmentSystem;
-	ActionSystem *_actionSystem;
-	GameLogicSystem *_gameLogicSystem;
-	CorpseRetrievalSystem *_corpseRetrievalSystem;	
-	HUDSystem *_hudSystem;
-	SoundSystem *_soundSystem;
-	AnimationSystem *_animationSystem;
-	
-	Entity *red_blob;
-	Entity *green_blob;
-	Entity *blue_blob;
-	
-	Entity *player;
+	class Scene
+	{
+	public:
+		virtual void init ();
+		virtual void end ();
+		
+		virtual void update (float delta);
+		virtual void render (float interpolation);
+		
+		virtual void frameDone ();
 
-};
+		void spawnEnemies ();
+		
+	protected:
+		bool _isRunning;
+		
+		EntityManager *_entityManager;
+		RenderSystem *_renderSystem;
+		MovementSystem *_movementSystem;
+		PlayerControlledSystem *_playerControlledSystem;
+		AttachmentSystem *_attachmentSystem;
+		ActionSystem *_actionSystem;
+		GameLogicSystem *_gameLogicSystem;
+		CorpseRetrievalSystem *_corpseRetrievalSystem;	
+		HUDSystem *_hudSystem;
+		SoundSystem *_soundSystem;
+		AnimationSystem *_animationSystem;
+		
+		Entity *red_blob;
+		Entity *green_blob;
+		Entity *blue_blob;
+		
+		Entity *player;
 
+	};
+
+}

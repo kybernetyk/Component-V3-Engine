@@ -11,35 +11,41 @@
 #include <vector>
 #include "EntityManager.h"
 #include "Timer.h"
+using namespace mx3;
 
-class HUDSystem
+namespace game 
 {
-public:
-	HUDSystem (EntityManager *entityManager);
-	void update (float delta);
-	
-protected:
-	EntityManager *_entityManager;
-	Entity *hud_img;
-	Entity *xp_bar;
-	Entity *score_ui;
-	Entity *xp_ui;
-	Entity *level_ui;
-	
-	bool kawaii_showing;
-	float kawaii_countdown;
-	
-	bool lvlup_showing;
-	float lvlup_countdown;
-	
-	Entity *kawaii_or_fail;
-	Entity *next_wave_label;
-	Entity *lvlup_graphic;
-	
-	int cached_level;
 
-	Entity *fps_label;
+	class HUDSystem
+	{
+	public:
+		HUDSystem (EntityManager *entityManager);
+		void update (float delta);
+		
+	protected:
+		EntityManager *_entityManager;
+		Entity *hud_img;
+		Entity *xp_bar;
+		Entity *score_ui;
+		Entity *xp_ui;
+		Entity *level_ui;
+		
+		bool kawaii_showing;
+		float kawaii_countdown;
+		
+		bool lvlup_showing;
+		float lvlup_countdown;
+		
+		Entity *kawaii_or_fail;
+		Entity *next_wave_label;
+		Entity *lvlup_graphic;
+		
+		int cached_level;
 
-	OGLFont *font;
-};
+		Entity *fps_label;
 
+		OGLFont *font;
+	};
+
+
+}

@@ -8,15 +8,18 @@
  */
 
 #include "util.h"
-
-vector2D vector2D_make (float x, float y)
+namespace mx3 
 {
-	vector2D vc = {x,y};
-	return vc;
-}
+	vector2D vector2D_make (float x, float y)
+	{
+		vector2D vc = {x,y};
+		return vc;
+	}
 
-rect rect_make (float x, float y, float w, float h)
-{
-	rect rc = {x,y,w,h};
-	return rc;
+	rect rect_make (float x, float y, float w, float h)
+	{
+		rect rc = {x,y,w,h};
+		return rc;
+	}
+
 }

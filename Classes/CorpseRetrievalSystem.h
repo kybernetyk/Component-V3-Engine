@@ -16,12 +16,17 @@
 #include <vector>
 #include "EntityManager.h"
 
-class CorpseRetrievalSystem
+namespace mx3 
 {
-public:
-	CorpseRetrievalSystem (EntityManager *entityManager);
-	void collectCorpses ();
-protected:
-	EntityManager *_entityManager;
-};
+	
+	
+	class CorpseRetrievalSystem
+	{
+	public:
+		CorpseRetrievalSystem (EntityManager *entityManager);
+		void collectCorpses ();
+	protected:
+		EntityManager *_entityManager;
+	};
 
+}
