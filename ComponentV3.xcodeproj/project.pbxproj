@@ -91,6 +91,7 @@
 		03EDFF23128E22740086763A /* levelup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 03EDFF22128E22740086763A /* levelup.wav */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		204F94AB295F15BF002C5E1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 204F94AA295F15BF002C5E1B /* LaunchScreen.storyboard */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
@@ -224,6 +225,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* ComponentV3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentV3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		204F94AA295F15BF002C5E1B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -634,6 +636,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				204F94AA295F15BF002C5E1B /* LaunchScreen.storyboard */,
 				03EDF8E6128D86CD0086763A /* MainWindow.xib */,
 				03EDFB96128DB2780086763A /* ComponentV3-Info.plist */,
 				03EDFB3D128DADBA0086763A /* Entitlements.plist */,
@@ -758,6 +761,7 @@
 				03EDFB40128DADBA0086763A /* EntitlementsDebug.plist in Resources */,
 				03EDFB7B128DB17B0086763A /* Icon.png in Resources */,
 				03EDFC89128DF71E0086763A /* hud.png in Resources */,
+				204F94AB295F15BF002C5E1B /* LaunchScreen.storyboard in Resources */,
 				03EDFC8B128DF7280086763A /* xp_bar.png in Resources */,
 				03EDFF23128E22740086763A /* levelup.wav in Resources */,
 				0352A720129008C80005F657 /* anims.png in Resources */,

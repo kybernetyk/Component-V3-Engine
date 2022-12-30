@@ -19,7 +19,7 @@
         </customObject>
         <window contentMode="scaleToFill" resizesToFullScreen="NO" id="frd-sr-lCc">
             <rect key="frame" x="0.0" y="0.0" width="852" height="393"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask"/>
             <point key="canvasLocation" x="-404" y="-138"/>
         </window>
     </objects>

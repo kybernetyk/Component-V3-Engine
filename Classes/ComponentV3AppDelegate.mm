@@ -64,7 +64,6 @@ unsigned int My_SDL_GetTicks()
 	[window setFrame: CGRectMake(0, 0, width, height)];
 	[window setRootViewController: mainViewController];
 
-	NSLog(@"%@", [NSValue valueWithCGRect: mainViewController.view.frame]);
 	[mainViewController.view setFrame: CGRectMake(0, 0, width, height)];
 
 	glView = [[mainViewController glView] retain];
