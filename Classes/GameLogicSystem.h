@@ -27,7 +27,6 @@ namespace game
 		
 		void restoreGameStateFromFile();
 		void saveGameStateToFile();
-		void shareLevelOnFarmville();
 		
 		Action *enemy_death_action_chain (Position *enemy_pos, Enemy *enemy_information);
 		

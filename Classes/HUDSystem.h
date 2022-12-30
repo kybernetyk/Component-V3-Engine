@@ -42,7 +42,7 @@ namespace game
 		
 		int cached_level;
 
-		Entity *fps_label;
+//		Entity *fps_label;
 
 		OGLFont *font;
 	};

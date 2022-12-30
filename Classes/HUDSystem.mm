@@ -90,16 +90,16 @@ namespace game
 		level_ui->get<Position>()->scale_y = 0.4;
 		
 		//fps label
-		fps_label = _entityManager->createNewEntity();
-		_entityManager->addComponent<Name>(fps_label)->name = "fps_label";
-		_entityManager->addComponent<Position> (fps_label);
-		fps_label->get<Position>()->x = 0.0;
-		fps_label->get<Position>()->y = 320.0;
-		label = _entityManager->addComponent<TextLabel> (fps_label);
-		label->ogl_font = font;
-		label->anchorPoint = vector2D_make(0.0, 1.0);
-		label->text = "FPS: 0";
-		label->z = 6.0;
+//		fps_label = _entityManager->createNewEntity();
+//		_entityManager->addComponent<Name>(fps_label)->name = "fps_label";
+//		_entityManager->addComponent<Position> (fps_label);
+//		fps_label->get<Position>()->x = 0.0;
+//		fps_label->get<Position>()->y = 320.0;
+//		label = _entityManager->addComponent<TextLabel> (fps_label);
+//		label->ogl_font = font;
+//		label->anchorPoint = vector2D_make(0.0, 1.0);
+//		label->text = "FPS: 0";
+//		label->z = 6.0;
 		
 		
 		
@@ -223,8 +223,8 @@ namespace game
 		
 		if (delta > 0.0)
 		{
-			sprintf(s, "Fps: %.2f", g_FPS);
-			fps_label->get<TextLabel>()->text = s;
+//			sprintf(s, "Fps: %.2f", g_FPS);
+//			fps_label->get<TextLabel>()->text = s;
 		}
 		
 		float sx = (1.0/g_GameState.experience_needed_to_levelup) * g_GameState.experience;
@@ -279,7 +279,7 @@ namespace game
 			if (!kawaii_showing)
 			{
 				kawaii_showing = true;
-				kawaii_countdown = 5.0;
+				kawaii_countdown = 2.0;
 					
 				next_wave_label->get<Position>()->x = 480/2;
 				next_wave_label->get<Position>()->y = 320/2-20;

@@ -123,18 +123,12 @@ namespace game
 		[[[UIApplication sharedApplication] delegate] loadGameState];
 	}
 
-	void GameLogicSystem::saveGameStateToFile ()
-	{
+	void GameLogicSystem::saveGameStateToFile () {
 		[[[UIApplication sharedApplication] delegate] saveGameState];
 	}
 
-	void GameLogicSystem::shareLevelOnFarmville ()
-	{
-		[[[UIApplication sharedApplication] delegate] shareLevelOnFarmville];
-	}
 
-	void GameLogicSystem::check_player_for_levelup ()
-	{
+	void GameLogicSystem::check_player_for_levelup () {
 		if (g_GameState.experience > g_GameState.experience_needed_to_levelup)
 		{
 			g_GameState.level ++;
@@ -142,13 +136,10 @@ namespace game
 			g_GameState.experience_needed_to_levelup = g_GameState.level*g_GameState.level*g_GameState.level+100;
 			
 			saveGameStateToFile();
-			
-			shareLevelOnFarmville();
 		}
 	}
 
-	void GameLogicSystem::handle_player_enemy_collision ()
-	{
+	void GameLogicSystem::handle_player_enemy_collision () {
 		Entity *player = NULL;
 		Position *player_pos = NULL;
 		

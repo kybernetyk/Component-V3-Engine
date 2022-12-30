@@ -20,13 +20,13 @@ namespace mx3
 	#pragma mark textured quad
 	TexturedQuad::TexturedQuad ()
 	{
-		IRenderable::IRenderable();
+		IRenderable();
 		init();
 	}
 
 	TexturedQuad::TexturedQuad(Texture2D *existing_texture)
 	{
-		IRenderable::IRenderable();
+		IRenderable();
 		init();
 
 		texture = existing_texture;
@@ -37,7 +37,7 @@ namespace mx3
 
 	TexturedQuad::TexturedQuad(std::string filename)
 	{
-		IRenderable::IRenderable();
+		IRenderable();
 		init();
 		loadFromFile(filename);
 	}
@@ -127,13 +127,13 @@ namespace mx3
 	#pragma mark atlas quad
 	TexturedAtlasQuad::TexturedAtlasQuad ()
 	{
-		IRenderable::IRenderable();
+		IRenderable();
 		init();
 	}
 
 	TexturedAtlasQuad::TexturedAtlasQuad(Texture2D *existing_texture)
 	{
-		IRenderable::IRenderable();
+		IRenderable();
 		init();
 		
 		texture = existing_texture;
@@ -146,7 +146,7 @@ namespace mx3
 
 	TexturedAtlasQuad::TexturedAtlasQuad(std::string filename)
 	{
-		IRenderable::IRenderable();
+		IRenderable();
 		init();
 		loadFromFile(filename);
 		
@@ -379,9 +379,11 @@ namespace mx3
 		
 	}
 
-	bool OGLFont::loadFromFNTFile (std::string fnt_filename)
-	{
-		const char *fn = pathForFile2 (fnt_filename.c_str()).c_str();;
+	bool OGLFont::loadFromFNTFile (std::string fnt_filename) {
+		const char *s = fnt_filename.c_str();
+		std::string xd = pathForFile2(s);
+
+		const char *fn = xd.c_str();
 		
 		if (!bm_loadfont(fn, &font))
 		{
@@ -435,7 +437,7 @@ namespace mx3
 			glColor4f(1.0, 1.0,1.0, alpha);
 
 			
-			double tx,ty,tw,th;
+			GLfloat tx,ty,tw,th;
 			
 			
 			bm_char *pchar = NULL;
@@ -443,16 +445,16 @@ namespace mx3
 			{
 				pchar = &font.chars[ text[i] ];
 				
-				tx = (double)pchar->x / (double)texture->w;
-				ty = (double)pchar->y / (double)texture->h;
-				tw = (double)pchar->w / (double)texture->w;
-				th = (double)pchar->h / (double)texture->h;
+				tx = (GLfloat)pchar->x / (GLfloat)texture->w;
+				ty = (GLfloat)pchar->y / (GLfloat)texture->h;
+				tw = (GLfloat)pchar->w / (GLfloat)texture->w;
+				th = (GLfloat)pchar->h / (GLfloat)texture->h;
 				GLfloat		vertices[] = 
 				{	
 					0,			0,			0,
-					pchar->w,	0,			0,
-					0,			pchar->h,	0,
-					pchar->w,	pchar->h,	0
+					(GLfloat)pchar->w,	0,			0,
+					0,			(GLfloat)pchar->h,	0,
+					(GLfloat)pchar->w,	(GLfloat)pchar->h,	0
 				};
 				
 				GLfloat		coordinates[] = { tx,	ty + th,

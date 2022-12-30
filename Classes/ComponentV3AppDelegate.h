@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
-#import "FacebookSubmitController.h"
 
 #include "Timer.h"
 #include "Scene.h"
@@ -29,7 +28,6 @@
 	EAGLView *glView;
 	
 	MainViewController *mainViewController;
-	FacebookSubmitController *facebookController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

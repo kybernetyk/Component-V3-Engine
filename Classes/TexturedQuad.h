@@ -67,7 +67,8 @@ namespace mx3
 	public:
 		OGLFont (std::string fnt_filename)
 		{
-			IRenderable::IRenderable();
+//			IRenderable::IRenderable();
+			IRenderable();
 			init();
 
 			loadFromFNTFile (fnt_filename);

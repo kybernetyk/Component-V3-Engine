@@ -39,7 +39,7 @@ namespace mx3
 			NSLog(@"%s wurde nicht gefunden! pathForFile()",filename);
 			abort();
 		}
-		const char *c = [ret cStringUsingEncoding: NSASCIIStringEncoding];
+		const char *c = [ret cStringUsingEncoding: NSUTF8StringEncoding];
 		
 		return std::string (c);
 		

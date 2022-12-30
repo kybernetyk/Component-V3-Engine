@@ -157,10 +157,14 @@ int gMapX,gMapY; // returns map offset for navigation
 {
 	CGSize size = [self bounds].size;
 
+	CGFloat x = uiPoint.x / size.width * 480.0f;
+	CGFloat y = uiPoint.y / size.height * 320.0f;
+
+
 #ifdef ORIENTATION_LANDSCAPE
 	CGPoint ret = CGPointZero;
-	ret.x = uiPoint.x;
-	ret.y = size.height - uiPoint.y;
+	ret.x = x;
+	ret.y = 320.0 - y;
 #endif
 	
 	return ret;
@@ -200,7 +204,7 @@ int gMapX,gMapY; // returns map offset for navigation
 	CGPoint loc = [touch locationInView: self];
 
 	loc = [self convertToGL: loc];
-	mx3::vector2D v = {loc.x,loc.y};
+	mx3::vector2D v = {(GLfloat)loc.x,(GLfloat)loc.y};
 
 //	NSLog(@"touch down!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);
@@ -236,7 +240,7 @@ int gMapX,gMapY; // returns map offset for navigation
 	CGPoint loc = [touch locationInView: self];
 
 	loc = [self convertToGL: loc];
-	mx3::vector2D v = {loc.x,loc.y};
+	mx3::vector2D v = {(GLfloat)loc.x,(GLfloat)loc.y};
 	
 //	NSLog(@"touch moved!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);
@@ -252,7 +256,7 @@ int gMapX,gMapY; // returns map offset for navigation
 	CGPoint loc = [touch locationInView: self];
 	
 	loc = [self convertToGL: loc];
-	mx3::vector2D v = {loc.x,loc.y};
+	mx3::vector2D v = {(GLfloat)loc.x,(GLfloat)loc.y};
 	mx3::InputDevice::sharedInstance()->setTouchLocation (v);
 	
 //	NSLog(@"touch ended!");	

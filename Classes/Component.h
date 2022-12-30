@@ -232,7 +232,7 @@ namespace mx3
 		
 		Sprite()
 		{
-			Renderable::Renderable();
+			Renderable();
 			
 			_id = COMPONENT_ID;
 			_renderable_type = RENDERABLETYPE_SPRITE;
@@ -258,7 +258,7 @@ namespace mx3
 		
 		AtlasSprite()
 		{
-			Renderable::Renderable();
+			Renderable();
 			
 			_id = COMPONENT_ID;
 			_renderable_type = RENDERABLETYPE_ATLASSPRITE;
@@ -286,7 +286,7 @@ namespace mx3
 		
 		TextLabel()
 		{
-			Renderable::Renderable();
+			Renderable();
 			
 			_id = COMPONENT_ID;
 			_renderable_type = RENDERABLETYPE_TEXT;
@@ -348,7 +348,7 @@ namespace mx3
 		
 		MoveToAction()
 		{
-			Action::Action();
+			Action();
 
 			_id = COMPONENT_ID;
 			_ups_x = INFINITY;
@@ -371,7 +371,7 @@ namespace mx3
 		
 		MoveByAction()
 		{
-			Action::Action();
+			Action();
 			
 			_id = COMPONENT_ID;
 			_dx = _dy = INFINITY;			//mark with INFINITY to dirty so the action system can see that this value needs an init
@@ -390,7 +390,7 @@ namespace mx3
 		
 		AddComponentAction()
 		{
-			Action::Action();
+			Action();
 			_id = COMPONENT_ID;
 
 			component_to_add = NULL;
@@ -409,7 +409,7 @@ namespace mx3
 			
 		CreateEntityAction()
 		{
-			Action::Action();
+			Action();
 			_id = COMPONENT_ID;
 			
 			action_type = ACTIONTYPE_CREATE_ENTITY;

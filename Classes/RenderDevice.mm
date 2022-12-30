@@ -129,12 +129,12 @@ namespace mx3
 		
 	}
 
-	void RenderDevice::init (void)
+	void RenderDevice::init (float screenWidth, float screenHeight)
 	{
 
 	#ifdef ORIENTATION_LANDSCAPE
-		float screen_size_x = 480.0;
-		float screen_size_y = 320.0;	//change to 280 for a 40px high empty strip [eg for an ad banner]
+		float screen_size_x = screenWidth;
+		float screen_size_y = screenHeight;	//change to 280 for a 40px high empty strip [eg for an ad banner]
 
 		float viewport_size_x = 480.0;// / pixeltometerratio;//viewport_size_x / xyratio;
 		float viewport_size_y = 320.0;	

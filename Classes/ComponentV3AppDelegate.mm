@@ -11,7 +11,6 @@
 #include <sys/time.h>
 #include "Entity.h"
 #include "EntityManager.h"
-#import "FacebookSubmitController.h"
 #import "MainViewController.h"
 #include "Scene.h"
 #include "RenderDevice.h"
@@ -47,117 +46,33 @@ unsigned int My_SDL_GetTicks()
 
 
 @implementation ComponentV3AppDelegate
-
-
-
 @synthesize window;
-
-
-- (void) shareLevelOnFarmville
-{
-	NSLog(@"ok, let's see if we can submit to fb!");
-	
-	if (g_GameState.level == 10 || 
-		g_GameState.level == 15 || 
-		g_GameState.level == 20 ||
-		g_GameState.level == 25 ||
-		g_GameState.level >= 30)
-	{
-		// lol
-		NSLog(@"ok, we can submit to fb ...");
-	}
-	else
-	{
-		return;
-	}
-	
-	
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	if ([defs boolForKey: @"facebook_disable"])
-	{
-		NSLog(@"Facebook disabled by user!");
-		return;
-	}
-	
-	
-	NSString *token = [defs objectForKey: @"fbtoken"];
-	if (token)
-	{
-		NSLog(@"found token. init share!");
-		[self initFBShare];
-		return;
-	}
-	
-	NSLog(@"no token. let's ask user!");
-	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Share On Facebook" 
-														message: @"Do you want to share your progress on Facebook?" 
-													   delegate: self 
-											  cancelButtonTitle: @"No. Don't ask me again." 
-											  otherButtonTitles: @"Yes!", @"Not now.", nil];
-	
-	[alertView show];
-	[alertView autorelease]; 
-	
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	NSLog(@"omg der buttonen indexen: %i, %@", buttonIndex,	[alertView buttonTitleAtIndex: buttonIndex]);
-	if (buttonIndex == 1)
-	{
-		NSLog(@"user wants to share!");
-		[self initFBShare];
-		return;
-	}
-	if (buttonIndex == 2)
-	{
-		NSLog(@"user wants not to share now ...");
-		return;
-	}
-	
-	NSLog(@"user hates facebook!");
-	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];
-	[defs setBool: YES forKey: @"facebook_disable"];
-	[defs synchronize];
-}
-
-
-- (void) initFBShare
-{
-	if (!facebookController)
-	{
-		facebookController = [[FacebookSubmitController alloc] initWithNibName: @"FacebookSubmitController" bundle: nil];
-		[facebookController setDelegate: self];
-		
-	}
-	
-	[facebookController setLevel: g_GameState.level];
-	[facebookController setScore: g_GameState.score];
-	
-	//	[self presentModalViewController: fbsc animated: YES];
-	[facebookController shareOverFarmville];
-}
-
-- (void) facebookSubmitControllerDidFinish: (id) controller
-{
-	NSLog(@"facebook controller finished");
-//	[controller autorelease];
-}
 
 
 #pragma mark -
 #pragma mark stuff
-- (void)applicationDidFinishLaunching:(UIApplication *)application 
-{
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
 	mainViewController = [[MainViewController alloc] initWithNibName: @"MainViewController" bundle: nil];
-	[window addSubview: [mainViewController view]];
-	
+	CGFloat height = UIScreen.mainScreen.bounds.size.height;
+	CGFloat width = UIScreen.mainScreen.bounds.size.width;
+
+	[mainViewController.view setFrame: CGRectMake(0, 0, width, height)];
+
+//	[window setFrame: CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width)];
+////	[window addSubview: [mainViewController view]];
+
+	[window setFrame: CGRectMake(0, 0, width, height)];
+	[window setRootViewController: mainViewController];
+
+	NSLog(@"%@", [NSValue valueWithCGRect: mainViewController.view.frame]);
+	[mainViewController.view setFrame: CGRectMake(0, 0, width, height)];
+
 	glView = [[mainViewController glView] retain];
 	
 	scene = new Scene();
 	scene->init();
 	
-	RenderDevice::sharedInstance()->init ();
+	RenderDevice::sharedInstance()->init (width, height);
 	
 	next_game_tick = My_SDL_GetTicks();
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
@@ -238,8 +153,6 @@ unsigned int My_SDL_GetTicks()
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-	[[facebookController facebook] handleOpenURL: url];
-	
 	return YES;
 }
 

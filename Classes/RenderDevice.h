@@ -15,7 +15,7 @@ namespace mx3
 		static void unload (void);
 
 		
-		void init (void);
+		void init (float screenWidth, float screenHeight);
 		void release (void);
 
 	//	void flip (void);

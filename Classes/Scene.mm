@@ -87,7 +87,7 @@ namespace game
 				
 				AtlasSprite *r =	_entityManager->getComponent<AtlasSprite>(blob);
 				r->z = rand()%6;
-				r->alpha = 0.5;
+				r->alpha = 0.8;
 				
 				//MoveByAction *actn = _entityManager->addComponent <MoveByAction> (mob);
 				MoveToAction *actn = _entityManager->addComponent <MoveToAction> (blob);
