@@ -197,8 +197,7 @@ int gMapX,gMapY; // returns map offset for navigation
 
 
 // Handles the start of a touch
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 
 	UITouch *touch = [[touches allObjects] objectAtIndex: 0];
 	CGPoint loc = [touch locationInView: self];
@@ -209,6 +208,7 @@ int gMapX,gMapY; // returns map offset for navigation
 //	NSLog(@"touch down!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
+	mx3::InputDevice::sharedInstance()->setTouchDownReceived(true);
 	mx3::InputDevice::sharedInstance()->setTouchActive(true);
 	mx3::InputDevice::sharedInstance()->setTouchLocation (v);
 	
@@ -245,6 +245,7 @@ int gMapX,gMapY; // returns map offset for navigation
 //	NSLog(@"touch moved!");	
 //	NSLog(@"loc: %f,%f",loc.x, loc.y);
 
+	mx3::InputDevice::sharedInstance()->setTouchMoved(true);
 	mx3::InputDevice::sharedInstance()->setTouchActive(true);
 	mx3::InputDevice::sharedInstance()->setTouchLocation (v);
 	
@@ -267,5 +268,6 @@ int gMapX,gMapY; // returns map offset for navigation
 	mx3::InputDevice::sharedInstance()->setTouchActive(false);
 	mx3::InputDevice::sharedInstance()->setTouchUpReceived(true);
 }
+
 @end
 

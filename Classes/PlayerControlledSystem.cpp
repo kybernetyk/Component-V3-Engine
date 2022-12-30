@@ -24,13 +24,16 @@ namespace game
 	{
 		vector2D v;
 		
-		if (InputDevice::sharedInstance()->touchUpReceived())
+//		if (InputDevice::sharedInstance()->touchDownReceived())
+		if (InputDevice::sharedInstance()->touchMoved()) {
 			v = InputDevice::sharedInstance()->touchLocation();
-		 else
+		} else {
 			return;
+		}
 		
-		if (v.y <= 40)
+		if (v.y <= 40) {
 			return;
+		}
 		
 		std::vector<Entity*> entities;
 		
