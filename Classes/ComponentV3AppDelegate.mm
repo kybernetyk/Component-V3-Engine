@@ -76,7 +76,8 @@ unsigned int My_SDL_GetTicks()
 	next_game_tick = My_SDL_GetTicks();
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 	displayLink = [CADisplayLink displayLinkWithTarget: self selector:@selector(renderScene)];
-	[displayLink setFrameInterval: 1];
+//	[displayLink setFrameInterval: 1];
+	[displayLink setPreferredFramesPerSecond: 60.0f];
 	[displayLink addToRunLoop: [NSRunLoop currentRunLoop] forMode: NSDefaultRunLoopMode];
 #elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
 	//mac init
