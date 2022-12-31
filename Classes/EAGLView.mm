@@ -61,9 +61,11 @@ int gMapX,gMapY; // returns map offset for navigation
             [self release];
             return nil;
         }
-        
     }
     return self;
+}
+- (BOOL) isMultipleTouchEnabled {
+	return YES;
 }
 
 

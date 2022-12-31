@@ -25,7 +25,7 @@ namespace game
 		vector2D v;
 		
 //		if (InputDevice::sharedInstance()->touchDownReceived())
-		if (InputDevice::sharedInstance()->touchMoved()) {
+		if (InputDevice::sharedInstance()->touchMoved() || InputDevice::sharedInstance()->touchDownReceived()) {
 			v = InputDevice::sharedInstance()->touchLocation();
 		} else {
 			return;
@@ -49,11 +49,11 @@ namespace game
 			Action *a = _entityManager->getComponent <Action> (current_entity);
 			if (a)
 			{
-				printf("already runnign an action!");
+//				printf("already runnign an action!");
 				
 				if (!a->may_be_aborted)
 				{
-					printf("may be not aborted!\n");
+//					printf("may be not aborted!\n");
 					
 					++it;
 					continue;
