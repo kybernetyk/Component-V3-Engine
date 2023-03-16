@@ -223,7 +223,7 @@
 		03EDFC8A128DF7280086763A /* xp_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xp_bar.png; sourceTree = "<group>"; };
 		03EDFF22128E22740086763A /* levelup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = levelup.wav; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* ComponentV3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentV3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Unicorn Rainbow Munch!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unicorn Rainbow Munch!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		204F94AA295F15BF002C5E1B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -628,7 +628,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* ComponentV3.app */,
+				1D6058910D05DD3D006BFB54 /* Unicorn Rainbow Munch!.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -680,9 +680,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* ComponentV3 */ = {
+		1D6058900D05DD3D006BFB54 /* Unicorn Rainbow Munch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "ComponentV3" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Unicorn Rainbow Munch" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -692,9 +692,9 @@
 			);
 			dependencies = (
 			);
-			name = ComponentV3;
+			name = "Unicorn Rainbow Munch";
 			productName = ComponentV3;
-			productReference = 1D6058910D05DD3D006BFB54 /* ComponentV3.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Unicorn Rainbow Munch!.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -718,7 +718,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* ComponentV3 */,
+				1D6058900D05DD3D006BFB54 /* Unicorn Rainbow Munch */,
 			);
 		};
 /* End PBXProject section */
@@ -849,15 +849,18 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V4B772B3P8;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComponentV3_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "ComponentV3-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Unicorn Rainbow Munch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Unicorn Rainbow Munch!";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.kids-games";
-				PRODUCT_NAME = ComponentV3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.suborbital.unicornmunch;
+				PRODUCT_NAME = "Unicorn Rainbow Munch!";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -877,6 +880,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V4B772B3P8;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -885,9 +889,11 @@
 				GCC_PREFIX_HEADER = ComponentV3_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "ComponentV3-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Unicorn Rainbow Munch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Unicorn Rainbow Munch!";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.kids-games";
-				PRODUCT_NAME = ComponentV3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.suborbital.unicornmunch;
+				PRODUCT_NAME = "Unicorn Rainbow Munch!";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -906,15 +912,18 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V4B772B3P8;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ComponentV3_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "ComponentV3-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Unicorn Rainbow Munch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Unicorn Rainbow Munch!";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.kids-games";
-				PRODUCT_NAME = ComponentV3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.suborbital.unicornmunch;
+				PRODUCT_NAME = "Unicorn Rainbow Munch!";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -963,7 +972,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "ComponentV3" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Unicorn Rainbow Munch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
